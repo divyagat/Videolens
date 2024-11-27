@@ -13,12 +13,14 @@ import Contact from './pages/Contact'
 
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import "bootstrap/dist/js/bootstrap.bundle.min"; // Optional: Bootstrap JS for functionality like modals or dropdowns
+import SubNavbar from './components/SubNavbar'
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
       <BrowserRouter>
+         <SubNavbar/>
          <Navbar/>
          <Routes>
           <Route path='/' element={<Home/>}/>
