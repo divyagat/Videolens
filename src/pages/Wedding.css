@@ -1,0 +1,14 @@
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .bg-primary {
+    background-color: #2a2a72 !important;
+  }
+  .btn-success {
+    font-size: 16px;
+  }
+  section {
+    padding: 40px 0;
+  }
+  
