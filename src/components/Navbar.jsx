@@ -19,12 +19,12 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse " id="mainNavbar">
-          <ul className="navbar-nav ms-auto text-dark">
+          <ul className="navbar-nav mx-auto text-dark">
             <li className="nav-item">
               <Link className="nav-link text-dark " to="/">Home</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-dark" to="/services">Wedding</Link>
+              <Link className="nav-link text-dark" to="/wedding">Wedding</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link text-dark" to="/services">Birthday</Link>
@@ -36,6 +36,11 @@ const Navbar = () => {
               <Link className="nav-link text-dark" to="/contact">Contact</Link>
             </li>
           </ul>
+        </div>
+        <div>
+          <form action="">
+          9518745852
+          </form>
         </div>
       </div>
     </nav>
