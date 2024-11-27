@@ -10,6 +10,8 @@ import Wedding from './pages/Wedding'
 import Birthday from './pages/Birthday'
 import BabyShower from './pages/BabyShower'
 import Contact from './pages/Contact'
+import Login from './components/Login';
+import Dashboard from './components/Dashboard';
 
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import "bootstrap/dist/js/bootstrap.bundle.min"; // Optional: Bootstrap JS for functionality like modals or dropdowns
@@ -23,6 +25,8 @@ function App() {
          <SubNavbar/>
          <Navbar/>
          <Routes>
+         <Route path="/login" element={<Login />} />
+         <Route path="/dashboard" element={<Dashboard />} />
           <Route path='/' element={<Home/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path='/wedding' element={<Wedding/>}/>
