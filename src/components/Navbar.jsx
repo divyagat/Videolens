@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FiPhoneCall } from "react-icons/fi";
+import "../components/Navbar.css"
 
 const Navbar = () => {
   return (
     
     <nav className="navbar navbar-expand-lg navbar-dark bg-light">
       <div className="container">
-        <Link className="navbar-brand text-dark" to="/">VideoLens</Link>
+        <img src="src/assets/L2.png " className="img-fluid imgl2" alt=""/>
         <button
           className="navbar-toggler"
           type="button"
@@ -22,25 +24,26 @@ const Navbar = () => {
           <ul className="navbar-nav mx-auto text-dark">
             <li className="nav-item">
               <Link className="nav-link text-dark " to="/">Home</Link>
-            </li>
+            </li>&nbsp;&nbsp;
             <li className="nav-item">
               <Link className="nav-link text-dark" to="/wedding">Wedding</Link>
-            </li>
+            </li>&nbsp;&nbsp;
             <li className="nav-item">
               <Link className="nav-link text-dark" to="/services">Birthday</Link>
-            </li>
+            </li>&nbsp;&nbsp;
             <li className="nav-item">
               <Link className="nav-link text-dark" to="/about">BabyShower</Link>
-            </li>
+            </li>&nbsp;&nbsp;
             <li className="nav-item">
               <Link className="nav-link text-dark" to="/contact">Contact</Link>
             </li>
           </ul>
         </div>
         <div>
-          <form action="">
-          9518745852
-          </form>
+          <FiPhoneCall className="fs-5"/>        
+        </div>&nbsp;&nbsp;
+        <div className="phonenum mt-3">
+        <p>9518745852</p>
         </div>
       </div>
     </nav>
