@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import './App.css'
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
+// import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Footer from './components/Footer'
 import Wedding from './pages/Wedding'
@@ -14,15 +14,20 @@ import Dashboard from './components/Dashboard';
 
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import "bootstrap/dist/js/bootstrap.bundle.min"; // Optional: Bootstrap JS for functionality like modals or dropdowns
-import SubNavbar from './components/SubNavbar'
+import CustomNavbar from './components/CustomNAvbar'
+import TopNavbar from './components/TopNavbar'
+import MainNavbar from './components/MainNavbar'
+
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
       <BrowserRouter>
-         <SubNavbar/>
-         <Navbar/>
+     {/* <CustomNavbar/> */}
+     <TopNavbar/>
+     {/* <MainNavbar/> */}
          <Routes>
          <Route path="/login" element={<Login />} />
          <Route path="/dashboard" element={<Dashboard />} />
