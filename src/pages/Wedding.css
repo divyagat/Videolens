@@ -11,4 +11,22 @@
   section {
     padding: 40px 0;
   }
+
+  
+
+  .container {
+    background-color: #1a1a2e; /* Dark background */
+  }
+  
+  h5 {
+    color: #fff; /* White for headings */
+  }
+  
+  p {
+    color: #d3d3d3; /* Light gray for text */
+  }
+  
+  .bi {
+    color: #00acee; /* Customize icon color */
+  }
   

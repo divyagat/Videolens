@@ -1,7 +1,41 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import { Form, Button } from 'react-bootstrap';
 function Wedding() {
+
+  const [formData, setFormData] = useState({
+    brideName: "",
+    brideParentsName: "",
+    groomName: "",
+    groomParentsName: "",
+    address: "",
+    haldiCeremony: "",
+    engagement: "",
+    reception: "",
+    weddingDate: "",
+    venue: "",
+    bridePhotos: null,
+    groomPhotos: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: files }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    alert("Form submitted!");
+  };
+
+  
   // Video data with prices
   const videos = [
     { url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk", price: 500 },
@@ -31,6 +65,7 @@ function Wedding() {
   };
 
   return (
+    <>
     <div className="App">
       <section className="py-5 bg-light">
         <div className="container text-center">
@@ -93,6 +128,199 @@ function Wedding() {
         </div>
       </div>
     </div>
+
+
+
+    <div className="container-fluid px-5 my-5 text-white bg-dark py-5">
+      <div className="row">
+        {/* Step 1: Select Video Template */}
+        <div className="col-md-3">
+          <div className="d-flex align-items-center">
+            <i className="bi bi-film me-3 mb-4" style={{ fontSize: '2rem' }}></i>
+            <div>
+              <h5>Select Video Template</h5>
+              <p className="mb-0">Select a video template from a wide range of templates</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Step 2: Place Your Order */}
+        <div className="col-md-3">
+          <div className="d-flex align-items-center">
+            <i className="bi bi-tag me-3 mb-4" style={{ fontSize: '2rem' }}></i>
+            <div>
+              <h5>Place Your Order</h5>
+              <p className="mb-0">Place an order for the selected video invitation template</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Step 3: Send Your Details */}
+        <div className="col-md-3">
+          <div className="d-flex align-items-center">
+            <i className="bi bi-envelope me-3 mb-4" style={{ fontSize: '2rem' }}></i>
+            <div>
+              <h5>Send Your Details</h5>
+              <p className="mb-0">Send your required details and photos for the video</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Step 4: Get Your Video */}
+        <div className="col-md-3">
+          <div className="d-flex align-items-center">
+            <i className="bi bi-whatsapp me-3 mb-5" style={{ fontSize: '2rem' }}></i>
+            <div>
+              <h5>Get Your Video</h5>
+              <p className="mb-0">We will edit your video and deliver it via WhatsApp or Telegram within 24 to 48 hours.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div className="container mt-5">
+      <h2 className="text-center">Send Details</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="row">
+          <div className="col-md-6 mb-3">
+            <label htmlFor="brideName">Bride Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="brideName"
+              name="brideName"
+              value={formData.brideName}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="brideParentsName">Bride Parents Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="brideParentsName"
+              name="brideParentsName"
+              value={formData.brideParentsName}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="groomName">Groom Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="groomName"
+              name="groomName"
+              value={formData.groomName}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="groomParentsName">Groom Parents Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="groomParentsName"
+              name="groomParentsName"
+              value={formData.groomParentsName}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="address">Address</label>
+            <input
+              type="text"
+              className="form-control"
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="haldiCeremony">Haldi Ceremony</label>
+            <input
+              type="text"
+              className="form-control"
+              id="haldiCeremony"
+              name="haldiCeremony"
+              value={formData.haldiCeremony}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="engagement">Engagement</label>
+            <input
+              type="text"
+              className="form-control"
+              id="engagement"
+              name="engagement"
+              value={formData.engagement}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="reception">Reception</label>
+            <input
+              type="text"
+              className="form-control"
+              id="reception"
+              name="reception"
+              value={formData.reception}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="weddingDate">Wedding Date</label>
+            <input
+              type="date"
+              className="form-control"
+              id="weddingDate"
+              name="weddingDate"
+              value={formData.weddingDate}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="venue">Venue / Location</label>
+            <input
+              type="text"
+              className="form-control"
+              id="venue"
+              name="venue"
+              value={formData.venue}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="bridePhotos">Bride Photos</label>
+            <input
+              type="file"
+              className="form-control"
+              id="bridePhotos"
+              name="bridePhotos"
+              onChange={handleFileChange}
+              multiple
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="groomPhotos">Groom Photos</label>
+            <input
+              type="file"
+              className="form-control"
+              id="groomPhotos"
+              name="groomPhotos"
+              onChange={handleFileChange}
+              multiple
+            />
+          </div>
+        </div>
+        <button type="submit" className="btn border">Submit</button>
+      </form>
+    </div>
+</>  
   );
 }
 

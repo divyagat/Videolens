@@ -29,11 +29,19 @@ const Navbar = () => {
               <Link className="nav-link text-dark" to="/wedding">Wedding</Link>
             </li>&nbsp;&nbsp;
             <li className="nav-item">
+<<<<<<< Updated upstream
               <Link className="nav-link text-dark" to="/services">Birthday</Link>
             </li>&nbsp;&nbsp;
             <li className="nav-item">
               <Link className="nav-link text-dark" to="/about">BabyShower</Link>
             </li>&nbsp;&nbsp;
+=======
+              <Link className="nav-link text-dark" to="/babyshower">Birthday</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-dark" to="/babyshower">BabyShower</Link>
+            </li>
+>>>>>>> Stashed changes
             <li className="nav-item">
               <Link className="nav-link text-dark" to="/contact">Contact</Link>
             </li>
