@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap-icons/font/bootstrap-icons.css';
-// import { Form, Button } from 'react-bootstrap';
-import '../pages/wedding.css'
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "../pages/wedding.css";
+
 function Wedding() {
+
 
   const [formData, setFormData] = useState({
     brideName: "",
@@ -36,107 +37,107 @@ function Wedding() {
     alert("Form submitted!");
   };
 
-  
-  // Video data with prices
+
   const videos = [
-    { url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk", price: 500 },
-    { url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6", price: 800 },
-    { url: "https://www.youtube.com/embed/I79wCjSO-wQ?si=ecH502jwx4IcvQLhq4g", price: 1000 },
-    { url: "https://www.youtube.com/embed/OetacTm0H0c?si=bcx1DKBtkgN9iDo1", price: 700 },
-    { url: "https://www.youtube.com/embed/Yhxai8LauDY?si=cbvPdozKNXMgI9G7", price: 1200 },
-    { url: "https://www.youtube.com/embed/PXMKVBgL6pI?si=orye25mMjMS8j1c_", price: 900 },
-    { url: "https://www.youtube.com/embed/-lD0AH5Kx3U?si=Wld4fenOOQVSv6FV", price: 600 },
-    { url: "https://www.youtube.com/embed/jPmVpEOOvUs?si=ydUQq0W-mhG_dN3J", price: 750 },
-    { url: "https://www.youtube.com/embed/L4omEdmCjjU?si=0ZSqcnqBxZPmP0US", price: 850 },
+    { id: 1, url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk", price: 500 },
+    { id: 2, url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6", price: 800 },
+    { id: 3, url: "https://www.youtube.com/embed/I79wCjSO-wQ?si=ecH502jwx4IcvQLhq4g", price: 1000 },
+    { id: 4, url: "https://www.youtube.com/embed/OetacTm0H0c?si=bcx1DKBtkgN9iDo1", price: 700 },
+    { id: 5, url: "https://www.youtube.com/embed/Yhxai8LauDY?si=cbvPdozKNXMgI9G7", price: 1200 },
+    { id: 6, url: "https://www.youtube.com/embed/PXMKVBgL6pI?si=orye25mMjMS8j1c_", price: 900 },
+    { id: 7, url: "https://www.youtube.com/embed/-lD0AH5Kx3U?si=Wld4fenOOQVSv6FV", price: 600 },
+    { id: 8, url: "https://www.youtube.com/embed/jPmVpEOOvUs?si=ydUQq0W-mhG_dN3J", price: 750 },
+    { id: 9, url: "https://www.youtube.com/embed/L4omEdmCjjU?si=0ZSqcnqBxZPmP0US", price: 850 },
+    { id: 1, url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk", price: 500 },
+    { id: 2, url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6", price: 800 },
+    { id: 3, url: "https://www.youtube.com/embed/I79wCjSO-wQ?si=ecH502jwx4IcvQLhq4g", price: 1000 },
+    { id: 4, url: "https://www.youtube.com/embed/OetacTm0H0c?si=bcx1DKBtkgN9iDo1", price: 700 },
+    { id: 5, url: "https://www.youtube.com/embed/Yhxai8LauDY?si=cbvPdozKNXMgI9G7", price: 1200 },
+    { id: 6, url: "https://www.youtube.com/embed/PXMKVBgL6pI?si=orye25mMjMS8j1c_", price: 900 },
+    { id: 7, url: "https://www.youtube.com/embed/-lD0AH5Kx3U?si=Wld4fenOOQVSv6FV", price: 600 },
+    { id: 8, url: "https://www.youtube.com/embed/jPmVpEOOvUs?si=ydUQq0W-mhG_dN3J", price: 750 },
+    { id: 9, url: "https://www.youtube.com/embed/L4omEdmCjjU?si=0ZSqcnqBxZPmP0US", price: 850 },
   ];
 
-  // State to track selected video, price, and video title
-  const [selectedPrice, setSelectedPrice] = useState(null);
-  const [paymentUrl, setPaymentUrl] = useState("");
-  const [videoTitle, setVideoTitle] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // Handle payment button click
-  const handlePaymentClick = (price, title) => {
-    setSelectedPrice(price);
-    setVideoTitle(title); // Set the video title
-    setPaymentUrl(`https://payments.cashfree.com/forms/we1001?amount=${price}`);
- // Pass price to payment gateway URL
-    const modal = new bootstrap.Modal(document.getElementById("paymentModal"));
-    modal.show();
+  const videosPerPage = 9;
+
+  const indexOfLastVideo = currentPage * videosPerPage;
+  const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
+  const currentVideos = videos.slice(indexOfFirstVideo, indexOfLastVideo);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const openPopup = (url, width = 600, height = 700) => {
+    const left = window.innerWidth / 2 - width / 2;
+    const top = window.innerHeight / 2 - height / 2;
+    window.open(
+      url,
+      "Cashify Payment",
+      `width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=yes,status=no`
+    );
+  };
+
+  const handleCashify = (video) => {
+    const cashifyUrl = `https://payments.cashfree.com/forms/we1001?amount=${video.price}`;
+    openPopup(cashifyUrl);
   };
 
   return (
     <>
-    {/* start wedding */}
-    <div className="wedding">
-      <section className="py-5">
-        <div className="container text-center px-5">
-          <h2 className="mb-5">Wedding Invitation Videos</h2>
-          <div className="row g-3">
-            {videos.map((video, index) => (
-              <div className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4" key={index}>
-                <div className="card">
-                  <iframe
-                    src={video.url}
-                    title={`Video ${index + 1}`}
-                    className="card-img-top"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    style={{ width: "100%", height: "200px", borderRadius: "10px" }}
-                  ></iframe>
-                  
-                </div>
-                <div className="card-body my-3">
+      <div className="wedding">
+        <section className="py-5 px-5">
+          <div className="container text-center px-5">
+            <h2 className="mb-5">Wedding Invitation Videos</h2>
+            <div className="row g-5 ">
+              {currentVideos.map((video) => (
+                <div className="col-lg-4 col-md-6 col-sm-12 mb-4" key={video.id}>
+                  <div className="card">
+                    <iframe
+                      src={video.url}
+                      title={`Video ${video.id}`}
+                      className="card-img-top"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      style={{ width: "100%", height: "200px", borderRadius: "10px" }}
+                    ></iframe>
+                  </div>
+                  <div className="card-body my-3">
                     <button
                       className="btn"
-                      onClick={() => handlePaymentClick(video.price, `Video ${index + 1}`)}
+                      onClick={() => handleCashify(video)}
                     >
-                      ₹&nbsp;{video.price} 
+                      ₹ &nbsp;{video.price}
                     </button>
                   </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Payment Modal */}
-      <div
-        className="modal fade"
-        id="paymentModal"
-        tabIndex="-1"
-        aria-labelledby="paymentModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-fullscreen modal-dialog-centered">
-          <div className="modal-content" style={{ border: "none", boxShadow: "none" }}>
-            <div className="modal-body p-0" style={{ backgroundColor: "transparent" }}>
-              {paymentUrl ? (
-                <iframe
-                  src={paymentUrl}
-                  style={{
-                    width: "100%",
-                    height: "100vh",  // Full height of the viewport
-                    border: "none",    // Remove iframe border
-                  }}
-                  title="Payment Gateway"
-                  scrolling="auto"
-                ></iframe>
-              ) : (
-                <p>Loading payment gateway...</p>
-              )}
+                </div>
+              ))}
             </div>
           </div>
-        </div>
+
+          <div className="d-flex justify-content-center my-4">
+            <nav>
+              <ul className="pagination">
+                {Array.from({ length: Math.ceil(videos.length / videosPerPage) }, (_, i) => (
+                  <li
+                    className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+                    key={i}
+                  >
+                    <button className="page-link" onClick={() => paginate(i + 1)}>
+                      {i + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </section>
       </div>
-    </div>
-
-  
 
 
-
-    <div className="container-fluid px-5 my-5 text-white bg-dark py-5">
+      <div className="container-fluid px-5 my-5 text-white bg-dark py-5">
       <div className="row mx-5 g-5">
         {/* Step 1: Select Video Template */}
         <div className="col-md-3">
@@ -326,7 +327,7 @@ function Wedding() {
         <button type="submit" className="btn border">Submit</button>
       </form>
     </div>
-</>  
+    </>
   );
 }
 
