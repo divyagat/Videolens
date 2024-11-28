@@ -1,0 +1,28 @@
+.sidebar {
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: #343a40;
+}
+
+.sidebar-header {
+  text-align: center;
+  border-bottom: 1px solid #495057;
+}
+
+.sidebar .nav-link {
+  padding: 10px 20px;
+  color: #adb5bd;
+  transition: 0.3s;
+}
+
+.sidebar .nav-link:hover {
+  background: #495057;
+  color: #ffffff;
+}
+
+.main-content {
+  margin-left: 250px;
+}

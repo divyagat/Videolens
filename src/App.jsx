@@ -9,12 +9,14 @@ import Wedding from './pages/Wedding'
 import Birthday from './pages/Birthday'
 import BabyShower from './pages/BabyShower'
 import Contact from './pages/Contact'
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
+
 
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import "bootstrap/dist/js/bootstrap.bundle.min"; // Optional: Bootstrap JS for functionality like modals or dropdowns
 import SubNavbar from './components/SubNavbar'
+import Login from './components/Admin/Login'
+import Dashboard from './components/Admin/Dashboard'
+import AddVideoForm from './components/Admin/AddVideoForm'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -24,8 +26,9 @@ function App() {
          <SubNavbar/>
          <Navbar/>
          <Routes>
-         <Route path="/login" element={<Login />} />
-         <Route path="/dashboard" element={<Dashboard />} />
+           <Route path='/login' element={<Login/>}/>
+           <Route path='/dashbord' element={<Dashboard/>}/>
+           <Route path='/addvideo' element={<AddVideoForm/>}/>
           <Route path='/' element={<Home/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path='/wedding' element={<Wedding/>}/>
