@@ -21,11 +21,17 @@ import TopNavbar from './components/TopNavbar'
 
 // =======
 // import SubNavbar from './components/SubNavbar'
+// <<<<<<< Updated upstream
 // import Login from './components/Admin/Login'
 // import Dashboard from './components/Admin/Dashboard'
 // import AddVideoForm from './components/Admin/AddVideoForm'
 import SubNavbar from './components/SubNavbar'
 import Navbar from './components/Navbar'
+// =======
+// import Login from './components/Admin/Login'
+// import Dashboard from './components/Admin/Dashboard'
+// import AddVideoForm from './components/Admin/AddVideoForm'
+// >>>>>>> Stashed changes
 // >>>>>>> f55c6b60cba34c3cf25162850263704cf6984adc
 function App() {
   const [count, setCount] = useState(0)
