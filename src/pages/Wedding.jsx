@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Form, Button } from 'react-bootstrap';
+// import { Form, Button } from 'react-bootstrap';
+import '../pages/wedding.css'
 function Wedding() {
 
   const [formData, setFormData] = useState({
@@ -66,13 +67,14 @@ function Wedding() {
 
   return (
     <>
-    <div className="App">
-      <section className="py-5 bg-light">
-        <div className="container text-center">
-          <h2 className="mb-4">Wedding Invitation Videos</h2>
-          <div className="row">
+    {/* start wedding */}
+    <div className="wedding">
+      <section className="py-5">
+        <div className="container text-center px-5">
+          <h2 className="mb-5">Wedding Invitation Videos</h2>
+          <div className="row g-3">
             {videos.map((video, index) => (
-              <div className="col-lg-4 col-md-6 col-sm-12 mb-4" key={index}>
+              <div className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4" key={index}>
                 <div className="card">
                   <iframe
                     src={video.url}
@@ -81,17 +83,18 @@ function Wedding() {
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    style={{ width: "100%", height: "200px" }}
+                    style={{ width: "100%", height: "200px", borderRadius: "10px" }}
                   ></iframe>
-                  <div className="card-body">
+                  
+                </div>
+                <div className="card-body my-3">
                     <button
-                      className="btn btn-success w-100"
+                      className="btn"
                       onClick={() => handlePaymentClick(video.price, `Video ${index + 1}`)}
                     >
-                      ₹{video.price} - Book Now
+                      ₹&nbsp;{video.price} 
                     </button>
                   </div>
-                </div>
               </div>
             ))}
           </div>
@@ -129,14 +132,16 @@ function Wedding() {
       </div>
     </div>
 
+  
+
 
 
     <div className="container-fluid px-5 my-5 text-white bg-dark py-5">
-      <div className="row">
+      <div className="row mx-5 g-5">
         {/* Step 1: Select Video Template */}
         <div className="col-md-3">
           <div className="d-flex align-items-center">
-            <i className="bi bi-film me-3 mb-4" style={{ fontSize: '2rem' }}></i>
+            <i className="bi bi-film me-3 mb-5" style={{ fontSize: '2rem' }}></i>
             <div>
               <h5>Select Video Template</h5>
               <p className="mb-0">Select a video template from a wide range of templates</p>
@@ -147,7 +152,7 @@ function Wedding() {
         {/* Step 2: Place Your Order */}
         <div className="col-md-3">
           <div className="d-flex align-items-center">
-            <i className="bi bi-tag me-3 mb-4" style={{ fontSize: '2rem' }}></i>
+            <i className="bi bi-tag me-3 mb-5" style={{ fontSize: '2rem' }}></i>
             <div>
               <h5>Place Your Order</h5>
               <p className="mb-0">Place an order for the selected video invitation template</p>
@@ -158,7 +163,7 @@ function Wedding() {
         {/* Step 3: Send Your Details */}
         <div className="col-md-3">
           <div className="d-flex align-items-center">
-            <i className="bi bi-envelope me-3 mb-4" style={{ fontSize: '2rem' }}></i>
+            <i className="bi bi-envelope me-3 mb-5" style={{ fontSize: '2rem' }}></i>
             <div>
               <h5>Send Your Details</h5>
               <p className="mb-0">Send your required details and photos for the video</p>
@@ -180,8 +185,9 @@ function Wedding() {
     </div>
 
 
-    <div className="container mt-5">
-      <h2 className="text-center">Send Details</h2>
+{/* Wedding form */}
+    <div className="container my-5">
+      <h2 className="text-center py-3">Send Details</h2>
       <form onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-md-6 mb-3">

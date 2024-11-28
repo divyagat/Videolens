@@ -53,13 +53,14 @@ function BabyShower(){
   };
     return(
     <>
-      <div className="App">
-      <section className="py-5 bg-light">
-        <div className="container text-center">
-          <h2 className="mb-4">Wedding Invitation Videos</h2>
-          <div className="row">
+       {/* start wedding */}
+       <div className="wedding">
+      <section className="py-5">
+        <div className="container text-center px-5">
+          <h2 className="mb-5">Wedding Invitation Videos</h2>
+          <div className="row g-3">
             {videos.map((video, index) => (
-              <div className="col-lg-4 col-md-6 col-sm-12 mb-4" key={index}>
+              <div className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4" key={index}>
                 <div className="card">
                   <iframe
                     src={video.url}
@@ -68,17 +69,18 @@ function BabyShower(){
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    style={{ width: "100%", height: "200px" }}
+                    style={{ width: "100%", height: "200px", borderRadius: "10px" }}
                   ></iframe>
-                  <div className="card-body">
+                  
+                </div>
+                <div className="card-body my-3">
                     <button
-                      className="btn btn-success w-100"
+                      className="btn"
                       onClick={() => handlePaymentClick(video.price, `Video ${index + 1}`)}
                     >
-                      ₹{video.price} - Book Now
+                      ₹&nbsp;{video.price} 
                     </button>
                   </div>
-                </div>
               </div>
             ))}
           </div>
@@ -115,7 +117,6 @@ function BabyShower(){
         </div>
       </div>
     </div>
-
 
     <div className="container-fluid px-5 my-5 text-white bg-dark py-5">
       <div className="row">
