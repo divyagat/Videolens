@@ -1,107 +1,114 @@
-/* Dark overlay for images */
+/* Dark overlay for images with subtle black transition */
 .dark-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* background-color: rgba(0, 0, 0, 0.3); */
-
-    /* z-index: 5; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0); /* Transparent initially */
+  transition: background-color 0.5s ease-in-out; /* Smooth transition */
+  z-index: 5;
 }
 
-.App{
-    background-image:linear-gradient(rgba(249, 246, 246, 0.888),rgba(249, 246, 246, 0.888)), url(../assets/bg-section-destination.png);
-    background-position: center;
-    background-size: cover;
-    width: 100%;
-    height: 100vh;
-    margin-bottom: 30px;
-    /* background: ; */
+.carousel-item:hover .dark-overlay {
+  background-color: rgba(0, 0, 0, 0.2); /* Slight black overlay on hover */
 }
 
-/* Centered text */
-.carousel-caption {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-    z-index: 10;
-    /* Ensures the text stays above the overlay */
+/* App background with slight black overlay */
+.App {
+  background-image: linear-gradient(
+      rgb(239, 238, 238), /* Very light black shade */
+      rgb(236, 227, 227)
+  ), 
+  url(../assets/bg-section-destination.png);
+  background-position: center;
+  background-image: 
+    linear-gradient(rgba(211, 210, 210, 0.901), rgba(211, 210, 210, 0.901)), /* Gradient overlay */
+    url(../assets/bg-section-destination.png);
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  margin-bottom: 30px;
+
 }
 
-/* Hide carousel control buttons */
-.carousel-control-prev,
-.carousel-control-next {
-    display: none !important;
-}
-
-/* Set images to 70% viewport height */
+/* Subtle zoom and slight black effect on carousel images */
 .carousel-item img {
-    height: 70vh;
-    /* Set image height to 70% of the viewport height */
-    object-fit: cover;
-    /* Ensure images cover the space without distortion */
-    width: 100%;
-    /* Make the width 100% */
-    transition: transform 2s ease-in-out;
-    /* Smooth zoom transition */
+  height: 70vh;
+  object-fit: cover;
+  width: 100%;
+  position: relative;
+  transition: transform 2s ease-in-out, filter 0.5s ease-in-out;
 }
 
-/* Apply zoom effect for active item */
 .carousel-item.active img {
-    transform: scale(1.1);
-    /* Zoom in on the active item */
+  transform: scale(1.1); /* Zoom in */
+  filter: brightness(0.9); /* Subtle darkening of the image */
 }
 
-/* Ensure smooth transition for carousel items */
-.carousel-item-next,
-.carousel-item-prev,
-.carousel-item.active {
-    transition: transform 2s ease-in-out;
+.carousel-item:hover img {
+  filter: brightness(0.85); /* Slightly darker shade on hover */
 }
 
-/* Slight zoom effect on next and previous items */
-.carousel-item-next img,
-.carousel-item-prev img {
-    transform: scale(1.05);
-    /* Slight zoom on the next and prev items */
-}
-
+/* Testimonials with a slight black overlay */
 .testimonials {
-    text-align: center;
-    padding: 2rem;
-  }
-  
-  .testimonial-card {
-    background: #f9f9f9;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .client-info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .client-info img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  
-  .client-info h3 {
-    margin: 0;
-    font-size: 1.2rem;
-  }
-  
-  .client-info p {
-    margin: 0;
-    color: #666;
-  }
-  
+  text-align: center;
+  padding: 2rem;
+}
+
+.testimonial-card {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.5s ease-in-out;
+}
+
+.testimonial-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+  background-color: rgba(0, 0, 0, 0.02); /* Very light black tint */
+}
+
+.testimonial-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0); /* Transparent initially */
+  transition: background-color 0.5s ease-in-out;
+  z-index: 1;
+}
+
+.testimonial-card:hover::before {
+  background-color: rgba(0, 0, 0, 0.1); /* Slight black overlay */
+}
+
+.client-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  position: relative;
+  z-index: 2; /* Ensures content stays above the overlay */
+}
+
+.client-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.client-info h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #444; /* Neutral dark color for text */
+}
+
+.client-info p {
+  margin: 0;
+  color: #666; /* Neutral gray for subtitles */
+}

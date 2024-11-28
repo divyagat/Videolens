@@ -87,7 +87,7 @@ const Home = () => {
       <div className="App">
         <section className="py-5 bglight">
           <div className="container text-center">
-            <p className="text-style fs-5">Create your happy moments with us</p>
+            <p>Create your happy moments with us</p>
             <h1 className="mb-4">Discover the most creative videos</h1>
             <div className="row">
               {videos.map((video, index) => (
@@ -150,6 +150,7 @@ const Home = () => {
 
       {/* Testimonials Section */}
       <section className="testimonials">
+        <p>Testimonials</p>
         <h2 className="text-center">What Our Happy Clients Say</h2>
         <Swiper spaceBetween={30} slidesPerView={1} navigation pagination={{ clickable: true }}>
           {testimonials.map((testimonial, index) => (

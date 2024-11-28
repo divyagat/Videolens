@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FiPhoneCall } from "react-icons/fi";
 import logo from "../assets/L2.png"; // Ensure the correct path
-import "../components/navbar.css";
+import "../components/Navbar.css";
 
 const Navbar = () => {
   return (
