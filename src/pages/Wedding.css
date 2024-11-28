@@ -1,9 +1,11 @@
 .card {
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* background-color:none; */
+    border-radius: 30px;
   }
   .bg-primary {
-    background-color: #2a2a72 !important;
+    /* background-color: #2a2a72 !important; */
   }
   .btn-success {
     font-size: 16px;
@@ -12,21 +14,9 @@
     padding: 40px 0;
   }
 
-  
-
-  .container {
-    background-color: #1a1a2e; /* Dark background */
+  .card-body .btn{
+    background-color: #61CF70;
+    color: white;
+    font-weight: bold;
+    padding: 5px 18px 5px 18px;
   }
-  
-  h5 {
-    color: #fff; /* White for headings */
-  }
-  
-  p {
-    color: #d3d3d3; /* Light gray for text */
-  }
-  
-  .bi {
-    color: #00acee; /* Customize icon color */
-  }
-  
