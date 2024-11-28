@@ -6,7 +6,7 @@ import "../components/Navbar.css";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light py-3">
       <div className="container">
         <img src={logo} className="img-fluid imgl2" alt="Company Logo" />
         <button
@@ -29,7 +29,7 @@ const Navbar = () => {
               <Link className="nav-link text-dark" to="/wedding">Wedding</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-dark" to="/services">Birthday</Link>
+              <Link className="nav-link text-dark" to="/birthday">Birthday</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link text-dark" to="/babyshower">BabyShower</Link>

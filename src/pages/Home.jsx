@@ -83,70 +83,77 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Videos Section */}
-      <div className="App">
-        <section className="py-5 bglight">
-          <div className="container text-center">
-            <p>Create your happy moments with us</p>
-            <h1 className="mb-4">Discover the most creative videos</h1>
-            <div className="row">
-              {videos.map((video, index) => (
-                <div className="col-lg-4 col-md-6 col-sm-12 mb-4" key={index}>
-                  <div className="card">
-                    <iframe
-                      src={video.url}
-                      title={`Video ${index + 1}`}
-                      className="card-img-top"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      style={{ width: "100%", height: "200px" }}
-                    ></iframe>
-                    <div className="card-body">
-                      <button
-                        className="btn btn-success w-100"
-                        onClick={() => handlePaymentClick(video.price, `Video ${index + 1}`)}
-                      >
-                        ₹{video.price} - Book Now
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        {/* Payment Modal */}
-        <div
-          className="modal fade"
-          id="paymentModal"
-          tabIndex="-1"
-          aria-labelledby="paymentModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-fullscreen modal-dialog-centered">
-            <div className="modal-content" style={{ border: "none", boxShadow: "none" }}>
-              <div className="modal-body p-0" style={{ backgroundColor: "transparent" }}>
-                {paymentUrl ? (
+
+
+      {/* Videos Section */}
+      <div className="wedding">
+      <section className="py-5">
+        <div className="container text-center px-5">
+          <h2 className="mb-5">Wedding Invitation Videos</h2>
+          <div className="row g-3">
+            {videos.map((video, index) => (
+              <div className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4" key={index}>
+                <div className="card">
                   <iframe
-                    src={paymentUrl}
-                    style={{
-                      width: "100%",
-                      height: "100vh",
-                      border: "none",
-                    }}
-                    title="Payment Gateway"
-                    scrolling="auto"
+                    src={video.url}
+                    title={`Video ${index + 1}`}
+                    className="card-img-top"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ width: "100%", height: "200px", borderRadius: "10px" }}
                   ></iframe>
-                ) : (
-                  <p>Loading payment gateway...</p>
-                )}
+                  
+                </div>
+                <div className="card-body my-3">
+                    <button
+                      className="btn"
+                      onClick={() => handlePaymentClick(video.price, `Video ${index + 1}`)}
+                    >
+                      ₹&nbsp;{video.price} 
+                    </button>
+                  </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Payment Modal */}
+      <div
+        className="modal fade"
+        id="paymentModal"
+        tabIndex="-1"
+        aria-labelledby="paymentModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-fullscreen modal-dialog-centered">
+          <div className="modal-content" style={{ border: "none", boxShadow: "none" }}>
+            <div className="modal-body p-0" style={{ backgroundColor: "transparent" }}>
+              {paymentUrl ? (
+                <iframe
+                  src={paymentUrl}
+                  style={{
+                    width: "100%",
+                    height: "100vh",  // Full height of the viewport
+                    border: "none",    // Remove iframe border
+                  }}
+                  title="Payment Gateway"
+                  scrolling="auto"
+                ></iframe>
+              ) : (
+                <p>Loading payment gateway...</p>
+              )}
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+
+
+
 
       {/* Testimonials Section */}
       <section className="testimonials">
