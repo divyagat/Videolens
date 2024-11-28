@@ -21,9 +21,11 @@ import TopNavbar from './components/TopNavbar'
 
 // =======
 // import SubNavbar from './components/SubNavbar'
-import Login from './components/Admin/Login'
-import Dashboard from './components/Admin/Dashboard'
-import AddVideoForm from './components/Admin/AddVideoForm'
+// import Login from './components/Admin/Login'
+// import Dashboard from './components/Admin/Dashboard'
+// import AddVideoForm from './components/Admin/AddVideoForm'
+import SubNavbar from './components/SubNavbar'
+import Navbar from './components/Navbar'
 // >>>>>>> f55c6b60cba34c3cf25162850263704cf6984adc
 function App() {
   const [count, setCount] = useState(0)
@@ -31,13 +33,15 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <SubNavbar/>
+      <Navbar/>
      {/* <CustomNavbar/> */}
-     <TopNavbar/>
+     {/* <TopNavbar/> */}
      {/* <MainNavbar/> */}
          <Routes>
-           <Route path='/login' element={<Login/>}/>
-           <Route path='/dashbord' element={<Dashboard/>}/>
-           <Route path='/addvideo' element={<AddVideoForm/>}/>
+           {/* <Route path='/login' element={<Login/>}/> */}
+           {/* <Route path='/dashbord' element={<Dashboard/>}/> */}
+           {/* <Route path='/addvideo' element={<AddVideoForm/>}/> */}
           <Route path='/' element={<Home/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path='/wedding' element={<Wedding/>}/>

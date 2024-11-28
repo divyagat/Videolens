@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import "../pages/Home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "../pages/Home.css"; // Custom CSS styles
+import "swiper/css/bundle";
+
+import img1 from "../assets/Screenshot-2024-03-26-130512 (1).png";
+import img2 from "../assets/Screenshot-2024-03-26-130611.png";
+import img3 from "../assets/Screenshot-2024-03-26-130827.png";
+import img4 from "../assets/Screenshot-2024-03-26-131023 (1).png";
 
 const Home = () => {
   const testimonials = [
@@ -35,123 +41,133 @@ const Home = () => {
 
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [paymentUrl, setPaymentUrl] = useState("");
+  const [videoTitle, setVideoTitle] = useState("");
 
-  const handlePaymentClick = (price) => {
+  const handlePaymentClick = (price, title) => {
     setSelectedPrice(price);
+    setVideoTitle(title);
     setPaymentUrl(`https://payments.cashfree.com/forms/we1001?amount=${price}`);
-    const modal = new window.bootstrap.Modal(
-      document.getElementById("paymentModal")
-    );
+    const modal = new window.bootstrap.Modal(document.getElementById("paymentModal"));
     modal.show();
   };
 
   return (
     <>
-      <header className="container-fluid bg-dark text-light py-3">
-        <h1 className="text-center">Welcome to Video Lens</h1>
-      </header>
-
-      {/* Video Section */}
-      <section className="py-5">
-        <div className="container">
-          <h2 className="text-center mb-4">Discover Creative Videos</h2>
-          <div className="row">
-            {videos.map((video, index) => (
-              <div className="col-lg-4 col-md-6 mb-4" key={index}>
-                <div className="card">
-                  <iframe
-                    className="card-img-top"
-                    src={video.url}
-                    title={`Video ${index + 1}`}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    style={{ height: "200px" }}
-                  ></iframe>
-                  <div className="card-body text-center">
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => handlePaymentClick(video.price)}
-                    >
-                      ₹{video.price} - Book Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="testimonials py-5 bg-light">
-        <div className="container">
-          <h2 className="text-center mb-4">What Our Happy Clients Say</h2>
-          <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            navigation
-            pagination={{ clickable: true }}
-          >
-            {testimonials.map((testimonial, index) => (
-              <SwiperSlide key={index}>
-                <div className="testimonial-card text-center">
-                  <p>{testimonial.feedback}</p>
-                  <div className="client-info d-flex align-items-center justify-content-center mt-3">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="rounded-circle me-3"
-                      style={{ width: "50px", height: "50px" }}
-                    />
-                    <div>
-                      <h5 className="mb-0">{testimonial.name}</h5>
-                      <p className="text-muted mb-0">{testimonial.profession}</p>
+      {/* Carousel Section */}
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-12">
+            <div
+              id="carouselExampleSlidesOnly"
+              className="carousel slide"
+              data-bs-ride="carousel"
+              data-bs-interval="3000"
+            >
+              <div className="carousel-inner">
+                {[img1, img2, img3, img4].map((image, index) => (
+                  <div
+                    className={`carousel-item ${index === 0 ? "active" : ""} position-relative`}
+                    key={index}
+                  >
+                    <img src={image} className="d-block w-100 zoom-effect" alt={`Slide ${index + 1}`} />
+                    <div className="dark-overlay"></div>
+                    <div className="carousel-caption position-absolute top-50 start-50 translate-middle">
+                      <h3>Create Your Happy Memories With Us</h3>
+                      <p>Discover Most Premium & Modern Video Invitations</p>
                     </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </section>
-
-      {/* Payment Modal */}
-      <div
-        className="modal fade"
-        id="paymentModal"
-        tabIndex="-1"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-lg">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Complete Your Payment</h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              {paymentUrl ? (
-                <iframe
-                  src={paymentUrl}
-                  style={{
-                    width: "100%",
-                    height: "500px",
-                    border: "none",
-                  }}
-                  title="Payment Gateway"
-                ></iframe>
-              ) : (
-                <p>Loading payment gateway...</p>
-              )}
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Videos Section */}
+      <div className="App">
+        <section className="py-5 bglight">
+          <div className="container text-center">
+            <p className="text-style fs-5">Create your happy moments with us</p>
+            <h1 className="mb-4">Discover the most creative videos</h1>
+            <div className="row">
+              {videos.map((video, index) => (
+                <div className="col-lg-4 col-md-6 col-sm-12 mb-4" key={index}>
+                  <div className="card">
+                    <iframe
+                      src={video.url}
+                      title={`Video ${index + 1}`}
+                      className="card-img-top"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      style={{ width: "100%", height: "200px" }}
+                    ></iframe>
+                    <div className="card-body">
+                      <button
+                        className="btn btn-success w-100"
+                        onClick={() => handlePaymentClick(video.price, `Video ${index + 1}`)}
+                      >
+                        ₹{video.price} - Book Now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Payment Modal */}
+        <div
+          className="modal fade"
+          id="paymentModal"
+          tabIndex="-1"
+          aria-labelledby="paymentModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-fullscreen modal-dialog-centered">
+            <div className="modal-content" style={{ border: "none", boxShadow: "none" }}>
+              <div className="modal-body p-0" style={{ backgroundColor: "transparent" }}>
+                {paymentUrl ? (
+                  <iframe
+                    src={paymentUrl}
+                    style={{
+                      width: "100%",
+                      height: "100vh",
+                      border: "none",
+                    }}
+                    title="Payment Gateway"
+                    scrolling="auto"
+                  ></iframe>
+                ) : (
+                  <p>Loading payment gateway...</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Testimonials Section */}
+      <section className="testimonials">
+        <h2 className="text-center">What Our Happy Clients Say</h2>
+        <Swiper spaceBetween={30} slidesPerView={1} navigation pagination={{ clickable: true }}>
+          {testimonials.map((testimonial, index) => (
+            <SwiperSlide key={index}>
+              <div className="testimonial-card">
+                <p>{testimonial.feedback}</p>
+                <div className="client-info">
+                  <img src={testimonial.image} alt={testimonial.name} />
+                  <div>
+                    <h3>{testimonial.name}</h3>
+                    <p>{testimonial.profession}</p>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </section>
     </>
   );
 };

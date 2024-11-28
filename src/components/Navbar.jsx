@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FiPhoneCall } from "react-icons/fi";
-import "../components/Navbar.css"
+import logo from "../assets/L2.png"; // Ensure the correct path
+import "../components/navbar.css";
 
 const Navbar = () => {
   return (
-    
-    <nav className="navbar navbar-expand-lg navbar-dark bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        <img src="src/assets/L2.png " className="img-fluid imgl2" alt=""/>
+        <img src={logo} className="img-fluid imgl2" alt="Company Logo" />
         <button
           className="navbar-toggler"
           type="button"
@@ -20,38 +20,28 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse " id="mainNavbar">
+        <div className="collapse navbar-collapse" id="mainNavbar">
           <ul className="navbar-nav mx-auto text-dark">
             <li className="nav-item">
-              <Link className="nav-link text-dark " to="/">Home</Link>
-            </li>&nbsp;&nbsp;
+              <Link className="nav-link text-dark" to="/">Home</Link>
+            </li>
             <li className="nav-item">
               <Link className="nav-link text-dark" to="/wedding">Wedding</Link>
-            </li>&nbsp;&nbsp;
+            </li>
             <li className="nav-item">
-<<<<<<< Updated upstream
               <Link className="nav-link text-dark" to="/services">Birthday</Link>
-            </li>&nbsp;&nbsp;
-            <li className="nav-item">
-              <Link className="nav-link text-dark" to="/about">BabyShower</Link>
-            </li>&nbsp;&nbsp;
-=======
-              <Link className="nav-link text-dark" to="/babyshower">Birthday</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link text-dark" to="/babyshower">BabyShower</Link>
             </li>
->>>>>>> Stashed changes
             <li className="nav-item">
               <Link className="nav-link text-dark" to="/contact">Contact</Link>
             </li>
           </ul>
         </div>
-        <div>
-          <FiPhoneCall className="fs-5"/>        
-        </div>&nbsp;&nbsp;
-        <div className="phonenum mt-3">
-        <p>9518745852</p>
+        <div className="d-flex align-items-center">
+          <FiPhoneCall className="fs-5 me-2" />
+          <p className="phonenum mb-0">9518745852</p>
         </div>
       </div>
     </nav>
