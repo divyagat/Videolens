@@ -143,7 +143,7 @@ const Home = () => {
                   </div>
                   <div className="card-body mx-auto w-25 my-3">
                     <button
-                      className="btn "
+                      className="btn"
                       onClick={() => handleCashify(video)}
                     >
                       ₹&nbsp;{video.price}
@@ -194,10 +194,10 @@ const Home = () => {
 
 
 
-               {/* start Testimonials Section */}
+      {/* start Testimonials Section */}
 
-               <section className="testimonials ">
-        <p className="text-center hed text-success">Testimonials</p>
+      <section className="testimonials ">
+        <p className="text-center hed text-success para">Testimonials</p>
         <h2 className="text-center mb-5">What Our Happy Clients Say</h2>
         <Swiper
           spaceBetween={30}
@@ -226,7 +226,7 @@ const Home = () => {
           ))}
         </Swiper>
       </section>
-          {/* end Testimonials Section */}
+      {/* end Testimonials Section */}
     </>
   );
 };

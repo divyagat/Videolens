@@ -174,7 +174,7 @@ function BabyShower() {
           </div>
           <div className="col-3">
             <label>Event Date</label>
-            <input type="date" name="date" value={formData.date} onChange={handleChange} />
+            <input type="date" name="date" value={formData.date} onChange={handleChange} /><br />
             <label className="mt-4">Message</label>
             <input type="text" name="message" value={formData.message} onChange={handleChange} />
           </div>

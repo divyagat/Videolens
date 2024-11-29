@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FiPhoneCall } from "react-icons/fi";
 
 import logo from "../assets/L2.png"; // Ensure the correct path
@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <div className="container">
-        <img src={logo} className="img-fluid imgl2" alt="Company Logo" />
+       <Link to="/"><img src={logo} className="img-fluid imgl2" alt="Company Logo" /></Link> 
         <button
           className="navbar-toggler"
           type="button"
