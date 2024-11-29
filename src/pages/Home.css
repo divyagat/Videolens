@@ -54,9 +54,12 @@
 .testimonials {
   text-align: center;
   padding: 2rem;
+  width: 85%;
+  margin: auto;
 }
 
 .testimonial-card {
+  width: 90%;
   background: #f9f9f9;
   border-radius: 8px;
   padding: 1.5rem;
@@ -111,4 +114,90 @@
 .client-info p {
   margin: 0;
   color: #666; /* Neutral gray for subtitles */
+}
+
+
+
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Carousel Styles */
+.carousel-item .dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-caption h2,
+.carousel-caption p {
+  color: #fff;
+}
+
+/* Button Styles */
+.card-body .btn {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.card-body .btn:hover {
+  background-color: #0056b3;
+}
+
+/* Testimonials Section */
+.testimonials .testimonial-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials .client-info {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.testimonials .client-info img {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+}
+
+.testimonials .client-info h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.testimonials .client-info p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Zoom Effect on Carousel Images */
+.zoom-effect {
+  transition: transform 0.5s ease;
+}
+
+.zoom-effect:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .carousel-caption h2 {
+    font-size: 1.5rem;
+  }
+  .carousel-caption p {
+    font-size: 1rem;
+  }
 }
