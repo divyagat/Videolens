@@ -1,15 +1,17 @@
 import React from "react";
+import { CiLocationOn } from "react-icons/ci";
 
 const Contact = () => {
     return (
         <div className="container my-5">
-            <h2 className="text-center mb-4">Contact Us</h2>
+            <p className="text-center fs-5 text-dark">Contact</p>
+            <h1 className="text-center mb-3">Get In Touch</h1>
             <div className="row">
                 {/* Left Section - Contact Details */}
                 <div className="col-md-6">
-                    <h4 className="mb-3">Get In Touch</h4>
+                    
                     <h6>
-                        <strong>Location:</strong> 2nd Floor, Saikripa Building, Trimurti
+                    <CiLocationOn />&nbsp;&nbsp;&nbsp;<strong>Location:</strong> 2nd Floor, Saikripa Building, Trimurti
                         Chowk, Pune-46
                     </h6>
                     <h6>
