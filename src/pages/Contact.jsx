@@ -2,25 +2,33 @@ import React from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { FiPhoneCall } from "react-icons/fi";
 import { CiMail } from "react-icons/ci";
+import "./Contact.css"; // Add your CSS file
 
 const Contact = () => {
     return (
         <div className="container my-5">
-            <p className="text-center fs-5 text-dark">Contact</p>
+            <p className="text-center fs-5 text-dark">Contact Us</p>
             <h1 className="text-center mb-3">Get In Touch</h1>
             <div className="row">
                 {/* Left Section - Contact Details */}
                 <div className="col-md-6">
-                    
-                    <h6>
-                    <CiLocationOn />&nbsp;&nbsp;&nbsp;<strong>Location:</strong> 2nd Floor, Saikripa Building, Trimurti
-                        Chowk, Pune-46
+                    <h6 className="d-flex" >
+                        <span className="icon-box me-3">
+                            <CiLocationOn className="text-success "/>
+                        </span>
+                      <p><strong>Location</strong><br /><br/>  2nd Floor, Saikripa Building, Trimurti Chowk, Pune-46</p>
                     </h6>
-                    <h6>
-                    <FiPhoneCall />&nbsp;&nbsp;&nbsp;<strong>Phone Number:</strong> +91 9021769096
+                    <h6 className="d-flex"  >
+                        <span className="icon-box me-3  ">
+                            <FiPhoneCall className="text-success "/>
+                        </span>
+                       <p><strong>Phone Number</strong><br /><br/> +91 9021769096</p>
                     </h6>
-                    <h6>
-                    <CiMail />&nbsp;&nbsp;&nbsp;<strong>Email:</strong> thevideolens@gmail.com
+                    <h6 className="d-flex" >
+                        <span className="icon-box me-3">
+                            <CiMail className="text-success"/>
+                        </span>
+                        <p><strong>Email Us</strong><br /><br/> thevideolens@gmail.com</p>
                     </h6>
                 </div>
 

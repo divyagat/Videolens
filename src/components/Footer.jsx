@@ -1,6 +1,10 @@
 // <<<<<<< Updated upstream
 import React from "react";
 import "./Footer.css";
+import { FaFacebookF } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { AiOutlineYoutube } from "react-icons/ai";
+import { RiTelegramLine } from "react-icons/ri";
 
 const Footer = () => {
   return (
@@ -9,16 +13,17 @@ const Footer = () => {
         <div className="row ms-5 d-flex justify-content-between">
           {/* Logo and Description */}
           <div className="col-lg-3 col-md-6 mb-4 ">
-            <h5 className="footer-logo mb-3">Video Lens</h5>
+            <img src="src/assets/L3.png" alt="" className="imgl3 mb-3" />
             <p>
               Video Lens empowers creation of premium & modern video invitations
               with professionally designed templates for impactful event promotion.
             </p>
-            <div className="social-icons">
-              <i className="fab fa-facebook-f"></i>
-              <i className="fab fa-instagram"></i>
-              <i className="fab fa-youtube"></i>
-              <i className="fab fa-telegram-plane"></i>
+
+            <div className="social-icons fs-5 fw-bold">
+              <i><FaFacebookF /></i>
+              <i><FaInstagram /></i>
+              <i><AiOutlineYoutube /></i>
+              <i><RiTelegramLine /></i>
             </div>
           </div>
           {/* Explore Section */}

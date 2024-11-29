@@ -1,0 +1,16 @@
+.icon-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px; /* Size of the box */
+    height: 80px; /* Size of the box */
+    /* border: 5px solid #007bff; Border with 5px width */
+    border-radius: 20%; /* Makes the box circular */
+    background-color: #d6fdf5; /* Light background color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional box shadow */
+    color: #007bff; /* Icon color */
+    font-size: 20px; /* Icon size */
+    
+  }
+  
+  
