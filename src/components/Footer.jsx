@@ -1,10 +1,10 @@
-// <<<<<<< Updated upstream
 import React from "react";
 import "./Footer.css";
 import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { AiOutlineYoutube } from "react-icons/ai";
 import { RiTelegramLine } from "react-icons/ri";
+import { BsWhatsapp } from "react-icons/bs";
 
 const Footer = () => {
   return (
@@ -13,35 +13,44 @@ const Footer = () => {
         <div className="row ms-5 d-flex justify-content-between">
           {/* Logo and Description */}
           <div className="col-lg-3 col-md-6 mb-4 ">
-            <img src="src/assets/L3.png" alt="" className="imgl3 mb-3" />
+            <img src="src/assets/L3.png" alt="Video Lens Logo" className="imgl3 mb-3" />
             <p>
               Video Lens empowers creation of premium & modern video invitations
               with professionally designed templates for impactful event promotion.
             </p>
 
             <div className="social-icons fs-5 fw-bold">
-              <i><FaFacebookF /></i>
-              <i><FaInstagram /></i>
-              <i><AiOutlineYoutube /></i>
-              <i><RiTelegramLine /></i>
+              {/* Social Media Icons */}
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                <FaFacebookF />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <FaInstagram />
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+                <AiOutlineYoutube />
+              </a>
+              <a href="https://telegram.org" target="_blank" rel="noopener noreferrer">
+                <RiTelegramLine />
+              </a>
             </div>
           </div>
           {/* Explore Section */}
           <div className="col-lg-2 col-md-6 mb-4 ps-5 ">
             <h6>Explore</h6>
             <ul className="list-unstyled">
-              <li>Wedding</li>
-              <li>Birthday</li>
-              <li>Baby Shower</li>
+              <li><a href="/wedding">Wedding</a></li>
+              <li><a href="/birthday">Birthday</a></li>
+              <li><a href="/baby-shower">Baby Shower</a></li>
             </ul>
           </div>
           {/* Useful Links Section */}
           <div className="col-lg-2 col-md-6 mb-4 ps-5">
             <h6>Useful Links</h6>
             <ul className="list-unstyled">
-              <li>Privacy Policy</li>
-              <li>Terms & Conditions</li>
-              <li>Refund Policy</li>
+              <li><a href="/privacy-policy">Privacy Policy</a></li>
+              <li><a href="/terms-conditions">Terms & Conditions</a></li>
+              <li><a href="/refund-policy">Refund Policy</a></li>
             </ul>
           </div>
           {/* Contact Info Section */}
@@ -49,10 +58,14 @@ const Footer = () => {
             <h6>Contact Info</h6>
             <ul className="list-unstyled">
               <li>
-                <i className="fas fa-phone-alt"></i> +91 9970753038
+                <a href="tel:+919970753038">
+                  <i className="fas fa-phone-alt"></i> +91 9970753038
+                </a>
               </li>
               <li>
-                <i className="fas fa-envelope"></i> thevideolens@gmail.com
+                <a href="mailto:thevideolens@gmail.com">
+                  <i className="fas fa-envelope"></i> thevideolens@gmail.com
+                </a>
               </li>
             </ul>
           </div>
@@ -62,7 +75,16 @@ const Footer = () => {
           <div className="payment-icons">
             <img src="src/assets/visa.png" alt="Visa" />
             <img src="src/assets/master-cart2.png" alt="Mastercard" />
-            <img src="src/assets/americanexpress1.png " alt="American Express" />
+            <img src="src/assets/americanexpress1.png" alt="American Express" />
+            {/* WhatsApp Button */}
+            <a
+        href="https://wa.me/919970753038"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="whatsapp-button"
+      >
+        <BsWhatsapp />
+      </a>
           </div>
         </div>
       </div>
@@ -71,5 +93,3 @@ const Footer = () => {
 };
 
 export default Footer;
-// =======
-// >>>>>>> Stashed changes

@@ -1,50 +1,134 @@
 .footer {
-    background-color: #1b1b3a; /* Dark blue background */
-  }
-  
-  .footer-logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #58a6ff; /* Light blue color for logo */
-  }
-  
-  .footer ul {
-    padding: 0;
-    list-style: none;
-  }
-  
-  .footer ul li {
-    margin-bottom: 0.5rem;
-    color: #ddd; /* Light grey text */
-    padding: 5px 0px 5px 0px;
-  }
-  
-  .footer ul li:hover {
-    color: #ffffff;
-  }
-  
-  .footer .social-icons i {
-    font-size: 1.2rem;
-    margin-right: 10px;
-    cursor: pointer;
-    color: #ddd;
-  }
-  
-  .footer .social-icons i:hover {
-    color: #58a6ff;
-  }
-  
-  .footer-bottom {
-    border-top: 1px solid #444;
-  }
-  
-  .payment-icons img {
-    width: 50px;
-    margin-right: 10px;
-  }
-  .imgl3{
-    width: 170px;
-    margin-top: 10px;
-  }
-  
-  
+  background-color: #1b1b3a;
+  /* Dark blue background */
+}
+
+.footer-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #58a6ff;
+  /* Light blue color for logo */
+}
+
+.footer ul {
+  padding: 0;
+  list-style: none;
+}
+
+.footer ul li {
+  margin-bottom: 0.5rem;
+  color: #ddd;
+  /* Light grey text */
+  padding: 5px 0px 5px 0px;
+}
+
+.footer ul li:hover {
+  color: #ffffff;
+}
+
+.footer .social-icons i {
+  font-size: 1.2rem;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #ddd;
+}
+
+.footer .social-icons i:hover {
+  color: #58a6ff;
+}
+
+.footer-bottom {
+  border-top: 1px solid #444;
+}
+
+.payment-icons img {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.imgl3 {
+  width: 170px;
+  margin-top: 10px;
+}
+
+.BsWhatsappicon {
+  width: 60px;
+  /* Size of the box */
+  height: 60px;
+  /* Size of the box */
+  border: 5px solid #30B296; /* Border around the circle */
+  border-radius: 50%;
+  background-color: #30B296 /* Background color inside the circle */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #f3f6f5; /* Icon color */
+  font-size: 24px; /* Icon size */
+  box-shadow: 0 4px 6px #30B296 (0, 0, 0, 0.1); /* Adds a shadow for depth */
+
+}
+.footer {
+  background-color: #000; /* Set footer background to black */
+  color: white; /* Set all text to white */
+}
+
+.footer h6 {
+  color: white; /* Set heading text to white */
+}
+
+.footer ul li a,
+.footer p {
+  color: white; /* Set links and paragraph text to white */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.footer ul li a:hover {
+  color: #00ff00; /* Add hover effect (e.g., green) for links */
+}
+
+.social-icons a {
+  color: white; /* Set social icons to white */
+  margin-right: 10px;
+}
+
+.social-icons a:hover {
+  color: #ff3c00; /* Hover effect for social icons */
+}
+
+.payment-icons img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.whatsapp-link {
+  color: white; /* WhatsApp icon color */
+  font-size: 24px; /* Adjust size of WhatsApp icon */
+}
+
+.whatsapp-link:hover {
+  color: #25d366; /* WhatsApp green hover effect */
+}
+/* WhatsApp Button Styling */
+.whatsapp-button {
+  position: fixed; /* Make the button fixed to the viewport */
+  bottom: 40px; /* Position it 20px from the bottom */
+  right: 40px; /* Position it 20px from the right */
+  background-color: #25d366; /* WhatsApp green color */
+  color: white; /* Icon color */
+  font-size: 24px; /* Icon size */
+  width: 50px; /* Button width */
+  height: 50px; /* Button height */
+  border-radius: 50%; /* Make it circular */
+  display: flex; /* Center the icon */
+  align-items: center; /* Center the icon vertically */
+  justify-content: center; /* Center the icon horizontally */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a slight shadow */
+  z-index: 1000; /* Ensure it appears above other elements */
+  text-decoration: none; /* Remove underline */
+}
+
+.whatsapp-button:hover {
+  background-color: #20b954; /* Darker green on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+  transition: all 0.3s ease; /* Smooth hover effect */
+}
