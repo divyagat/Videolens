@@ -126,7 +126,7 @@ const Home = () => {
         <section>
           <div className="container text-center px-5">
             <p className="text-success">Create your happy moments with us</p>
-            <h2 className="mb-5">Wedding Invitation Videos</h2>
+            <h2 className="mb-5 fs-1" style={{fontWeight:"500"}}>Discover the most creative videos</h2>
             <div className="row g-3">
               {currentVideos.map((video, index) => (
                 <div className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4" key={index}>
