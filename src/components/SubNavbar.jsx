@@ -5,7 +5,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
 import { RiYoutubeLine } from "react-icons/ri";
 import { RiTelegramLine } from "react-icons/ri";
-import "../components/SubNavbar.css"
+import "../components/SubNavbar.css";
 
 const SubNavbar = () => {
     return (
@@ -13,12 +13,45 @@ const SubNavbar = () => {
             <div className="container">
                 <div className="collapse navbar-collapse" id="subNavbar">
                     <ul className="navbar-nav ms-auto">
-                        <li className="nav-item ">
-                            <Link className="nav-link text-light " to="/wedding/themes">
-                            <IoIosMail />thevideolens@gmail.com  <FaFacebook className=" ms-5 fs-5"/>&nbsp;&nbsp;&nbsp;&nbsp;<FaInstagram className=" fs-5" />&nbsp;&nbsp;&nbsp;&nbsp;<RiYoutubeLine className=" fs-5" />&nbsp;&nbsp;&nbsp;&nbsp;<RiTelegramLine className="fs-5" />
+                        <li className="nav-item">
+                            <Link className="nav-link text-light" to="/wedding/themes">
+                                <IoIosMail /> thevideolens@gmail.com
                             </Link>
                         </li>
-                        
+                        <li className="nav-item d-flex align-items-center">
+                            <a
+                                href="https://www.facebook.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="ms-5 text-light fs-5"
+                            >
+                                <FaFacebook />
+                            </a>
+                            <a
+                                href="https://www.instagram.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-light fs-5 ms-3"
+                            >
+                                <FaInstagram />
+                            </a>
+                            <a
+                                href="https://www.youtube.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-light fs-5 ms-3"
+                            >
+                                <RiYoutubeLine />
+                            </a>
+                            <a
+                                href="https://www.telegram.org"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-light fs-5 ms-3"
+                            >
+                                <RiTelegramLine />
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

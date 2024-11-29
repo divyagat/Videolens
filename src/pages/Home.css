@@ -1,4 +1,5 @@
-/* Dark overlay for images with subtle black transition */
+/* start hero Carousel Section  */
+
 .dark-overlay {
   position: absolute;
   top: 0;
@@ -12,24 +13,6 @@
 
 .carousel-item:hover .dark-overlay {
   background-color: rgba(0, 0, 0, 0.2); /* Slight black overlay on hover */
-}
-
-/* App background with slight black overlay */
-.App {
-  background-image: linear-gradient(
-      rgb(239, 238, 238), /* Very light black shade */
-      rgb(236, 227, 227)
-  ), 
-  url(../assets/bg-section-destination.png);
-  background-position: center;
-  background-image: 
-    linear-gradient(rgba(211, 210, 210, 0.901), rgba(211, 210, 210, 0.901)), /* Gradient overlay */
-    url(../assets/bg-section-destination.png);
-  background-size: cover;
-  width: 100%;
-  height: 100vh;
-  margin-bottom: 30px;
-
 }
 
 /* Subtle zoom and slight black effect on carousel images */
@@ -50,15 +33,36 @@
   filter: brightness(0.85); /* Slightly darker shade on hover */
 }
 
+/* end hero Carousel Section  */
+
+
+/* Button Styles */
+.herovideo .card-body .btn {
+ 
+  padding: 5px 20px;
+  border-radius: 10px;
+  background-color: #a2da8c;
+  color: white;
+  font-weight: bold;
+}
+
+.card-body .btn:hover {
+  background-color: #00b38c;
+}
+
+
+
+/* start Testimonials  */
 /* Testimonials with a slight black overlay */
 .testimonials {
-  text-align: center;
+  /* text-align: center; */
   padding: 2rem;
   width: 85%;
   margin: auto;
 }
 
 .testimonial-card {
+  
   width: 90%;
   background: #f9f9f9;
   border-radius: 8px;
@@ -138,19 +142,6 @@ body {
   color: #fff;
 }
 
-/* Button Styles */
-.card-body .btn {
-  width: 100%;
-  padding: 10px 20px;
-  border-radius: 25px;
-  background-color: #007bff;
-  color: white;
-  font-weight: bold;
-}
-
-.card-body .btn:hover {
-  background-color: #0056b3;
-}
 
 /* Testimonials Section */
 .testimonials .testimonial-card {
@@ -201,3 +192,4 @@ body {
     font-size: 1rem;
   }
 }
+/* end Testimonials */

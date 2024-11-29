@@ -47,10 +47,20 @@ const Navbar = () => {
         </div>
         <div className="d-flex align-items-center">
           <FiPhoneCall className="fs-5 me-2" />
-          <p className="phonenum mb-0">9518745852</p>
+          <a
+            href="https://wa.me/9518745852"
+            className="phonenum text-decoration-none text-dark"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            9518745852
+          </a>
         </div>
       </div>
     </nav>
+
+
+
   );
 };
 

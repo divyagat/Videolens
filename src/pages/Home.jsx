@@ -51,24 +51,47 @@ const Home = () => {
     { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 700 },
     { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1200 },
     { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 900 },
+    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1100 },
+    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 600 },
+    { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 950 },
+    { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 750 },
+    { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 950 },
+    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1300 },
+    { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 1400 },
   ];
 
-  const [selectedPrice, setSelectedPrice] = useState(null);
-  const [paymentUrl, setPaymentUrl] = useState("");
-  const [videoTitle, setVideoTitle] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const videosPerPage = 6;
+  const indexOfLastVideo = currentPage * videosPerPage;
+  const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
+  const currentVideos = videos.slice(indexOfFirstVideo, indexOfLastVideo);
+  const totalPages = Math.ceil(videos.length / videosPerPage);
 
-  const handlePaymentClick = (price, title) => {
-    setSelectedPrice(price);
-    setVideoTitle(title);
-    setPaymentUrl(`https://payments.cashfree.com/forms/we1001?amount=${price}`);
-    const modal = new window.bootstrap.Modal(document.getElementById("paymentModal"));
-    modal.show();
+  const handlePaginationClick = (page) => {
+    setCurrentPage(page);
+  };
+
+  const openPopup = (url) => {
+    const width = 500;
+    const height = 700;
+    const left = (window.innerWidth - width) / 2;
+    const top = (window.innerHeight - height) / 2;
+    window.open(
+      url,
+      "Cashfree Payment",
+      `width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=yes,status=no`
+    );
+  };
+
+  const handleCashify = (video) => {
+    const cashifyUrl = `https://payments.cashfree.com/forms/we1001?amount=${video.price}`;
+    openPopup(cashifyUrl);
   };
 
   return (
     <>
-      {/* Carousel Section */}
-      <div className="container-fluid">
+      {/* Hero Carousel Section */}
+      <div className="container-fluid" id="Home">
         <div className="row">
           <div className="col-12">
             <div
@@ -97,14 +120,15 @@ const Home = () => {
         </div>
       </div>
 
+
       {/* Videos Section */}
-      <div className="wedding">
-        <section className="py-5">
-          <div className="container text-center  px-5">
+      <div className="herovideo">
+        <section>
+          <div className="container text-center px-5">
             <p className="text-success">Create your happy moments with us</p>
             <h2 className="mb-5">Wedding Invitation Videos</h2>
             <div className="row g-3">
-              {videos.map((video, index) => (
+              {currentVideos.map((video, index) => (
                 <div className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4" key={index}>
                   <div className="card">
                     <iframe
@@ -117,10 +141,10 @@ const Home = () => {
                       style={{ width: "100%", height: "200px", borderRadius: "10px" }}
                     ></iframe>
                   </div>
-                  <div className="card-body my-3">
+                  <div className="card-body mx-auto w-25 my-3">
                     <button
-                      className="btn"
-                      onClick={() => handlePaymentClick(video.price, `Video ${index + 1}`)}
+                      className="btn "
+                      onClick={() => handleCashify(video)}
                     >
                       ₹&nbsp;{video.price}
                     </button>
@@ -128,74 +152,81 @@ const Home = () => {
                 </div>
               ))}
             </div>
+
+
+            {/* Pagination */}
+            <nav aria-label="Video Pagination">
+              <ul className="pagination justify-content-center">
+                <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                  <button
+                    className="page-link"
+                    onClick={() => handlePaginationClick(currentPage - 1)}
+                  >
+                    Previous
+                  </button>
+                </li>
+                {[...Array(totalPages)].map((_, index) => (
+                  <li
+                    key={index}
+                    className={`page-item ${currentPage === index + 1 ? "active" : ""}`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => handlePaginationClick(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+                <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                  <button
+                    className="page-link"
+                    onClick={() => handlePaginationClick(currentPage + 1)}
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
           </div>
         </section>
-
-        {/* Payment Modal */}
-        <div
-          className="modal fade"
-          id="paymentModal"
-          tabIndex="-1"
-          aria-labelledby="paymentModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-fullscreen modal-dialog-centered">
-            <div className="modal-content" style={{ border: "none", boxShadow: "none" }}>
-              <div className="modal-body p-0" style={{ backgroundColor: "transparent" }}>
-                {paymentUrl ? (
-                  <iframe
-                    src={paymentUrl}
-                    style={{
-                      width: "100%",
-                      height: "100vh",  // Full height of the viewport
-                      border: "none",    // Remove iframe border
-                    }}
-                    title="Payment Gateway"
-                    scrolling="auto"
-                  ></iframe>
-                ) : (
-                  <p>Loading payment gateway...</p>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
 
 
-      {/* Testimonials Section */}
-      <section className="testimonials ">
+               {/* start Testimonials Section */}
+
+               <section className="testimonials ">
         <p className="text-center hed text-success">Testimonials</p>
         <h2 className="text-center mb-5">What Our Happy Clients Say</h2>
         <Swiper
-  spaceBetween={30}
-  slidesPerView={1}  // Show 1 slide by default
-  pagination={{ clickable: true }} // Enables pagination
-  autoplay={{ delay: 3000, disableOnInteraction: false }} // Autoplay setup
-  loop={true} // Enables continuous sliding
-  breakpoints={{
-    640: { slidesPerView: 1 }, // 1 slide for small screens (sm)
-    1024: { slidesPerView: 2 }, // 2 slides for larger screens (md and above)
-  }}
->
-  {testimonials.map((testimonial, index) => (
-    <SwiperSlide key={index}>
-      <div className="testimonial-card mb-5">
-        <p>{testimonial.feedback}</p>
-        <div className="client-info mb-3">
-          <img src={testimonial.image} alt={testimonial.name} />
-          <div>
-            <h3>{testimonial.name}</h3>
-            <p>{testimonial.profession}</p>
-          </div>
-        </div>
-      </div>
-    </SwiperSlide>
-  ))}
-</Swiper>
-
+          spaceBetween={30}
+          slidesPerView={1}  // Show 1 slide by default
+          pagination={{ clickable: true }} // Enables pagination
+          autoplay={{ delay: 3000, disableOnInteraction: false }} // Autoplay setup
+          loop={true} // Enables continuous sliding
+          breakpoints={{
+            640: { slidesPerView: 1 }, // 1 slide for small screens (sm)
+            1024: { slidesPerView: 2 }, // 2 slides for larger screens (md and above)
+          }}
+        >
+          {testimonials.map((testimonial, index) => (
+            <SwiperSlide key={index}>
+              <div className="testimonial-card mb-5">
+                <p>{testimonial.feedback}</p>
+                <div className="client-info mb-3">
+                  <img src={testimonial.image} alt={testimonial.name} />
+                  <div>
+                    <h3>{testimonial.name}</h3>
+                    <p>{testimonial.profession}</p>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </section>
+          {/* end Testimonials Section */}
     </>
   );
 };
