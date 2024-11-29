@@ -1,5 +1,7 @@
 import React from "react";
 import { CiLocationOn } from "react-icons/ci";
+import { FiPhoneCall } from "react-icons/fi";
+import { CiMail } from "react-icons/ci";
 
 const Contact = () => {
     return (
@@ -15,10 +17,10 @@ const Contact = () => {
                         Chowk, Pune-46
                     </h6>
                     <h6>
-                        <strong>Phone Number:</strong> +91 9021769096
+                    <FiPhoneCall />&nbsp;&nbsp;&nbsp;<strong>Phone Number:</strong> +91 9021769096
                     </h6>
                     <h6>
-                        <strong>Email:</strong> thevideolens@gmail.com
+                    <CiMail />&nbsp;&nbsp;&nbsp;<strong>Email:</strong> thevideolens@gmail.com
                     </h6>
                 </div>
 
