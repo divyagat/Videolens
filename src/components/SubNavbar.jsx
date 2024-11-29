@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosMail } from "react-icons/io";
 import { FaFacebook } from "react-icons/fa";
@@ -8,49 +8,58 @@ import { RiTelegramLine } from "react-icons/ri";
 import "../components/SubNavbar.css";
 
 const SubNavbar = () => {
+    const [isEmailClicked, setEmailClicked] = useState(false);
+
+    const handleEmailClick = () => {
+        setEmailClicked(true);
+        setTimeout(() => setEmailClicked(false), 2000); // Reset underline after 2 seconds
+    };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-subnav border-bottom">
             <div className="container">
                 <div className="collapse navbar-collapse" id="subNavbar">
                     <ul className="navbar-nav ms-auto">
+                        {/* Email link */}
                         <li className="nav-item">
-                            <Link className="nav-link text-light" to="/wedding/themes">
+                            <Link
+                                className={`nav-link text-light ${isEmailClicked ? "underline" : ""}`}
+                                to="/wedding/themes"
+                                onClick={handleEmailClick}
+                            >
                                 <IoIosMail /> thevideolens@gmail.com
                             </Link>
                         </li>
                         <li className="nav-item d-flex align-items-center">
-                            <a
-                                href="https://www.facebook.com"
+                            {/* Social media links */}
+                            <Link
+                                to="/facebook"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                                className="ms-5 text-light fs-5"
+                                className="ms-5 text-light fs-5 social-link"
                             >
                                 <FaFacebook />
-                            </a>
-                            <a
-                                href="https://www.instagram.com"
+                            </Link>
+                            <Link
+                                to="/instagram"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-light fs-5 ms-3"
+                                className="text-light fs-5 ms-3 social-link"
                             >
                                 <FaInstagram />
-                            </a>
-                            <a
-                                href="https://www.youtube.com"
+                            </Link>
+                            <Link
+                                to="/youtube"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-light fs-5 ms-3"
+                                className="text-light fs-5 ms-3 social-link"
                             >
                                 <RiYoutubeLine />
-                            </a>
-                            <a
-                                href="https://www.telegram.org"
+                            </Link>
+                            <Link
+                                to="/telegram"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-light fs-5 ms-3"
+                                className="text-light fs-5 ms-3 social-link"
                             >
                                 <RiTelegramLine />
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

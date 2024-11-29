@@ -5,6 +5,8 @@ import { FaInstagram } from "react-icons/fa";
 import { AiOutlineYoutube } from "react-icons/ai";
 import { RiTelegramLine } from "react-icons/ri";
 import { BsWhatsapp } from "react-icons/bs";
+import { LuPhoneCall } from "react-icons/lu";
+import { CiMail } from "react-icons/ci";
 
 const Footer = () => {
   return (
@@ -59,12 +61,12 @@ const Footer = () => {
             <ul className="list-unstyled">
               <li>
                 <a href="tel:+919970753038">
-                  <i className="fas fa-phone-alt"></i> +91 9970753038
+                  <i className="fas fa-phone-alt "><LuPhoneCall className="fs-5 text-danger"/>&nbsp;</i>+91 99707530   
                 </a>
               </li>
               <li>
                 <a href="mailto:thevideolens@gmail.com">
-                  <i className="fas fa-envelope"></i> thevideolens@gmail.com
+                  <i className="fas fa-envelope"><CiMail className="fs-5 text-danger"/>&nbsp;</i>thevideolens@gmail.com 
                 </a>
               </li>
             </ul>
