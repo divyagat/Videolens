@@ -23,13 +23,13 @@ const Footer = () => {
 
             <div className="social-icons fs-5 fw-bold">
               {/* Social Media Icons */}
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.facebook.com/thevideolens" target="_blank" rel="noopener noreferrer">
                 <FaFacebookF />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/thevideolens" target="_blank" rel="noopener noreferrer">
                 <FaInstagram />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.youtube.com/@thevideolens" target="_blank" rel="noopener noreferrer">
                 <AiOutlineYoutube />
               </a>
               <a href="https://telegram.org" target="_blank" rel="noopener noreferrer">

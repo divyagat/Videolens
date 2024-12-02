@@ -45,6 +45,13 @@ function Wedding() {
     { id: 7, url: "https://www.youtube.com/embed/-lD0AH5Kx3U?si=Wld4fenOOQVSv6FV", price: 600 },
     { id: 8, url: "https://www.youtube.com/embed/jPmVpEOOvUs?si=ydUQq0W-mhG_dN3J", price: 750 },
     { id: 9, url: "https://www.youtube.com/embed/L4omEdmCjjU?si=0ZSqcnqBxZPmP0US", price: 850 },
+    { id: 3, url: "https://www.youtube.com/embed/I79wCjSO-wQ?si=ecH502jwx4IcvQLhq4g", price: 1000 },
+    { id: 4, url: "https://www.youtube.com/embed/OetacTm0H0c?si=bcx1DKBtkgN9iDo1", price: 700 },
+    { id: 5, url: "https://www.youtube.com/embed/Yhxai8LauDY?si=cbvPdozKNXMgI9G7", price: 1200 },
+    { id: 6, url: "https://www.youtube.com/embed/PXMKVBgL6pI?si=orye25mMjMS8j1c_", price: 900 },
+    { id: 7, url: "https://www.youtube.com/embed/-lD0AH5Kx3U?si=Wld4fenOOQVSv6FV", price: 600 },
+    { id: 8, url: "https://www.youtube.com/embed/jPmVpEOOvUs?si=ydUQq0W-mhG_dN3J", price: 750 },
+    { id: 9, url: "https://www.youtube.com/embed/L4omEdmCjjU?si=0ZSqcnqBxZPmP0US", price: 850 },
   ];
 
   const [currentPage, setCurrentPage] = useState(1);

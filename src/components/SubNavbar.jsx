@@ -42,7 +42,8 @@ const SubNavbar = () => {
                                 <FaFacebook />
                             </Link>
                             <Link
-                                to="https://www.instagram.com/thevideolens/"
+                                to="https://www.instagram.com/thevideolens"
+                                target="_blank"
                                 className="text-light fs-5 ms-3 social-link"
                             >
                                 <FaInstagram />
