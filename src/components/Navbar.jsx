@@ -14,16 +14,13 @@ const Navbar = () => {
   ];
 
   return (
+    <>
+    {/* start navbar  */}
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <div className="container">
-{/* <<<<<<< Updated upstream */}
-       {/* <Link to="/"><img src={logo} className="img-fluid imgl2" alt="Company Logo" /></Link>  */}
-{/* ======= */}
         {/* Logo */}
-        <img src={logo} className="img-fluid navbar-logo" alt="Company Logo" />
+       <a href="/"> <img src={logo} className="img-fluid navbar-logo" alt="Company Logo" /></a>
 
-        {/* Hamburger Menu for Mobile */}
-{/* >>>>>>> Stashed changes */}
         <button
           className="navbar-toggler"
           type="button"
@@ -68,8 +65,9 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+    {/* end navbar  */}
 
-
+</>
 
   );
 };

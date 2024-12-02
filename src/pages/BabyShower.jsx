@@ -50,7 +50,7 @@ function BabyShower() {
   return (
     <>
       {/* Baby Shower Invitation Video Section */}
-      <div className="wedding">
+      <div className="babyshower">
         <section className="py-5">
           <div className="container text-center px-5">
             <h2 className="mb-5">Baby Shower Invitation Video</h2>
@@ -68,7 +68,7 @@ function BabyShower() {
                       style={{ width: "100%", height: "200px", borderRadius: "10px" }}
                     ></iframe>
                   </div>
-                  <div className="card-body my-3">
+                  <div className="card-body w-25 mx-auto my-3">
                     <button
                       className="btn"
                       onClick={() => handlePaymentClick(video.price)}

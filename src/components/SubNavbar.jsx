@@ -16,6 +16,8 @@ const SubNavbar = () => {
     };
 
     return (
+        <>
+        {/* start navbar  */}
         <nav className="navbar navbar-expand-lg navbar-light bg-subnav border-bottom">
             <div className="container">
                 <div className="collapse navbar-collapse" id="subNavbar">
@@ -24,7 +26,7 @@ const SubNavbar = () => {
                         <li className="nav-item">
                             <Link
                                 className={`nav-link text-light ${isEmailClicked ? "underline" : ""}`}
-                                to="/wedding/themes"
+                                to="mailto:thevideolens@gmail.com "
                                 onClick={handleEmailClick}
                             >
                                 <IoIosMail /> thevideolens@gmail.com
@@ -40,13 +42,13 @@ const SubNavbar = () => {
                                 <FaFacebook />
                             </Link>
                             <Link
-                                to="/instagram"
+                                to="https://www.instagram.com/thevideolens/"
                                 className="text-light fs-5 ms-3 social-link"
                             >
                                 <FaInstagram />
                             </Link>
                             <Link
-                                to="/youtube"
+                                to="https://www.youtube.com/@thevideolens"
                                 target="_blank"
                                 className="text-light fs-5 ms-3 social-link"
                             >
@@ -64,6 +66,7 @@ const SubNavbar = () => {
                 </div>
             </div>
         </nav>
+        </>
     );
 };
 

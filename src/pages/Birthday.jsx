@@ -86,7 +86,7 @@ function Birthday() {
                                         ></iframe>
 
                                     </div>
-                                    <div className="card-body my-3">
+                                    <div className="card-body w-25 mx-auto   my-3">
                                         <button
                                             className="btn"
                                             onClick={() => handlePaymentClick(video.price, `Video ${index + 1}`)}
