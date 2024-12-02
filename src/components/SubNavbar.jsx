@@ -24,7 +24,7 @@ const SubNavbar = () => {
                         <li className="nav-item">
                             <Link
                                 className={`nav-link text-light ${isEmailClicked ? "underline" : ""}`}
-                                to="mailto:thevideolens@gmail.com"
+                                to="/wedding/themes"
                                 onClick={handleEmailClick}
                             >
                                 <IoIosMail /> thevideolens@gmail.com
@@ -40,14 +40,13 @@ const SubNavbar = () => {
                                 <FaFacebook />
                             </Link>
                             <Link
-                                to="https://www.instagram.com/thevideolens/"
-                                target="_blank"
+                                to="/instagram"
                                 className="text-light fs-5 ms-3 social-link"
                             >
                                 <FaInstagram />
                             </Link>
                             <Link
-                                to="https://www.youtube.com/@thevideolens"
+                                to="/youtube"
                                 target="_blank"
                                 className="text-light fs-5 ms-3 social-link"
                             >

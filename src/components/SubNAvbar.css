@@ -1,7 +1,9 @@
 /* General styling for the navbar */
 .navbar {
     padding: 0.5rem 1rem;
+  
 }
+
 
 /* Style for the links */
 .nav-link,
@@ -17,6 +19,28 @@
 }
 
 /* Add underline on click */
+
+
+
+.bg-subnav {
+    background-color: black !important;
+}
+
+
+
+.navbar-light .navbar-nav .nav-link {
+    color: #fff;
+}
+
+.navbar-nav .social-link {
+    color: #fff;
+}
+
+.navbar-nav .social-link:hover {
+    color: #ddd; /* Change hover color if you like */
+}
+
 .underline {
-    text-decoration: underline !important;
+    text-decoration: underline;
+    transition: text-decoration 0.3s ease;
 }

@@ -16,14 +16,14 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <div className="container">
-<<<<<<< Updated upstream
-       <Link to="/"><img src={logo} className="img-fluid imgl2" alt="Company Logo" /></Link> 
-=======
+{/* <<<<<<< Updated upstream */}
+       {/* <Link to="/"><img src={logo} className="img-fluid imgl2" alt="Company Logo" /></Link>  */}
+{/* ======= */}
         {/* Logo */}
         <img src={logo} className="img-fluid navbar-logo" alt="Company Logo" />
 
         {/* Hamburger Menu for Mobile */}
->>>>>>> Stashed changes
+{/* >>>>>>> Stashed changes */}
         <button
           className="navbar-toggler"
           type="button"

@@ -15,9 +15,6 @@
   background-color: rgba(0, 0, 0, 0.2); /* Slight black overlay on hover */
 }
 
-<<<<<<< Updated upstream
-=======
-/* App background with slight black overlay */
 .App {
   background-image: linear-gradient(
       rgb(49, 47, 47), /* Very light black shade */
@@ -35,7 +32,7 @@
 
 }
 
->>>>>>> Stashed changes
+/* >>>>>>> Stashed changes */
 /* Subtle zoom and slight black effect on carousel images */
 .carousel-item img {
   /* background: linear-gradient(rgba(0.4,0.4,0.4,0.9,),rgba(0.4,0.4,0.4,0.9,)); */
@@ -55,7 +52,7 @@
   filter: brightness(0.85); /* Slightly darker shade on hover */
 }
 
-<<<<<<< Updated upstream
+/* <<<<<<< Updated upstream */
 /* end hero Carousel Section  */
 
 
@@ -82,9 +79,9 @@
   margin: auto;
 }
 
-.testimonial-card {
+.testimonial-card {}
   
-=======
+/* ======= */
 /* Testimonials Section */
 /* Testimonials Section */
 /* Testimonials Section */
@@ -97,7 +94,7 @@
 }
 
 .testimonial-card {
->>>>>>> Stashed changes
+/* >>>>>>> Stashed changes */
   width: 90%;
   background: #f9f9f9;
   border-radius: 8px;
@@ -309,7 +306,7 @@ body {
 }
 
 .testimonials .para{
-  font-family: "Dancing Script", cursive;
+  /* font-family: "Dancing Script", cursive; */
   font-size: 25px;
 }
 
