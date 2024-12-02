@@ -49,9 +49,6 @@
 .card-body .btn:hover {
   background-color: #00b38c;
 }
-
-
-
 /* start Testimonials  */
 
 /* Testimonials with a slight black overlay */
@@ -201,7 +198,19 @@ body {
   font-size: 25px;
 
 }
+
+.herovideo h2{
+  font-family: "Roboto", serif;
+}
+
 .testimonials .para{
   font-family: "Dancing Script", cursive;
   font-size: 25px;
 }
+
+.testimonials h2{
+  font-size: 30px;
+  font-family: "Roboto", serif;
+}
+
+

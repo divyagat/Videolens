@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import "../pages/Home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+// import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
+
+// import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
+// import "swiper/css/pagination";
 import "swiper/css/bundle";
+import { Swiper, SwiperSlide } from 'swiper/react';
+// import 'swiper/swiper-bundle.min.css';
+
 
 import img1 from "../assets/Screenshot-2024-03-26-130512 (1).png";
 import img2 from "../assets/Screenshot-2024-03-26-130611.png";
@@ -13,6 +20,7 @@ import img3 from "../assets/Screenshot-2024-03-26-130827.png";
 import img4 from "../assets/Screenshot-2024-03-26-131023 (1).png";
 
 const Home = () => {
+
   const testimonials = [
     {
       name: "Komal Patil",
@@ -34,13 +42,6 @@ const Home = () => {
       feedback:
         "I had ordered a video invitation for my child's birthday from Video Lens and had a great experience. The video was created beautifully and attractively and I was very happy with it.",
       image: "src/assets/w4.jpg",
-    },
-    {
-      name: "Shruti Sharma",
-      profession: "IT Professional",
-      feedback:
-        "I had ordered a video invitation for my child's birthday from Video Lens and had a great experience. The video was created beautifully and attractively and I was very happy with it.",
-      image: "https://via.placeholder.com/50",
     },
   ];
 
@@ -72,10 +73,10 @@ const Home = () => {
   };
 
   const openPopup = (url) => {
-    const width = 500;
-    const height = 700;
-    const left = (window.innerWidth - width) / 2;
-    const top = (window.innerHeight - height) / 2;
+    const width = window.innerWidth; // Open in full width
+    const height = window.innerHeight; // Open in full height
+    const left = 0;
+    const top = 0;
     window.open(
       url,
       "Cashfree Payment",
@@ -84,7 +85,7 @@ const Home = () => {
   };
 
   const handleCashify = (video) => {
-    const cashifyUrl = `https://payments.cashfree.com/forms/we1001?amount=${video.price}`;
+    const cashifyUrl = `https://payments.cashfree.com/forms/we1006?amount=${video.price}`;
     openPopup(cashifyUrl);
   };
 
@@ -120,13 +121,12 @@ const Home = () => {
         </div>
       </div>
 
-
       {/* Videos Section */}
       <div className="herovideo">
         <section>
           <div className="container text-center px-5">
             <p className="text-success">Create your happy moments with us</p>
-            <h2 className="mb-5">Wedding Invitation Videos</h2>
+            <h2 className="mb-5">Discover the most creative videos</h2>
             <div className="row g-3">
               {currentVideos.map((video, index) => (
                 <div className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4" key={index}>
@@ -153,10 +153,9 @@ const Home = () => {
               ))}
             </div>
 
-
             {/* Pagination */}
-            <nav aria-label="Video Pagination">
-              <ul className="pagination justify-content-center">
+            <nav aria-label="">
+              <ul className="pagination justify-content-end mt-3">
                 <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
                   <button
                     className="page-link"
@@ -191,23 +190,28 @@ const Home = () => {
           </div>
         </section>
       </div>
-
-
-
       {/* start Testimonials Section */}
 
-      <section className="testimonials ">
+      <section className="testimonials">
         <p className="text-center hed text-success para">Testimonials</p>
         <h2 className="text-center mb-5">What Our Happy Clients Say</h2>
+
         <Swiper
           spaceBetween={30}
           slidesPerView={1}  // Show 1 slide by default
-          pagination={{ clickable: true }} // Enables pagination
-          autoplay={{ delay: 3000, disableOnInteraction: false }} // Autoplay setup
+          pagination={{
+            clickable: true, // Enables pagination
+            type: 'bullets', // Ensures dots appear as bullets
+            el: '.swiper-pagination', // Defines the element where pagination will show
+          }}
+          autoplay={{
+            delay: 3000, // Automatically move to the next slide every 3 seconds
+            disableOnInteraction: false, // Ensure autoplay does not stop after user interaction
+          }}
           loop={true} // Enables continuous sliding
           breakpoints={{
-            640: { slidesPerView: 1 }, // 1 slide for small screens (sm)
-            1024: { slidesPerView: 2 }, // 2 slides for larger screens (md and above)
+            640: { slidesPerView: 1 }, // 1 slide for small screens
+            1024: { slidesPerView: 2 }, // 2 slides for larger screens
           }}
         >
           {testimonials.map((testimonial, index) => (
@@ -224,9 +228,16 @@ const Home = () => {
               </div>
             </SwiperSlide>
           ))}
+
+          {/* Add Swiper pagination dots manually if needed */}
+          <div className="swiper-pagination"></div>
         </Swiper>
+
       </section>
+
       {/* end Testimonials Section */}
+
+
     </>
   );
 };
