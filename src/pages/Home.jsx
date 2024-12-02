@@ -109,7 +109,7 @@ const Home = () => {
                     <img src={image} className="d-block w-100 zoom-effect" alt={`Slide ${index + 1}`} />
                     <div className="dark-overlay"></div>
                     <div className="carousel-caption position-absolute w-100 top-50 start-50 translate-middle">
-                      <h2>Create Your Happy Memories With Us</h2>
+                      <h1 className="fw-bold">Create Your Happy Memories With Us</h1>
                       <p>Discover Most Premium & Modern Video Invitations</p>
                     </div>
                   </div>
