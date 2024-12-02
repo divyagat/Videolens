@@ -110,7 +110,7 @@ const Home = () => {
                     <img src={image} className="d-block w-100 zoom-effect" alt={`Slide ${index + 1}`} />
                     <div className="dark-overlay"></div>
                     <div className="carousel-caption position-absolute w-100 top-50 start-50 translate-middle">
-                      <h2>Create Your Happy Memories With Us</h2>
+                      <h1 className="fw-bold">Create Your Happy Memories With Us</h1>
                       <p>Discover Most Premium & Modern Video Invitations</p>
                     </div>
                   </div>
@@ -126,7 +126,11 @@ const Home = () => {
         <section>
           <div className="container text-center px-5">
             <p className="text-success">Create your happy moments with us</p>
+<<<<<<< HEAD
             <h2 className="mb-5">Discover the most creative videos</h2>
+=======
+            <h2 className="mb-5 fs-1" style={{fontWeight:"500"}}>Discover the most creative videos</h2>
+>>>>>>> 38a5babdfb073f1f4d81f717ba466198f0df47bc
             <div className="row g-3">
               {currentVideos.map((video, index) => (
                 <div className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4" key={index}>

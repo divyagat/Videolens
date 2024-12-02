@@ -6,8 +6,8 @@ import "./Contact.css"; // Add your CSS file
 
 const Contact = () => {
     return (
-        <div className="container my-5">
-            <p className="text-center fs-5 text-dark">Contact Us</p>
+        <div className="container my-5" id="contact">
+            <p className="text-center fs-5 text-dark dadu">Contact Us</p>
             <h1 className="text-center mb-3">Get In Touch</h1>
             <div className="row">
                 {/* Left Section - Contact Details */}
