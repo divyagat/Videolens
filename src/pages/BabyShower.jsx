@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+<<<<<<< Updated upstream
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../pages/Babyshower.css';
+=======
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "./Babyshower.css";
+>>>>>>> Stashed changes
 
 function BabyShower() {
   const [formData, setFormData] = useState({
     name: "",
+<<<<<<< Updated upstream
     age: "",
     time: "",
+=======
+    time: "",
+    age: "",
+>>>>>>> Stashed changes
     venue: "",
     date: "",
     message: "",
@@ -30,6 +40,10 @@ function BabyShower() {
     alert("Form submitted!");
   };
 
+<<<<<<< Updated upstream
+=======
+  // Video data with prices
+>>>>>>> Stashed changes
   const videos = [
     { url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk", price: 500 },
     { url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6", price: 800 },
@@ -48,7 +62,11 @@ function BabyShower() {
 
   return (
     <>
+<<<<<<< Updated upstream
       {/* Video Section */}
+=======
+      {/* Baby Shower Invitation Section */}
+>>>>>>> Stashed changes
       <div className="wedding">
         <section className="py-5">
           <div className="container text-center px-5">
@@ -112,6 +130,7 @@ function BabyShower() {
         </div>
       </div>
 
+<<<<<<< Updated upstream
       {/* Instructions Section */}
       <div className="container-fluid px-5 my-5 text-white bg-dark py-5">
         <div className="row">
@@ -151,11 +170,50 @@ function BabyShower() {
               </div>
             </div>
           </div>
+=======
+      {/* Steps Section */}
+      <div className="container-fluid px-5 my-5 text-white bg-dark py-5">
+        <div className="row">
+          {[
+            {
+              icon: "film",
+              title: "Select Video Template",
+              description: "Select a video template from a wide range of templates",
+            },
+            {
+              icon: "tag",
+              title: "Place Your Order",
+              description: "Place an order for the selected video invitation template",
+            },
+            {
+              icon: "envelope",
+              title: "Send Your Details",
+              description: "Send your required details and photos for the video",
+            },
+            {
+              icon: "whatsapp",
+              title: "Get Your Video",
+              description:
+                "We will edit your video and deliver it via WhatsApp or Telegram within 24 to 48 hours.",
+            },
+          ].map((step, index) => (
+            <div className="col-md-3" key={index}>
+              <div className="d-flex align-items-center">
+                <i className={`bi bi-${step.icon} me-3`} style={{ fontSize: "2rem" }}></i>
+                <div>
+                  <h5>{step.title}</h5>
+                  <p className="mb-0">{step.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+>>>>>>> Stashed changes
         </div>
       </div>
 
       {/* Form Section */}
       <div className="container my-5">
+<<<<<<< Updated upstream
         <div className="row p-5 birth">
           <div className="col-12 text-center pb-5">
             <h2>Send Details</h2>
@@ -194,6 +252,86 @@ function BabyShower() {
             <button onClick={handleSubmit}>Submit</button>
           </div>
         </div>
+=======
+        <h2 className="text-center mb-4">Send Details</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="row p-5 birth">
+            <div className="col-3">
+              <label>Birthday Person Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="form-control"
+              />
+              <label className="mt-4">Event Time</label>
+              <input
+                type="text"
+                name="time"
+                value={formData.time}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </div>
+            <div className="col-3">
+              <label>Birthday Age</label>
+              <input
+                type="text"
+                name="age"
+                value={formData.age}
+                onChange={handleChange}
+                className="form-control"
+              />
+              <label className="mt-4">Event Venue</label>
+              <input
+                type="text"
+                name="venue"
+                value={formData.venue}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </div>
+            <div className="col-3">
+              <label>Event Date</label>
+              <input
+                type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                className="form-control"
+              />
+              <label className="mt-4">Message</label>
+              <input
+                type="text"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </div>
+            <div className="col-3">
+              <label htmlFor="photos" className="form-label">
+                Photos
+              </label>
+              <input
+                type="file"
+                className="form-control py-3"
+                id="photos"
+                name="photos"
+                multiple
+                onChange={handleFileChange}
+              />
+              <small className="text-muted">You can upload up to 3 files.</small>
+            </div>
+            <div className="col-3 mt-4">
+              <button className="btn btn-primary" type="submit">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+>>>>>>> Stashed changes
       </div>
     </>
   );

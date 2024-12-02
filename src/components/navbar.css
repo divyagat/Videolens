@@ -1,26 +1,37 @@
-.imgl2 {
-    width: 190px;
-    height: auto;
-  }
-
-  
-  
-  .nav-link {
-    font-weight: bold;
-  }
-  
-  .navbar {
-    background-color: #343a40; /* Dark background */
-  }
-  
-  .navbar .text-light {
-    font-size: 14px;
-  }
-  .nav-link.active {
-  font-weight: bold;
-  color: #007bff !important;
+/* Navbar Styles */
+.navbar {
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
 }
-.phonenum{
-  font-weight: bold;
-  color: black;
+
+.navbar-logo {
+  height: 40px;
+  width: auto;
+}
+
+.navbar-nav .nav-link {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 15px;
+  transition: color 0.3s;
+}
+
+.navbar-nav .nav-link.active {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #0056b3;
+}
+
+.phonenum {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .navbar-logo {
+    height: 40px;
+  }
 }

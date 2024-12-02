@@ -1,9 +1,8 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FiPhoneCall } from "react-icons/fi";
-
-import logo from "../assets/L2.png"; // Ensure the correct path
-import "../components/Navbar.css";
+import logo from "../assets/L2.png"; // Replace with the correct path to your logo
+import "./Navbar.css"; // Ensure your CSS file path is correct
 
 const Navbar = () => {
   const navItems = [
@@ -17,7 +16,14 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <div className="container">
+<<<<<<< Updated upstream
        <Link to="/"><img src={logo} className="img-fluid imgl2" alt="Company Logo" /></Link> 
+=======
+        {/* Logo */}
+        <img src={logo} className="img-fluid navbar-logo" alt="Company Logo" />
+
+        {/* Hamburger Menu for Mobile */}
+>>>>>>> Stashed changes
         <button
           className="navbar-toggler"
           type="button"
@@ -29,10 +35,12 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
+        {/* Navbar Links */}
         <div className="collapse navbar-collapse" id="mainNavbar">
-          <ul className="navbar-nav mx-auto">
+          <ul className="navbar-nav mx-auto ">
             {navItems.map((item, index) => (
-              <li key={index} className="nav-item">
+              <li key={index} className="nav-item px-2">
                 <NavLink
                   className="nav-link text-dark"
                   to={item.path}
@@ -45,6 +53,8 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
+
+        {/* Contact Section */}
         <div className="d-flex align-items-center">
           <FiPhoneCall className="fs-5 me-2" />
           <a
