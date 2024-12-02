@@ -78,7 +78,7 @@ const Home = () => {
   };
 
   const handleCashify = (video) => {
-    const cashifyUrl = `https://payments.cashfree.com/forms/we1001?amount=${video.price}`;
+    const cashifyUrl = `https://payments.cashfree.com/forms/we1006?amount=${video.price}`;
     openPopup(cashifyUrl);
   };
 
