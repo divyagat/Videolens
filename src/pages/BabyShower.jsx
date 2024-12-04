@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Babyshower.css";
 
 function BabyShower() {
@@ -20,14 +20,46 @@ function BabyShower() {
   };
 
   const handleFileChange = (e) => {
-    const { name, files } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: files }));
+    setFormData((prevData) => ({ ...prevData, photos: e.target.files }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    alert("Form submitted!");
+    const formDataToSend = new FormData();
+
+    // Append all fields to FormData
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === "photos") {
+        Array.from(value).forEach((file) => formDataToSend.append("photos", file));
+      } else {
+        formDataToSend.append(key, value);
+      }
+    });
+
+    try {
+      const response = await fetch("http://localhost:5000/submit-form", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      if (response.ok) {
+        alert("Form submitted successfully!");
+        setFormData({
+          name: "",
+          time: "",
+          age: "",
+          venue: "",
+          date: "",
+          message: "",
+          photos: null,
+        });
+      } else {
+        alert("Failed to submit form");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error submitting form");
+    }
   };
 
   // Video data with prices
@@ -116,7 +148,7 @@ function BabyShower() {
       {/* Steps Section */}
       <div className="container-fluid px-5 my-5 text-white bg-dark py-5">
         <div className="row">
-          {[
+          {[ 
             {
               icon: "film",
               title: "Select Video Template",
@@ -135,9 +167,8 @@ function BabyShower() {
             {
               icon: "whatsapp",
               title: "Get Your Video",
-              description:
-                "We will edit your video and deliver it via WhatsApp or Telegram within 24 to 48 hours.",
-            },
+              description: "We will edit your video and deliver it via WhatsApp or Telegram within 24 to 48 hours.",
+            }
           ].map((step, index) => (
             <div className="col-md-3" key={index}>
               <div className="d-flex align-items-center">

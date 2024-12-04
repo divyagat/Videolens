@@ -4,56 +4,72 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
 
 const app = express();
-app.use(cors());
+const PORT = 5000;
+
+// Middleware
 app.use(bodyParser.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(cors());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // MongoDB Connection
-mongoose.connect("mongodb://localhost:27017/babyshower", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-mongoose.connection.once("open", () => {
-    console.log("Connected to MongoDB");
+mongoose.connect("mongodb://localhost:27017/babyshower")
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
+
+// Define schema and model
+const formDataSchema = new mongoose.Schema({
+  name: String,
+  time: String,
+  age: String,
+  venue: String,
+  date: String,
+  message: String,
+  photos: [String], // Array of photo file paths
 });
 
-// Import Model
-const Form = require("./models/Form");
+const FormData = mongoose.model("FormData", formDataSchema);
 
-// Multer for File Uploads
+// Configure multer for file uploads
 const storage = multer.diskStorage({
-    destination: "./uploads",
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    },
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
 });
+
 const upload = multer({ storage });
 
-// Create Uploads Folder if not exists
-if (!fs.existsSync('./uploads')) {
-    fs.mkdirSync('./uploads');
-}
+// Route to handle file uploads and save form data
+app.post("/submit-form", upload.array("photos", 3), async (req, res) => {
+  try {
+    const { name, time, age, venue, date, message } = req.body;
 
-// API Routes
-app.post("/submit", upload.array("photos", 3), async (req, res) => {
-    try {
-        const formData = req.body;
-        formData.photos = req.files.map(file => file.filename);
+    // Save the file paths in the database
+    const photoPaths = req.files.map((file) => `/uploads/${file.filename}`);
 
-        const form = new Form(formData);
-        await form.save();
+    const newFormData = new FormData({
+      name,
+      time,
+      age,
+      venue,
+      date,
+      message,
+      photos: photoPaths,
+    });
 
-        res.status(201).json({ message: "Form data saved successfully" });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Failed to save form data" });
-    }
+    await newFormData.save();
+    res.status(200).json({ message: "Form data saved successfully!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error saving form data" });
+  }
 });
 
-const PORT = 5000;
+// Start the server
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });

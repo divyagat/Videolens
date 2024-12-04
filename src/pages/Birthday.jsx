@@ -220,7 +220,7 @@ function Birthday() {
                             multiple
                             onChange={handleFileChange}
                         />
-                        <small className="text-muted">You hi can upload up to 3 files.</small>
+                        <small className="text-muted">You can upload up to 3 files.</small>
                     </div>
                     <div className="col-3 mt-4">
                         <button onClick={handleSubmit}>Submit</button>
