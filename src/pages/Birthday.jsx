@@ -5,38 +5,64 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../pages/Birthday.css'
 function Birthday() {
 
-    const [formData, setFormData] = useState({
+    const [birthday, setFormData] = useState({
         name: "",
-        age: "",
         time: "",
+        age: "",
         venue: "",
         date: "",
         message: "",
-    });
-    const [photos, setPhotos] = useState([]);
-
-    const handleChange = (e) => {
+        photos: null,
+      });
+    
+      const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleFileChange = (e) => {
-        if (e.target.files.length > 3) {
-            alert("You can upload up to 3 files only.");
-        } else {
-            setPhotos(Array.from(e.target.files));
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+      };
+    
+      const handleFileChange = (e) => {
+        setFormData((prevData) => ({ ...prevData, photos: e.target.files }));
+      };
+    
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formDataToSend = new FormData();
+    
+        // Append all fields to FormData
+        Object.entries(birthday).forEach(([key, value]) => {
+          if (key === "photos") {
+            Array.from(value).forEach((file) => formDataToSend.append("photos", file));
+          } else {
+            formDataToSend.append(key, value);
+          }
+        });
+    
+        try {
+          const response = await fetch("http://localhost:5000/birthday-form", {
+            method: "POST",
+            body: formDataToSend,
+          });
+    
+          if (response.ok) {
+            alert("Form submitted successfully!");
+            setFormData({
+              name: "",
+              time: "",
+              age: "",
+              venue: "",
+              date: "",
+              message: "",
+              photos: null,
+            });
+          } else {
+            alert("Failed to submit form");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error submitting form");
         }
-    };
-
-    const handleSubmit = () => {
-        // Perform validation
-        if (!formData.name || !formData.date || photos.length === 0) {
-            alert("Please fill out all required fields and upload photos.");
-            return;
-        }
-        console.log("Form Submitted", formData, photos);
-        // Submit form data to the backend (API call)
-    };
+      };
+    
 
     // Video data with prices
     const videos = [
@@ -186,48 +212,87 @@ function Birthday() {
             </div>
 
 
-           {/* (Birthday Form) */}
-            <div className="container my-5">
-                <div className="row p-5 birth">
-                    <div className="col-12 text-center pb-5">
-                        <h2>Send Details</h2>
-                    </div>
-                    <div className="col-3">
-                        <label>Birthday Person Name</label>
-                        <input type="text" name="name" value={formData.name} onChange={handleChange} />
-                        <label className="mt-4">Event Time</label>
-                        <input type="text" name="time" value={formData.time} onChange={handleChange} />
-                    </div>
-                    <div className="col-3">
-                        <label>Birthday Age</label>
-                        <input type="text" name="age" value={formData.age} onChange={handleChange} />
-                        <label className="mt-4">Event Venue</label>
-                        <input type="text" name="venue" value={formData.venue} onChange={handleChange} />
-                    </div>
-                    <div className="col-3">
-                        <label>Event Date</label>
-                        <input type="date" name="date" value={formData.date} onChange={handleChange} /><br />
-                        <label className="mt-4">Message</label>
-                        <input type="text" name="message" value={formData.message} onChange={handleChange} />
-                    </div>
-                    <div className="col-3">
-                        <label htmlFor="photos" className="form-label">Photos</label>
-                        <input
-                            type="file"
-                            className="form-control py-3"
-                            id="photos"
-                            name="photos"
-                            multiple
-                            onChange={handleFileChange}
-                        />
-                        <small className="text-muted">You can upload up to 3 files.</small>
-                    </div>
-                    <div className="col-3 mt-4">
-                        <button onClick={handleSubmit}>Submit</button>
-                    </div>
-                </div>
+           {/* Form Section */}
+      <div className="container my-5">
+        <h2 className="text-center mb-4">Send Details</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="row p-5 birth">
+            <div className="col-3">
+              <label>Birthday Person Name</label>
+              <input
+                type="text"
+                name="name"
+                value={birthday.name}
+                onChange={handleChange}
+                className="form-control"
+              />
+              <label className="mt-4">Event Time</label>
+              <input
+                type="text"
+                name="time"
+                value={birthday.time}
+                onChange={handleChange}
+                className="form-control"
+              />
             </div>
-
+            <div className="col-3">
+              <label>Birthday Age</label>
+              <input
+                type="text"
+                name="age"
+                value={birthday.age}
+                onChange={handleChange}
+                className="form-control"
+              />
+              <label className="mt-4">Event Venue</label>
+              <input
+                type="text"
+                name="venue"
+                value={birthday.venue}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </div>
+            <div className="col-3">
+              <label>Event Date</label>
+              <input
+                type="date"
+                name="date"
+                value={birthday.date}
+                onChange={handleChange}
+                className="form-control"
+              />
+              <label className="mt-4">Message</label>
+              <input
+                type="text"
+                name="message"
+                value={birthday.message}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </div>
+            <div className="col-3">
+              <label htmlFor="photos" className="form-label">
+                Photos
+              </label>
+              <input
+                type="file"
+                className="form-control py-3"
+                id="photos"
+                name="photos"
+                multiple
+                onChange={handleFileChange}
+              />
+              <small className="text-muted">You can upload up to 3 files.</small>
+            </div>
+            <div className="col-3 mt-4">
+              <button className="btn btn-primary" type="submit">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
         </>
     );
 }

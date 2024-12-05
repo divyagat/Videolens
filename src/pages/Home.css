@@ -195,11 +195,15 @@
 
 /* Button for Videos */
 .card-body .btn {
-  width: 100%;
+  width: 25%;
   padding: 10px 20px;
   border-radius: 25px;
   background-color: #61CF70;
   color: white;
+}
+
+@media screen {
+  
 }
 
 .card-body .btn:hover {
@@ -329,3 +333,6 @@ body {
 }
 
 
+.card{
+  padding: 2px;
+}
