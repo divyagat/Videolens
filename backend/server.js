@@ -18,7 +18,9 @@ mongoose.connect("mongodb://localhost:27017/babyshower")
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
-// Define schema and model
+// Define schemas and models
+
+// Baby Shower form schema
 const formDataSchema = new mongoose.Schema({
   name: String,
   time: String,
@@ -30,6 +32,16 @@ const formDataSchema = new mongoose.Schema({
 });
 
 const FormData = mongoose.model("FormData", formDataSchema);
+
+// Contact Form schema
+const contactFormSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  subject: { type: String, required: true },
+  comment: { type: String, required: true },
+});
+
+const ContactFormData = mongoose.model("ContactFormData", contactFormSchema);
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -43,7 +55,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Route to handle file uploads and save form data
+// Route to handle file uploads and save Baby Shower form data
 app.post("/submit-form", upload.array("photos", 3), async (req, res) => {
   try {
     const { name, time, age, venue, date, message } = req.body;
@@ -66,6 +78,26 @@ app.post("/submit-form", upload.array("photos", 3), async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error saving form data" });
+  }
+});
+
+// Route to handle contact form submissions
+app.post("/api/contact", async (req, res) => {
+  try {
+    const { name, email, subject, comment } = req.body;
+
+    const newContactData = new ContactFormData({
+      name,
+      email,
+      subject,
+      comment,
+    });
+
+    await newContactData.save();
+    res.status(200).json({ message: "Contact data saved successfully!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error saving contact form data" });
   }
 });
 
