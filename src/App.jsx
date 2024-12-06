@@ -12,7 +12,11 @@ import "bootstrap/dist/js/bootstrap.bundle.min"; // Optional: Bootstrap JS for f
 
 import SubNavbar from './components/SubNavbar'
 import Navbar from './components/Navbar'
+<<<<<<< Updated upstream
 import Login from './login.singup/Login'
+=======
+import Dashboard from './Dashboard/Dashboard'
+>>>>>>> Stashed changes
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,6 +27,7 @@ function App() {
       <SubNavbar/>
       <Navbar/>
          <Routes>
+         <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path='/' element={<Home/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path='/wedding' element={<Wedding/>}/>
