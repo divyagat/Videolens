@@ -12,6 +12,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min"; // Optional: Bootstrap JS for f
 
 import SubNavbar from './components/SubNavbar'
 import Navbar from './components/Navbar'
+import Login from './login.singup/Login'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -28,6 +29,7 @@ function App() {
           <Route path='/birthday' element={<Birthday/>}/>
           <Route path='/babyshower' element={<BabyShower/>}/>
           <Route path='/contact' element={<Contact/>}/>
+          <Route path='/login' element={<Login/>}/>
          </Routes>
          <Footer/>
       </BrowserRouter>
