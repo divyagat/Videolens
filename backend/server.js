@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
-<<<<<<< Updated upstream
+// <<<<<<< Updated upstream
 require("dotenv").config();  // Load environment variables from .env file
 
 // Import schema models
@@ -14,8 +14,8 @@ const birthdayData = require("./models/birthdaySchema");
 const ContactFormData = require("./models/contactSchema");
 const Wedding = require("./models/weddingSchema");
 
-=======
->>>>>>> Stashed changes
+// =======
+// >>>>>>> Stashed changes
 const app = express();
 const PORT = process.env.PORT || 5000;  // Use the port from .env file or default to 5000
 
