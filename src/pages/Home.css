@@ -196,7 +196,7 @@
 /* Button for Videos */
 .card-body .btn {
   width: 25%;
-  padding: 10px 20px;
+  /* padding: 10px 10px; */
   border-radius: 25px;
   background-color: #61CF70;
   color: white;
@@ -336,3 +336,5 @@ body {
 .card{
   padding: 2px;
 }
+
+

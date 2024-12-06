@@ -14,12 +14,12 @@
     padding: 40px 0;
   }
 
-  .card-body .btn{
-    background-color: #61CF70;
-    color: white;
-    font-weight: bold;
-    border-radius: 10px;
-    padding: 5px 18px 5px 18px;
+  .wedding .card-body .btn{
+    width: 25%;
+  padding: 10px 10px;
+  border-radius: 1px;
+  background-color: #61CF70;
+  color: white;
   }
 
   .wedding  h2{

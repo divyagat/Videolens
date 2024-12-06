@@ -100,7 +100,7 @@ function BabyShower() {
                       style={{ width: "100%", height: "200px", borderRadius: "10px" }}
                     ></iframe>
                   </div>
-                  <div className="card-body w-25 mx-auto my-3">
+                  <div className="card-body  mx-auto my-3">
                     <button
                       className="btn"
                       onClick={() => handlePaymentClick(video.price)}
