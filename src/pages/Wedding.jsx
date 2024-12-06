@@ -348,7 +348,7 @@ function WeddingForm() {
           </div>
 
           <div className="text-center">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-danger">
               Submit Details
             </button>
           </div>

@@ -286,7 +286,7 @@ function Birthday() {
               <small className="text-muted">You can upload up to 3 files.</small>
             </div>
             <div className="col-3 mt-4">
-              <button className="btn btn-primary" type="submit">
+              <button className="btn btn-danger" type="submit">
                 Submit
               </button>
             </div>
