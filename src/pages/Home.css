@@ -1,6 +1,5 @@
-/* start hero Carousel Section  */
-
-.dark-overlay {
+/* Hero Carousel Section */
+.carousel-item .dark-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -15,28 +14,9 @@
   background-color: rgba(0, 0, 0, 0.2); /* Slight black overlay on hover */
 }
 
-.App {
-  background-image: linear-gradient(
-      rgb(49, 47, 47), /* Very light black shade */
-      rgb(56, 54, 54)
-  ), 
-  url(../assets/bg-section-destination.png);
-  background-position: center;
-  background-image: 
-    linear-gradient(rgba(59, 52, 52, 0.901), rgba(32, 32, 32, 0.901)), /* Gradient overlay */
-    url(../assets/bg-section-destination.png);
-  background-size: cover;
-  width: 100%;
-  height: 100vh;
-  margin-bottom: 30px;
-
-}
-
-/* >>>>>>> Stashed changes */
-/* Subtle zoom and slight black effect on carousel images */
+/* Zoom Effect on Carousel Images */
 .carousel-item img {
-  /* background: linear-gradient(rgba(0.4,0.4,0.4,0.9,),rgba(0.4,0.4,0.4,0.9,)); */
-  height: 70vh;
+  height: 65vh;
   object-fit: cover;
   width: 100%;
   position: relative;
@@ -52,15 +32,10 @@
   filter: brightness(0.85); /* Slightly darker shade on hover */
 }
 
-/* <<<<<<< Updated upstream */
-/* end hero Carousel Section  */
-
-
 /* Button Styles */
 .herovideo .card-body .btn {
- 
   padding: 5px 20px;
-  border-radius: 10px;
+  border-radius: 7px;
   background-color: #61CF70;
   color: white;
   font-weight: bold;
@@ -69,24 +44,9 @@
 .card-body .btn:hover {
   background-color: #00b38c;
 }
-/* start Testimonials  */
 
-/* Testimonials with a slight black overlay */
-.testimonials {
-  /* text-align: center; */
-  padding: 2rem;
-  width: 85%;
-  margin: auto;
-}
-
-.testimonial-card {}
-  
-/* ======= */
-/* Testimonials Section */
-/* Testimonials Section */
 /* Testimonials Section */
 .testimonials {
-  /* text-align: center; */
   margin: auto;
   width: 85%;
   padding: 2rem;
@@ -94,7 +54,6 @@
 }
 
 .testimonial-card {
-/* >>>>>>> Stashed changes */
   width: 90%;
   background: #f9f9f9;
   border-radius: 8px;
@@ -107,28 +66,27 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-.client-info {
+.testimonials .client-info {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 15px;
 }
 
-.client-info img {
-  width: 50px;
-  height: 50px;
+.testimonials .client-info img {
   border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
 }
 
-.client-info h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  color: #444;
+.testimonials .client-info h3 {
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.client-info p {
-  margin: 0;
-  color: #666;
+.testimonials .client-info p {
+  font-size: 14px;
+  color: #555;
 }
 
 /* Swiper Navigation Buttons */
@@ -176,79 +134,67 @@
   text-align: center;
 }
 
-
-
-.testimonials .para{
-  font-family: "Dancing Script", cursive;
-  font-size: 24px;
-}
-
-/* Carousel Overlay */
-.carousel-item .dark-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-/* Button for Videos */
-.card-body .btn {
-  width: 25%;
-  /* padding: 10px 10px; */
-  border-radius: 25px;
-  background-color: #61CF70;
-  color: white;
-}
-
-@media screen {
-  
-}
-
-.card-body .btn:hover {
-  background-color: #0056b3;
-}
-
-/* Client Info Image */
-.client-info img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
 /* Modal iframe Responsiveness */
 @media (max-width: 768px) {
   .modal-dialog {
     max-width: 90%;
   }
+
+  .carousel-caption h2 {
+    font-size: 1.5rem;
+  }
+
+  .carousel-caption p {
+    font-size: 1rem;
+  }
 }
 
-
-
-/* General Styles */
-body {
-  /* font-family: 'Arial', sans-serif; */
+/* Hero Section */
+.zoom-effect {
+  transition: transform 0.3s ease;
 }
 
-/* Carousel Styles */
-.carousel-item .dark-overlay {
+.zoom-effect:hover {
+  transform: scale(1.1);
+}
+
+.dark-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: opacity 0.3s;
 }
 
-.carousel-caption h2,
-.carousel-caption p {
-  color: #fff;
+.carousel-item:hover .dark-overlay {
+  opacity: 0.7;
 }
 
+/* Hero Video Text */
+.herovideo p {
+  font-family: "Dancing Script", cursive;
+  font-size: 25px;
+}
+
+.herovideo h2 {
+  font-size: 35px;
+  font-weight: 700;
+  font-family: "Roboto", serif;
+}
 
 /* Testimonials Section */
+.testimonials h2 {
+  font-size: 35px;
+  font-weight: 700;
+  font-family: "Roboto", serif;
+}
+
+.testimonials .para {
+  font-size: 25px;
+}
+
 .testimonials .testimonial-card {
   background-color: #f9f9f9;
   padding: 20px;
@@ -256,48 +202,40 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Testimonial Client Info */
 .testimonials .client-info {
   display: flex;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .testimonials .client-info img {
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   margin-right: 15px;
 }
 
-.testimonials .client-info h3 {
+.testimonials .client-info h5 {
+  margin: 0;
   font-size: 18px;
-  font-weight: bold;
 }
 
 .testimonials .client-info p {
-  font-size: 14px;
-  color: #555;
+  margin: 0;
+  color: #777;
 }
 
-/* Zoom Effect on Carousel Images */
-.zoom-effect {
-  transition: transform 0.5s ease;
+/* Pagination Styling */
+.pagination .page-item.disabled .page-link {
+  pointer-events: none;
+  color: #ddd;
 }
 
-.zoom-effect:hover {
-  transform: scale(1.05);
+.pagination .page-item.active .page-link {
+  background-color: #28a745;
+  border-color: #28a745;
 }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .carousel-caption h2 {
-    font-size: 1.5rem;
-  }
-  .carousel-caption p {
-    font-size: 1rem;
-  }
-}
-/* end Testimonials */
 
 
 .herovideo p{
@@ -313,7 +251,7 @@ body {
 }
 
 .testimonials .para{
-  /* font-family: "Dancing Script", cursive; */
+  font-family: "Dancing Script", cursive;
   font-size: 25px;
 }
 
@@ -323,6 +261,7 @@ body {
   font-family: "Roboto", serif;
 }
 #Home h2{
+  
   font-size: 40px;
   font-weight: 700;
   font-family: "Roboto", serif;
@@ -336,5 +275,8 @@ body {
 .card{
   padding: 2px;
 }
-
+.scrollbtn{
+  margin: 0px 38px 85px 0px;
+ color: black;
+}
 

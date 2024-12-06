@@ -1,7 +1,7 @@
-// client/src/components/WeddingForm.js
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "./wedding.css"; // Include this if you are adding custom styles
 
 function WeddingForm() {
   const [formData, setFormData] = useState({
@@ -65,10 +65,18 @@ function WeddingForm() {
     { id: 7, url: "https://www.youtube.com/embed/-lD0AH5Kx3U?si=Wld4fenOOQVSv6FV", price: 600 },
     { id: 8, url: "https://www.youtube.com/embed/jPmVpEOOvUs?si=ydUQq0W-mhG_dN3J", price: 750 },
     { id: 9, url: "https://www.youtube.com/embed/L4omEdmCjjU?si=0ZSqcnqBxZPmP0US", price: 850 },
+    { id: 1, url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk", price: 500 },
+    { id: 2, url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6", price: 800 },
+    { id: 3, url: "https://www.youtube.com/embed/I79wCjSO-wQ?si=ecH502jwx4IcvQLhq4g", price: 1000 },
+    { id: 4, url: "https://www.youtube.com/embed/OetacTm0H0c?si=bcx1DKBtkgN9iDo1", price: 700 },
+    { id: 5, url: "https://www.youtube.com/embed/Yhxai8LauDY?si=cbvPdozKNXMgI9G7", price: 1200 },
+    { id: 6, url: "https://www.youtube.com/embed/PXMKVBgL6pI?si=orye25mMjMS8j1c_", price: 900 },
+    { id: 7, url: "https://www.youtube.com/embed/-lD0AH5Kx3U?si=Wld4fenOOQVSv6FV", price: 600 },
+    { id: 8, url: "https://www.youtube.com/embed/jPmVpEOOvUs?si=ydUQq0W-mhG_dN3J", price: 750 },
+    { id: 9, url: "https://www.youtube.com/embed/L4omEdmCjjU?si=0ZSqcnqBxZPmP0US", price: 850 },
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
-
   const videosPerPage = 9;
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
@@ -94,6 +102,7 @@ function WeddingForm() {
   return (
     <>
       <div className="wedding">
+        {/* Videos Section */}
         <section className="py-5 px-5">
           <div className="container text-center px-5">
             <h2 className="mb-5">Wedding Invitation Videos</h2>
@@ -111,7 +120,7 @@ function WeddingForm() {
                       style={{ width: "100%", height: "200px", borderRadius: "10px" }}
                     ></iframe>
                   </div>
-                  <div className="card-body  mx-auto my-3">
+                  <div className="card-body mx-auto my-3">
                     <button className="btn" onClick={() => handleCashify(video)}>
                       ₹ &nbsp;{video.price}
                     </button>
@@ -136,6 +145,7 @@ function WeddingForm() {
           </div>
         </section>
       </div>
+
 
       <div className="container-fluid px-5 my-5 text-white bg-dark py-5">
         <div className="row mx-5 g-5">
@@ -180,6 +190,12 @@ function WeddingForm() {
           </div>
         </div>
       </div>
+
+
+
+   
+
+    
 
       <div className="container my-5">
         <h2 className="text-center py-3">Send Wedding Details</h2>
@@ -338,6 +354,7 @@ function WeddingForm() {
           </div>
         </form>
       </div>
+ 
     </>
   );
 }

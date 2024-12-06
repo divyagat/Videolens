@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../pages/Home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,7 +13,6 @@ import img3 from "../assets/Screenshot-2024-03-26-130827.png";
 import img4 from "../assets/Screenshot-2024-03-26-131023 (1).png";
 
 const Home = () => {
-
   const testimonials = [
     {
       name: "Komal Patil",
@@ -39,8 +38,8 @@ const Home = () => {
   ];
 
   const videos = [
-    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 500 },
     { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 800 },
+    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 500 },
     { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 1000 },
     { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 700 },
     { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1200 },
@@ -53,21 +52,45 @@ const Home = () => {
     { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1300 },
     { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 1400 },
   ];
-
   const [currentPage, setCurrentPage] = useState(1);
+  const [showScrollButton, setShowScrollButton] = useState(false); // State for showing the scroll-up button
   const videosPerPage = 6;
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
   const currentVideos = videos.slice(indexOfFirstVideo, indexOfLastVideo);
   const totalPages = Math.ceil(videos.length / videosPerPage);
 
+  // Handle scroll event to show/hide the button
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) { // Show button after 200px scroll
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Scroll back to top
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const handlePaginationClick = (page) => {
     setCurrentPage(page);
   };
 
   const openPopup = (url) => {
-    const width = window.innerWidth; // Open in full width
-    const height = window.innerHeight; // Open in full height
+    const width = window.innerWidth;
+    const height = window.innerHeight;
     const left = 0;
     const top = 0;
     window.open(
@@ -85,7 +108,7 @@ const Home = () => {
   return (
     <>
       {/* Hero Carousel Section */}
-      <div className="container-fluid" id="Home">
+      <div className="container-fluid " id="Home">
         <div className="row">
           <div className="col-12">
             <div
@@ -102,7 +125,7 @@ const Home = () => {
                   >
                     <img src={image} className="d-block w-100 zoom-effect" alt={`Slide ${index + 1}`} />
                     <div className="dark-overlay"></div>
-                    <div className="carousel-caption position-absolute w-100 top-50 start-50 translate-middle">
+                    <div className="carousel-caption position-absolute w-100 mt-lg-4 top-50 start-50 translate-middle">
                       <h2>Create Your Happy Memories With Us</h2>
                       <p>Discover Most Premium & Modern Video Invitations</p>
                     </div>
@@ -115,7 +138,7 @@ const Home = () => {
       </div>
 
       {/* Videos Section */}
-      <div className="herovideo">
+      <div className="herovideo mt-3">
         <section>
           <div className="container text-center px-5">
             <p className="text-success">Create your happy moments with us</p>
@@ -184,9 +207,8 @@ const Home = () => {
         </section>
       </div>
 
-           {/* start Testimonials Section */}
-
-           <section className="testimonials ">
+      {/* Testimonials Section */}
+      <section className="testimonials ">
         <p className="text-center hed text-success para">Testimonials</p>
         <h2 className="text-center mb-5">What Our Happy Clients Say</h2>
         <Swiper
@@ -205,9 +227,11 @@ const Home = () => {
               <div className="testimonial-card mb-5">
                 <p>{testimonial.feedback}</p>
                 <div className="client-info mb-3">
+
+                  
                   <img src={testimonial.image} alt={testimonial.name} />
                   <div>
-                    <h3>{testimonial.name}</h3>
+                    <h5>{testimonial.name}</h5>
                     <p>{testimonial.profession}</p>
                   </div>
                 </div>
@@ -216,7 +240,17 @@ const Home = () => {
           ))}
         </Swiper>
       </section>
-      {/* end Testimonials Section */}
+
+      {/* Scroll to Top Button */}
+      {showScrollButton && (
+        <button
+          onClick={scrollToTop}
+          className="btn btn-danger scrollbtn position-fixed bottom-0 end-0 "
+          style={{ zIndex: 1000 }}
+        >
+          ↑
+        </button>
+      )}
     </>
   );
 };

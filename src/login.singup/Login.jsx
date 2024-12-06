@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Login.css"; // Importing the CSS file
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ username: "", password: "" });
@@ -13,26 +14,29 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Dummy authentication
-    if (credentials.username === "admin" && credentials.password === "password") {
-      navigate("/dashboard");
+    // Check if the username/email and password match
+    if (credentials.username === "pushkar" && credentials.password === "pushkar3011") {
+      // Store login state and username/email in localStorage
+      localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("username", credentials.username);
+      navigate("/dashboard"); // Navigate to the Dashboard
     } else {
       setError("Invalid username or password");
     }
   };
 
   return (
-    <div style={styles.container}>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <h2 style={styles.title}>Login</h2>
-        {error && <p style={styles.error}>{error}</p>}
+    <div className="login-container d-flex justify-content-center align-items-center">
+      <form className="login-form px-4" onSubmit={handleSubmit}>
+        <h2 className="login-title mb-4">Login</h2>
+        {error && <p className="login-error">{error}</p>}
         <input
           type="text"
           name="username"
-          placeholder="Username or Email"
+          placeholder="Username"
           value={credentials.username}
           onChange={handleChange}
-          style={styles.input}
+          className="form-control login-input my-4"
         />
         <input
           type="password"
@@ -40,68 +44,14 @@ const Login = () => {
           placeholder="Password"
           value={credentials.password}
           onChange={handleChange}
-          style={styles.input}
+          className="form-control login-input"
         />
-        <button type="submit" style={styles.button}>
+        <button type="submit" className="btn text-white mt-3 w-25 border login-button">
           Login
         </button>
       </form>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    background: "linear-gradient(135deg, #2c3e50, #4ca1af)", // Background gradient
-  },
-  form: {
-    width: "30%",
-    padding: "20px",
-    borderRadius: "10px",
-    backdropFilter: "blur(10px)", // Glass effect
-    background: "rgba(0, 0, 0, 0.5)", // Black translucent background
-    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.8)", // Deep shadow
-    textAlign: "center",
-    color: "#fff", // White text for contrast
-    border: "1px solid rgba(255, 255, 255, 0.2)", // Subtle border
-  },
-  title: {
-    marginBottom: "20px",
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  error: {
-    color: "red",
-    marginBottom: "10px",
-  },
-  input: {
-    width: "90%",
-    padding: "10px",
-    marginBottom: "15px",
-    borderRadius: "5px",
-    border: "none",
-    outline: "none",
-    backgroundColor: "rgba(255, 255, 255, 0.1)", // Slight transparency for inputs
-    color: "#fff",
-    fontSize: "16px",
-    boxShadow: "0 2px 4px rgba(255, 255, 255, 0.2)", // Subtle shadow
-  },
-  button: {
-    width: "90%",
-    padding: "10px",
-    borderRadius: "5px",
-    border: "none",
-    backgroundColor: "#4ca1af",
-    color: "#fff",
-    fontSize: "16px",
-    fontWeight: "bold",
-    cursor: "pointer",
-    transition: "all 0.3s ease",
-  },
 };
 
 export default Login;

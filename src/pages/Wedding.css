@@ -1,27 +1,22 @@
 .card {
-    border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* background-color:none; */
-    border-radius: 30px;
-  }
-  .bg-primary {
-    /* background-color: #2a2a72 !important; */
-  }
-  .btn-success {
-    font-size: 16px;
-  }
-  section {
-    padding: 40px 0;
-  }
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-  .wedding .card-body .btn{
-    width: 25%;
-  padding: 10px 10px;
-  border-radius: 1px;
-  background-color: #61CF70;
-  color: white;
-  }
+.card-body {
+  text-align: center;
+}
 
-  .wedding  h2{
-    color: #1B247A;
-  }
+.btn {
+  background-color: #28a745;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #28a745;
+}
+
+.wedding .pagination .page-link {
+  color: #28a745;
+}
