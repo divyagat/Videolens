@@ -19,14 +19,14 @@ const Login = () => {
       // Store login state and username/email in localStorage
       localStorage.setItem("isAuthenticated", "true");
       localStorage.setItem("username", credentials.username);
-      navigate("/dashboard"); // Navigate to the Dashboard
+      navigate("/dashboard"); // Navigate to the Dashboard after successful login
     } else {
       setError("Invalid username or password");
     }
   };
 
   return (
-    <div className="login-container d-flex justify-content-center align-items-center">
+    <div className="login-container d-flex justify-content-center mb-5 align-items-center">
       <form className="login-form px-4" onSubmit={handleSubmit}>
         <h2 className="login-title mb-4">Login</h2>
         {error && <p className="login-error">{error}</p>}

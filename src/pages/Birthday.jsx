@@ -217,7 +217,7 @@ function Birthday() {
         <h2 className="text-center mb-4">Send Details</h2>
         <form onSubmit={handleSubmit}>
           <div className="row p-5 birth">
-            <div className="col-3">
+            <div className="col-12 col-lg-3">
               <label>Birthday Person Name</label>
               <input
                 type="text"
@@ -235,7 +235,7 @@ function Birthday() {
                 className="form-control"
               />
             </div>
-            <div className="col-3">
+            <div className="col-12 col-lg-3">
               <label>Birthday Age</label>
               <input
                 type="text"
@@ -253,7 +253,7 @@ function Birthday() {
                 className="form-control"
               />
             </div>
-            <div className="col-3">
+            <div className="col-12 col-lg-3">
               <label>Event Date</label>
               <input
                 type="date"
@@ -271,7 +271,7 @@ function Birthday() {
                 className="form-control"
               />
             </div>
-            <div className="col-3">
+            <div className="col-12 col-lg-3">
               <label htmlFor="photos" className="form-label">
                 Photos
               </label>
@@ -285,7 +285,7 @@ function Birthday() {
               />
               <small className="text-muted">You can upload up to 3 files.</small>
             </div>
-            <div className="col-3 mt-4">
+            <div className="col-12 col-lg-3 mt-4">
               <button className="btn btn-danger" type="submit">
                 Submit
               </button>
