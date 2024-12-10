@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import '../Dashboard/Dashboard.css'
 
 function Dashboard() {
   const [currentComponent, setCurrentComponent] = useState("home");
@@ -106,20 +107,23 @@ function Dashboard() {
   const renderLinks = () => {
     return (
       <div>
-        <h3>Manage {currentComponent.charAt(0).toUpperCase() + currentComponent.slice(1)} Links</h3>
+        <h3>Customize {currentComponent.charAt(0).toUpperCase() + currentComponent.slice(1)} Links</h3>
         {alertMessage && <div className="alert alert-success">{alertMessage}</div>}
-        <div className="mb-3">
-          <input
-            type="text"
-            value={newLink}
-            onChange={(e) => setNewLink(e.target.value)}
-            className="form-control"
-            placeholder={`Add new ${currentComponent} link`}
-          />
-          <button className="btn btn-primary mt-2" onClick={handleAddLink}>
-            Add Link
-          </button>
+        <div className="d-flex justify-content-center align-items-center my-3">
+          <div className="input-group" style={{ maxWidth: '400px', width: '100%' }}>
+            <input
+              type="text"
+              value={newLink}
+              onChange={(e) => setNewLink(e.target.value)}
+              className="form-control"
+              placeholder={`Add new ${currentComponent} link`}
+            />
+            <button className="btn btn-primary" onClick={handleAddLink}>
+              Add Link
+            </button>
+          </div>
         </div>
+
         <table className="table table-striped">
           <thead>
             <tr>
@@ -196,7 +200,7 @@ function Dashboard() {
         style={{ minHeight: "100vh", minWidth: "250px" }}
       >
         <a href="#" className="navbar-brand ms-3 mb-4">
-          <i className="bi bi-grid-1x2"></i> My Dashboard
+          <i className="bi bi-grid-1x2" ></i>  My Dashboard
         </a>
         <ul className="navbar-nav flex-column w-100">
           <li className="nav-item">
