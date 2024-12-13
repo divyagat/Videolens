@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import "../Dashboard/Dashboard.css";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 
 function Dashboard() {
   const [currentComponent, setCurrentComponent] = useState("home");
@@ -18,100 +16,172 @@ function Dashboard() {
   const [editedUrl, setEditedUrl] = useState("");
   const [loading, setLoading] = useState(true);
   const [alertMessage, setAlertMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Use navigate for redirection
 
-  // Fetch all links from the backend
+  // Fetch links for Home, BabyShower, Wedding, and Birthday
   useEffect(() => {
     const fetchLinks = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/links");
-        const categorizedLinks = response.data.reduce((acc, link) => {
-          if (!acc[link.component]) {
-            acc[link.component] = [];
-          }
-          acc[link.component].push(link);
-          return acc;
-        }, {});
-        setLinks(categorizedLinks);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching links:", error);
-        setErrorMessage("Failed to load links. Please try again.");
-        setLoading(false);
-      }
+      const babyShowerData = [
+        { id: 1, url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk", price: 500 },
+        { id: 2, url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6", price: 800 },
+        { id: 3, url: "https://www.youtube.com/embed/I79wCjSO-wQ?si=ecH502jwx4IcvQLhq4g", price: 1000 },
+      ];
+      const weddingData = [
+        { id: 1, url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", price: 600 },
+        { id: 2, url: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ", price: 900 },
+      ];
+      const birthdayData = [
+        { id: 1, url: "https://www.youtube.com/watch?v=Zn6nm-23Ilk", price: 400 },
+        { id: 2, url: "https://www.youtube.com/watch?v=X5d-TdpmPMM", price: 700 },
+      ];
+      const homeData = [
+        { id: 1, url: "https://www.example.com/link1", price: 300 },
+        { id: 2, url: "https://www.example.com/link2", price: 500 },
+      ];
+
+      setLinks({
+        babyShower: babyShowerData,
+        wedding: weddingData,
+        birthday: birthdayData,
+        home: homeData,
+      });
+
+      setLoading(false);
     };
     fetchLinks();
   }, []);
 
-  // Add a new link
-  const handleAddLink = async () => {
+  // Add a new link for any section (Home, BabyShower, Wedding, Birthday)
+  const handleAddLink = () => {
     if (newLink.trim()) {
-      try {
-        const newEntry = { component: currentComponent, url: newLink, price: 0 };
-        // Optimistic UI Update
-        setLinks((prevLinks) => ({
-          ...prevLinks,
-          [currentComponent]: [...prevLinks[currentComponent], newEntry],
-        }));
-
-        const response = await axios.post("http://localhost:5000/api/links", newEntry);
-        setNewLink("");
-        showAlert("Link added successfully!");
-      } catch (error) {
-        console.error("Error adding link:", error);
-        showAlert("Failed to add link.");
-      }
+      const newId = links[currentComponent].length + 1;
+      const newEntry = { id: newId, url: newLink, price: 0 };
+      setLinks((prevLinks) => ({
+        ...prevLinks,
+        [currentComponent]: [...prevLinks[currentComponent], newEntry],
+      }));
+      setNewLink("");
+      showAlert("Link added successfully!");
     }
   };
 
-  // Save edited link
-  const handleSaveLink = async () => {
+  // Handle save after editing the link
+  const handleSaveLink = () => {
     if (editedUrl.trim()) {
-      try {
-        await axios.put(`http://localhost:5000/api/links/${editingLinkId}`, { url: editedUrl });
-        setLinks((prevLinks) => ({
-          ...prevLinks,
-          [currentComponent]: prevLinks[currentComponent].map((link) =>
-            link.id === editingLinkId ? { ...link, url: editedUrl } : link
-          ),
-        }));
-        setEditingLinkId(null);
-        setEditedUrl("");
-        showAlert("Link updated successfully!");
-      } catch (error) {
-        console.error("Error updating link:", error);
-        showAlert("Failed to update link.");
-      }
+      setLinks((prevLinks) => ({
+        ...prevLinks,
+        [currentComponent]: prevLinks[currentComponent].map((link) =>
+          link.id === editingLinkId ? { ...link, url: editedUrl } : link
+        ),
+      }));
+      setEditingLinkId(null);
+      setEditedUrl("");
+      showAlert("Link updated successfully!");
     }
+  };
+
+  // Handle edit button click
+  const handleEditLink = (id, currentUrl) => {
+    setEditingLinkId(id);
+    setEditedUrl(currentUrl);
   };
 
   // Delete a link
-  const handleDeleteLink = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/links/${id}`);
-      setLinks((prevLinks) => ({
-        ...prevLinks,
-        [currentComponent]: prevLinks[currentComponent].filter((link) => link.id !== id),
-      }));
-      showAlert("Link deleted successfully!");
-    } catch (error) {
-      console.error("Error deleting link:", error);
-      showAlert("Failed to delete link.");
-    }
+  const handleDeleteLink = (id) => {
+    setLinks((prevLinks) => ({
+      ...prevLinks,
+      [currentComponent]: prevLinks[currentComponent].filter((link) => link.id !== id),
+    }));
+    showAlert("Link deleted successfully!");
   };
 
   // Show alert messages
   const showAlert = (message) => {
     setAlertMessage(message);
-    setTimeout(() => setAlertMessage(""), 3000);
+    setTimeout(() => setAlertMessage(""), 3000); // Hide the message after 3 seconds
   };
 
-  // Show error messages
-  const showError = (message) => {
-    setErrorMessage(message);
-    setTimeout(() => setErrorMessage(""), 3000);
+  // Render links for the current section
+  const renderLinks = () => {
+    return (
+      <div>
+        <h3>Manage {currentComponent.charAt(0).toUpperCase() + currentComponent.slice(1)} Links</h3>
+        {alertMessage && <div className="alert alert-success">{alertMessage}</div>}
+        <div className="mb-3">
+          <input
+            type="text"
+            value={newLink}
+            onChange={(e) => setNewLink(e.target.value)}
+            className="form-control"
+            placeholder={`Add new ${currentComponent} link`}
+          />
+          <button className="btn btn-primary mt-2" onClick={handleAddLink}>
+            Add Link
+          </button>
+        </div>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Link</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {links[currentComponent].map((link) => (
+              <tr key={link.id}>
+                <td>{link.id}</td>
+                <td>
+                  {editingLinkId === link.id ? (
+                    <input
+                      type="text"
+                      value={editedUrl}
+                      className="form-control"
+                      onChange={(e) => setEditedUrl(e.target.value)}
+                    />
+                  ) : (
+                    <a href={link.url} target="_blank" rel="noopener noreferrer">
+                      {link.url}
+                    </a>
+                  )}
+                </td>
+                <td>
+                  {editingLinkId === link.id ? (
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={handleSaveLink}
+                    >
+                      Save
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-warning btn-sm"
+                      onClick={() => handleEditLink(link.id, link.url)}
+                    >
+                      Edit
+                    </button>
+                  )}
+                  <button
+                    className="btn btn-danger btn-sm ms-2"
+                    onClick={() => handleDeleteLink(link.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  };
+
+  // Logout function
+  const handleLogout = () => {
+    // Clear any session data or reset state
+    // Redirect to the home page
+    navigate("/"); // This assumes you have a route for the home page
   };
 
   if (loading) {
@@ -121,98 +191,58 @@ function Dashboard() {
   return (
     <div className="d-flex">
       {/* Sidebar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark flex-column align-items-start" style={{ minHeight: "100vh", minWidth: "250px" }}>
+      <nav
+        className="navbar navbar-expand-lg navbar-dark bg-dark flex-column align-items-start"
+        style={{ minHeight: "100vh", minWidth: "250px" }}
+      >
         <a href="#" className="navbar-brand ms-3 mb-4">
           <i className="bi bi-grid-1x2"></i> My Dashboard
         </a>
         <ul className="navbar-nav flex-column w-100">
-          {["home", "babyShower", "wedding", "birthday"].map((category) => (
-            <li key={category} className="nav-item">
-              <button
-                className={`nav-link btn w-100 text-start ${currentComponent === category ? "active" : ""}`}
-                onClick={() => setCurrentComponent(category)}
-              >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </button>
-            </li>
-          ))}
+          <li className="nav-item">
+            <button
+              className={`nav-link btn w-100 text-start ${currentComponent === "home" ? "active" : ""}`}
+              onClick={() => setCurrentComponent("home")}
+            >
+              <i className="bi bi-house me-2"></i> Home
+            </button>
+          </li>
+          <li className="nav-item">
+            <button
+              className={`nav-link btn w-100 text-start ${currentComponent === "babyShower" ? "active" : ""}`}
+              onClick={() => setCurrentComponent("babyShower")}
+            >
+              <i className="bi bi-person-badge me-2"></i> BabyShower
+            </button>
+          </li>
+          <li className="nav-item">
+            <button
+              className={`nav-link btn w-100 text-start ${currentComponent === "wedding" ? "active" : ""}`}
+              onClick={() => setCurrentComponent("wedding")}
+            >
+              <i className="bi bi-heart me-2"></i> Wedding
+            </button>
+          </li>
+          <li className="nav-item">
+            <button
+              className={`nav-link btn w-100 text-start ${currentComponent === "birthday" ? "active" : ""}`}
+              onClick={() => setCurrentComponent("birthday")}
+            >
+              <i className="bi bi-balloon me-2"></i> Birthday
+            </button>
+          </li>
         </ul>
-        <button className="btn btn-danger mt-auto w-100" onClick={() => navigate("/")}>
+        <button
+          className="btn btn-danger mt-auto w-100"
+          onClick={handleLogout}
+        >
           Logout
         </button>
       </nav>
 
       {/* Main Content */}
       <div className="flex-grow-1 p-4">
-        <div>
-          <h3>{`Customize ${currentComponent.charAt(0).toUpperCase() + currentComponent.slice(1)} Links`}</h3>
-          {alertMessage && <div className="alert alert-success">{alertMessage}</div>}
-          {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-
-          <div className="input-group my-3">
-            <input
-              type="text"
-              value={newLink}
-              onChange={(e) => setNewLink(e.target.value)}
-              className="form-control"
-              placeholder={`Add new ${currentComponent} link`}
-            />
-            <button className="btn btn-primary" onClick={handleAddLink}>
-              Add Link
-            </button>
-          </div>
-
-          <div>
-            {links[currentComponent].map((link) => (
-              <div key={link.id} className="d-flex justify-content-between align-items-center">
-                <a href={link.url} target="_blank" rel="noopener noreferrer">{link.url}</a>
-                <button
-                  className="btn btn-info ms-2"
-                  onClick={() => {
-                    setEditingLinkId(link.id);
-                    setEditedUrl(link.url);
-                  }}
-                >
-                  Edit
-                </button>
-                <button className="btn btn-danger ms-2" onClick={() => handleDeleteLink(link.id)}>
-                  Delete
-                </button>
-              </div>
-            ))}
-          </div>
-
-          {/* Edit Modal */}
-          {editingLinkId && (
-            <div className="modal show" style={{ display: "block" }} tabIndex="-1" aria-hidden="true">
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title">Edit Link</h5>
-                    <button type="button" className="btn-close" onClick={() => setEditingLinkId(null)}></button>
-                  </div>
-                  <div className="modal-body">
-                    <input
-                      type="text"
-                      value={editedUrl}
-                      onChange={(e) => setEditedUrl(e.target.value)}
-                      className="form-control"
-                      placeholder="Enter new URL"
-                    />
-                  </div>
-                  <div className="modal-footer">
-                    <button className="btn btn-secondary" onClick={() => setEditingLinkId(null)}>
-                      Close
-                    </button>
-                    <button className="btn btn-primary" onClick={handleSaveLink}>
-                      Save changes
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+        {renderLinks()}
       </div>
     </div>
   );
