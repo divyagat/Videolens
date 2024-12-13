@@ -14,6 +14,7 @@ function Dashboard() {
     birthday: [],
   });
   const [newLink, setNewLink] = useState("");
+  const [newYouTubeLink, setNewYouTubeLink] = useState("");
   const [editingLinkId, setEditingLinkId] = useState(null);
   const [editedUrl, setEditedUrl] = useState("");
   const [loading, setLoading] = useState(true);
@@ -22,11 +23,11 @@ function Dashboard() {
 
   const navigate = useNavigate();
 
-  // Fetch all links from the backend
+  // Fetch all links for the current component/category
   useEffect(() => {
     const fetchLinks = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/links");
+        const response = await axios.get(`http://localhost:5000/api/links/${currentComponent}`);
         const categorizedLinks = response.data.reduce((acc, link) => {
           if (!acc[link.component]) {
             acc[link.component] = [];
@@ -43,25 +44,42 @@ function Dashboard() {
       }
     };
     fetchLinks();
-  }, []);
+  }, [currentComponent]);
 
   // Add a new link
   const handleAddLink = async () => {
     if (newLink.trim()) {
       try {
         const newEntry = { component: currentComponent, url: newLink, price: 0 };
-        // Optimistic UI Update
         setLinks((prevLinks) => ({
           ...prevLinks,
           [currentComponent]: [...prevLinks[currentComponent], newEntry],
         }));
-
-        const response = await axios.post("http://localhost:5000/api/links", newEntry);
+        await axios.post("http://localhost:5000/api/links", newEntry);
         setNewLink("");
         showAlert("Link added successfully!");
       } catch (error) {
         console.error("Error adding link:", error);
         showAlert("Failed to add link.");
+      }
+    }
+  };
+
+  // Add a new YouTube link
+  const handleAddYouTubeLink = async () => {
+    if (newYouTubeLink.trim()) {
+      try {
+        const newEntry = { component: currentComponent, url: newYouTubeLink, type: "youtube" };
+        setLinks((prevLinks) => ({
+          ...prevLinks,
+          [currentComponent]: [...prevLinks[currentComponent], newEntry],
+        }));
+        await axios.post("http://localhost:5000/api/links", newEntry);
+        setNewYouTubeLink("");
+        showAlert("YouTube link added successfully!");
+      } catch (error) {
+        console.error("Error adding YouTube link:", error);
+        showAlert("Failed to add YouTube link.");
       }
     }
   };
@@ -106,12 +124,6 @@ function Dashboard() {
   const showAlert = (message) => {
     setAlertMessage(message);
     setTimeout(() => setAlertMessage(""), 3000);
-  };
-
-  // Show error messages
-  const showError = (message) => {
-    setErrorMessage(message);
-    setTimeout(() => setErrorMessage(""), 3000);
   };
 
   if (loading) {
@@ -162,56 +174,40 @@ function Dashboard() {
             </button>
           </div>
 
+         
+
           <div>
             {links[currentComponent].map((link) => (
-              <div key={link.id} className="d-flex justify-content-between align-items-center">
-                <a href={link.url} target="_blank" rel="noopener noreferrer">{link.url}</a>
+              <div key={link._id} className="d-flex justify-content-between align-items-center">
+                {link.type === "youtube" ? (
+                  <iframe
+                    width="200"
+                    height="100"
+                    src={link.url.replace("watch?v=", "embed/")}
+                    title="YouTube Video"
+                    frameBorder="0"
+                    allowFullScreen
+                  ></iframe>
+                ) : (
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">
+                    {link.url}
+                  </a>
+                )}
                 <button
                   className="btn btn-info ms-2"
                   onClick={() => {
-                    setEditingLinkId(link.id);
+                    setEditingLinkId(link._id);
                     setEditedUrl(link.url);
                   }}
                 >
                   Edit
                 </button>
-                <button className="btn btn-danger ms-2" onClick={() => handleDeleteLink(link.id)}>
+                <button className="btn btn-danger ms-2" onClick={() => handleDeleteLink(link._id)}>
                   Delete
                 </button>
               </div>
             ))}
           </div>
-
-          {/* Edit Modal */}
-          {editingLinkId && (
-            <div className="modal show" style={{ display: "block" }} tabIndex="-1" aria-hidden="true">
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title">Edit Link</h5>
-                    <button type="button" className="btn-close" onClick={() => setEditingLinkId(null)}></button>
-                  </div>
-                  <div className="modal-body">
-                    <input
-                      type="text"
-                      value={editedUrl}
-                      onChange={(e) => setEditedUrl(e.target.value)}
-                      className="form-control"
-                      placeholder="Enter new URL"
-                    />
-                  </div>
-                  <div className="modal-footer">
-                    <button className="btn btn-secondary" onClick={() => setEditingLinkId(null)}>
-                      Close
-                    </button>
-                    <button className="btn btn-primary" onClick={handleSaveLink}>
-                      Save changes
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
