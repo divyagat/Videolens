@@ -6,4 +6,20 @@ body {
   .nav-link {
     cursor: pointer;
   }
+  .input-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-group .form-control {
+    flex: 1; /* Allows the input to take most of the space */
+    border-radius: 0; /* Ensures smooth alignment with the button */
+  }
+  
+  .input-group .btn {
+    margin-left: -1px; /* Prevents gap between input and button */
+    border-radius: 0; /* Matches the input border radius */
+    
+  }
+  
   
