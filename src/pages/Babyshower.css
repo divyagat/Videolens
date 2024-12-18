@@ -1,5 +1,7 @@
 
-  
+.babyshower h2{
+  font-weight: bold;
+}
 .babyshower p{
 /* >>>>>>> Stashed changes */
     color: #d3d3d3; /* Light gray for text */
@@ -12,4 +14,6 @@
   .babyshower .card-body .btn{
     background-color: #28a745;
   }
-  
+  .babyshower{
+    background-color: #F2FAFA;
+  }

@@ -1,6 +1,15 @@
-.birth{
-    width: 80%;
-    margin: auto;
-    padding: 10px;
-    box-shadow: 1px 2px 9px rgb(240, 237, 237);
+.birthday{
+   background-color: #F2FAFA;
 }
+.birthday .btn {
+    background-color: #28a745;
+    color: #fff;
+    font-weight: bold;
+  }
+.birthday h2{
+    font-weight: bold;
+  }
+  .vediosection{
+    background-color: #1D1D3F;
+   
+  }

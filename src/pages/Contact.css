@@ -1,10 +1,50 @@
+/* Container width adjustments */
+#contact {
+  width: 70%; /* Set 70% width for large screens */
+  max-width: 100%; /* Ensure it doesn’t exceed the screen width */
+  margin: auto;
+  box-shadow: 1px 2px 9px rgb(231, 230, 230);
+  padding: 20px;
+}
+#contact h2{
+  font-weight: bold;
+  font-size: 40px;
+}
+#contact h4{
+  font-weight: bold;
+}
+/* Submit button adjustments */
+#contact .btn {
+  width: 30%; /* Default button width */
+  max-width: 120px; /* Limit button size for large screens */
+
+  display: block; /* Center the button */
+}
+#contact .conp{
+  font-family: "Dancing Script", cursive;
+  font-size: 30px;
+  font-weight: 800;
+  font-style: italic;
+
+}
+
+@media (max-width: 768px) {
+  #contact {
+    width: 90%; /* Expand to 90% for small screens */
+    padding: 15px;
+  }
+
+  #contact .btn {
+    width: 100%; /* Make button full width for small screens */
+  }
+}
 .icon-box {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
+  width: 70px;
   /* Size of the box */
-  height: 80px;
+  height: 70px;
   /* Size of the box */
   /* border: 5px solid #007bff; Border with 5px width */
   border-radius: 20%;
@@ -16,14 +56,4 @@
   color: #007bff;
   /* Icon color */
 
-}
-/* <<<<<<< Updated upstream */
-
-#contact .dadu{
-
-    font-family: "Dancing Script", serif;
-    font-optical-sizing: auto;
-    font-weight: weight;
-    font-style: normal;
- 
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Form } from 'react-router-dom';
 import Home from './pages/Home';
 import Footer from './components/Footer';
 import Wedding from './pages/Wedding';
@@ -29,6 +29,7 @@ function App() {
       )}
       
       <Routes>
+        
         <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
         <Route path='/wedding' element={<Wedding />} />
@@ -42,6 +43,7 @@ function App() {
       {/* Only show Footer on pages other than Login and Dashboard */}
       {window.location.pathname !== "/login" && window.location.pathname !== "/dashboard" && <Footer />}
     </BrowserRouter>
+  
   );
 }
 

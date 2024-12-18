@@ -38,20 +38,21 @@ const Home = () => {
   ];
 
   const videos = [
-    { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 800 },
-    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 500 },
-    { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 1000 },
-    { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 700 },
-    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1200 },
-    { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 900 },
-    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1100 },
-    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 600 },
-    { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 950 },
-    { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 750 },
-    { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 950 },
-    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1300 },
-    { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 1400 },
+    { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 1990, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 1490, paymentGateway: 1006 },
+    { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 1990, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 1490, paymentGateway: 1006 },
+    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1990, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 1490, paymentGateway: 1006 },
+    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1990, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 1490, paymentGateway: 1006 },
+    { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 1990, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 1490, paymentGateway: 1006 },
+    { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 1990, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1490, paymentGateway: 1006 },
+    { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 1990, paymentGateway: 1001 },
   ];
+
   const [currentPage, setCurrentPage] = useState(1);
   const [showScrollButton, setShowScrollButton] = useState(false); // State for showing the scroll-up button
   const videosPerPage = 6;
@@ -100,15 +101,18 @@ const Home = () => {
     );
   };
 
-  const handleCashify = (video) => {
-    const cashifyUrl = `https://payments.cashfree.com/forms/we1006?amount=${video.price}`;
-    openPopup(cashifyUrl);
+  const handlePayment = (video) => {
+    const cashfreeUrl = video.paymentGateway === 1001
+      ? `https://payments.cashfree.com/forms/we1001?amount=${video.price}`
+      : `https://payments.cashfree.com/forms/we1006?amount=${video.price}`;
+
+    openPopup(cashfreeUrl);
   };
 
   return (
     <>
       {/* Hero Carousel Section */}
-      <div className="container-fluid " id="Home">
+      <div className="container-fluid" id="Home">
         <div className="row">
           <div className="col-12">
             <div
@@ -138,9 +142,9 @@ const Home = () => {
       </div>
 
       {/* Videos Section */}
-      <div className="herovideo mt-3">
+      <div className="herovideo">
         <section>
-          <div className="container text-center px-5">
+          <div className="container text-center px-lg-5">
             <p className="text-success">Create your happy moments with us</p>
             <h2 className="mb-5">Discover the most creative videos</h2>
             <div className="row g-3">
@@ -157,10 +161,10 @@ const Home = () => {
                       style={{ width: "100%", height: "200px", borderRadius: "10px" }}
                     ></iframe>
                   </div>
-                  <div className="card-body mx-auto  my-3">
+                  <div className="card-body mx-auto my-3">
                     <button
                       className="btn"
-                      onClick={() => handleCashify(video)}
+                      onClick={() => handlePayment(video)}
                     >
                       ₹&nbsp;{video.price}
                     </button>
@@ -208,12 +212,12 @@ const Home = () => {
       </div>
 
       {/* Testimonials Section */}
-      <section className="testimonials ">
+      <section className="testimonials">
         <p className="text-center hed text-success para">Testimonials</p>
         <h2 className="text-center mb-5">What Our Happy Clients Say</h2>
         <Swiper
           spaceBetween={30}
-          slidesPerView={1}  // Show 1 slide by default
+          slidesPerView={1} // Show 1 slide by default
           pagination={{ clickable: true }} // Enables pagination
           autoplay={{ delay: 3000, disableOnInteraction: false }} // Autoplay setup
           loop={true} // Enables continuous sliding
@@ -224,11 +228,9 @@ const Home = () => {
         >
           {testimonials.map((testimonial, index) => (
             <SwiperSlide key={index}>
-              <div className="testimonial-card mb-5">
+              <div className="testimonial-card mt-4 mb-5">
                 <p>{testimonial.feedback}</p>
                 <div className="client-info mb-3">
-
-                  
                   <img src={testimonial.image} alt={testimonial.name} />
                   <div>
                     <h5>{testimonial.name}</h5>

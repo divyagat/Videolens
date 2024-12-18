@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Babyshower.css";
@@ -62,33 +62,128 @@ function BabyShower() {
     }
   };
 
+
   // Video data with prices
   const videos = [
-    { url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk", price: 500 },
-    { url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6", price: 800 },
-    { url: "https://www.youtube.com/embed/I79wCjSO-wQ?si=ecH502jwx4IcvQLhq4g", price: 1000 },
+    {
+      url: "https://www.youtube.com/embed/VCob9XHw8gQ",
+      price: 1990,
+      gateway: "1001",
+    },
+    {
+      url: "https://www.youtube.com/embed/5AXXrf-a0qI",
+      price: 1990,
+      gateway: "1001",
+    },
+    {
+      url: "https://www.youtube.com/embed/I79wCjSO-wQ",
+      price: 1490,
+      gateway: "1006",
+    },
+    {
+      url: "https://www.youtube.com/embed/OetacTm0H0c",
+      price: 1490,
+      gateway: "1006",
+    },
+    {
+      url: "https://www.youtube.com/embed/Yhxai8LauDY",
+      price: 1990,
+      gateway: "1001",
+    },
+    {
+      url: "https://www.youtube.com/embed/PXMKVBgL6pI",
+      price: 1490,
+      gateway: "1006",
+    },
+    {
+      url: "https://www.youtube.com/embed/OetacTm0H0c",
+      price: 1490,
+      gateway: "1006",
+    },
+    {
+      url: "https://www.youtube.com/embed/Yhxai8LauDY",
+      price: 1990,
+      gateway: "1001",
+    },
+    {
+      url: "https://www.youtube.com/embed/PXMKVBgL6pI",
+      price: 1490,
+      gateway: "1006",
+    },
+    {
+      url: "https://www.youtube.com/embed/OetacTm0H0c",
+      price: 1490,
+      gateway: "1006",
+    },
+    {
+      url: "https://www.youtube.com/embed/Yhxai8LauDY",
+      price: 1990,
+      gateway: "1001",
+    },
+    
   ];
 
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [paymentUrl, setPaymentUrl] = useState("");
+  const [videoTitle, setVideoTitle] = useState("");
 
-  const handlePaymentClick = (price) => {
+  const handlePaymentClick = (price, gateway) => {
     setSelectedPrice(price);
-    setPaymentUrl(`https://payments.cashfree.com/forms/we1001?amount=${price}`);
+    setVideoTitle(`Video Template`);
+    const paymentUrl =
+      gateway === "1001"
+        ? `https://payments.cashfree.com/forms/we1001?amount=${price}`
+        : `https://payments.cashfree.com/forms/we1006?amount=${price}`;
+    setPaymentUrl(paymentUrl);
+
     const modal = new bootstrap.Modal(document.getElementById("paymentModal"));
     modal.show();
   };
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+  const totalPages = Math.ceil(videos.length / itemsPerPage);
+
+  const handlePaginationClick = (page) => {
+    setCurrentPage(page);
+  };
+
+  const paginatedVideos = videos.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+   const [showScrollButton, setShowScrollButton] = useState(false);
+  // Scroll to Top functionality
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  
+    useEffect(() => {
+      const handleScroll = () => {
+        setShowScrollButton(window.scrollY > 200);
+      };
+  
+      window.addEventListener("scroll", handleScroll);
+  
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }, []);
   return (
     <>
       {/* Baby Shower Invitation Video Section */}
       <div className="babyshower">
         <section className="py-5">
-          <div className="container text-center px-5">
-            <h2 className="mb-5">Baby Shower Invitation Video</h2>
+          <div className="container text-center px-lg-5">
+            <h2 className="mb-5">Birthday Invitation Video</h2>
             <div className="row g-3">
-              {videos.map((video, index) => (
-                <div className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4" key={index}>
+              {paginatedVideos.map((video, index) => (
+                <div
+                  className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4"
+                  key={index}
+                >
                   <div className="card">
                     <iframe
                       src={video.url}
@@ -97,13 +192,19 @@ function BabyShower() {
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      style={{ width: "100%", height: "200px", borderRadius: "10px" }}
+                      style={{
+                        width: "100%",
+                        height: "200px",
+                        borderRadius: "10px",
+                      }}
                     ></iframe>
                   </div>
-                  <div className="card-body  mx-auto my-3">
+                  <div className="card-body mx-auto my-3">
                     <button
                       className="btn"
-                      onClick={() => handlePaymentClick(video.price)}
+                      onClick={() =>
+                        handlePaymentClick(video.price, video.gateway)
+                      }
                     >
                       ₹&nbsp;{video.price}
                     </button>
@@ -111,20 +212,59 @@ function BabyShower() {
                 </div>
               ))}
             </div>
+            <nav aria-label="Page navigation">
+              <ul className="pagination justify-content-end mt-4">
+                <li
+                  className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => handlePaginationClick(currentPage - 1)}
+                  >
+                    Previous
+                  </button>
+                </li>
+                {[...Array(totalPages)].map((_, index) => (
+                  <li
+                    key={index}
+                    className={`page-item ${
+                      currentPage === index + 1 ? "active" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => handlePaginationClick(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+                <li
+                  className={`page-item ${
+                    currentPage === totalPages ? "disabled" : ""
+                  }`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => handlePaginationClick(currentPage + 1)}
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
           </div>
         </section>
-
-        {/* Payment Modal */}
-        <div
-          className="modal fade"
-          id="paymentModal"
-          tabIndex="-1"
-          aria-labelledby="paymentModalLabel"
-          aria-hidden="true"
-        >
+        <div className="modal fade" id="paymentModal" tabIndex="-1">
           <div className="modal-dialog modal-fullscreen modal-dialog-centered">
-            <div className="modal-content" style={{ border: "none", boxShadow: "none" }}>
-              <div className="modal-body p-0" style={{ backgroundColor: "transparent" }}>
+            <div
+              className="modal-content"
+              style={{ border: "none", boxShadow: "none" }}
+            >
+              <div
+                className="modal-body p-0"
+                style={{ backgroundColor: "transparent" }}
+              >
                 {paymentUrl ? (
                   <iframe
                     src={paymentUrl}
@@ -134,7 +274,6 @@ function BabyShower() {
                       border: "none",
                     }}
                     title="Payment Gateway"
-                    scrolling="auto"
                   ></iframe>
                 ) : (
                   <p>Loading payment gateway...</p>
@@ -146,7 +285,7 @@ function BabyShower() {
       </div>
 
       {/* Steps Section */}
-      <div className="container-fluid px-5 my-5 text-white bg-dark py-5">
+      <div className="container-fluid px-5 mb-5 text-white  py-5 vediosection">
         <div className="row">
           {[ 
             {
@@ -170,9 +309,9 @@ function BabyShower() {
               description: "We will edit your video and deliver it via WhatsApp or Telegram within 24 to 48 hours.",
             }
           ].map((step, index) => (
-            <div className="col-md-3" key={index}>
-              <div className="d-flex align-items-center">
-                <i className={`bi bi-${step.icon} me-3`} style={{ fontSize: "2rem" }}></i>
+            <div className="col-md-3 " key={index}>
+              <div className="d-flex px-5 align-items-center">
+                <i className={`bi bi-${step.icon} me-3 mb-5`} style={{ fontSize: "2rem" }}></i>
                 <div>
                   <h5>{step.title}</h5>
                   <p className="mb-0">{step.description}</p>
@@ -184,7 +323,7 @@ function BabyShower() {
       </div>
 
       {/* Form Section */}
-      <div className="container my-5">
+      <div className="container my-5 form">
         <h2 className="text-center mb-4">Send Details</h2>
         <form onSubmit={handleSubmit}>
           <div className="row p-5 birth">
@@ -264,6 +403,17 @@ function BabyShower() {
           </div>
         </form>
       </div>
+
+      
+      {/* Scroll to Top Button */}
+      {showScrollButton && (
+        <button
+          onClick={scrollToTop}
+          className="btn btn-danger scrollbtn position-fixed bottom-0 end-0"
+        >
+          ↑
+        </button>
+      )}
     </>
   );
 }

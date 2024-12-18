@@ -92,7 +92,7 @@ function Dashboard() {
         setLinks((prevLinks) => ({
           ...prevLinks,
           [currentComponent]: prevLinks[currentComponent].map((link) =>
-            link.id === editingLinkId ? { ...link, url: editedUrl } : link
+            link._id === editingLinkId ? { ...link, url: editedUrl } : link
           ),
         }));
         setEditingLinkId(null);
@@ -108,11 +108,15 @@ function Dashboard() {
   // Delete a link
   const handleDeleteLink = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/links/${id}`);
+      // First, remove the link from the UI state
       setLinks((prevLinks) => ({
         ...prevLinks,
-        [currentComponent]: prevLinks[currentComponent].filter((link) => link.id !== id),
+        [currentComponent]: prevLinks[currentComponent].filter((link) => link._id !== id),
       }));
+      
+      // Now, delete the link from the database
+      await axios.delete(`http://localhost:5000/api/links/${id}`);
+      
       showAlert("Link deleted successfully!");
     } catch (error) {
       console.error("Error deleting link:", error);
@@ -127,13 +131,13 @@ function Dashboard() {
   };
 
   if (loading) {
-    return <div className="text-center">Loading...</div>;
+    return <div className="text-center"><div className="spinner-border" role="status"></div></div>;
   }
 
   return (
     <div className="d-flex">
       {/* Sidebar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark flex-column align-items-start" style={{ minHeight: "100vh", minWidth: "250px" }}>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark flex-column align-items-start" style={{ height: "100vh" }}>
         <a href="#" className="navbar-brand ms-3 mb-4">
           <i className="bi bi-grid-1x2"></i> My Dashboard
         </a>
@@ -156,29 +160,31 @@ function Dashboard() {
 
       {/* Main Content */}
       <div className="flex-grow-1 p-4">
+        <h3>{`Customize ${currentComponent.charAt(0).toUpperCase() + currentComponent.slice(1)} Links`}</h3>
+        {alertMessage && <div className="alert alert-success">{alertMessage}</div>}
+        {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+
+       
+
+        {/* Add New YouTube Link */}
+        <div className="input-group my-3">
+          <input
+            type="text"
+            value={newYouTubeLink}
+            onChange={(e) => setNewYouTubeLink(e.target.value)}
+            className="form-control"
+            placeholder="Add new YouTube link"
+          />
+          <button className="btn btn-primary" onClick={handleAddYouTubeLink}>
+            Add YouTube Link
+          </button>
+        </div>
+
+        {/* Display Links */}
         <div>
-          <h3>{`Customize ${currentComponent.charAt(0).toUpperCase() + currentComponent.slice(1)} Links`}</h3>
-          {alertMessage && <div className="alert alert-success">{alertMessage}</div>}
-          {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-
-          <div className="input-group my-3">
-            <input
-              type="text"
-              value={newLink}
-              onChange={(e) => setNewLink(e.target.value)}
-              className="form-control"
-              placeholder={`Add new ${currentComponent} link`}
-            />
-            <button className="btn btn-primary" onClick={handleAddLink}>
-              Add Link
-            </button>
-          </div>
-
-         
-
-          <div>
-            {links[currentComponent].map((link) => (
-              <div key={link._id} className="d-flex justify-content-between align-items-center">
+          {(links[currentComponent] && links[currentComponent].length > 0) ? (
+            links[currentComponent].map((link) => (
+              <div key={link._id} className="d-flex justify-content-between align-items-center mb-3">
                 {link.type === "youtube" ? (
                   <iframe
                     width="200"
@@ -193,22 +199,64 @@ function Dashboard() {
                     {link.url}
                   </a>
                 )}
-                <button
-                  className="btn btn-info ms-2"
-                  onClick={() => {
-                    setEditingLinkId(link._id);
-                    setEditedUrl(link.url);
-                  }}
-                >
-                  Edit
-                </button>
-                <button className="btn btn-danger ms-2" onClick={() => handleDeleteLink(link._id)}>
-                  Delete
-                </button>
+                <div>
+                  <button
+                    className="btn btn-info ms-2"
+                    onClick={() => {
+                      setEditingLinkId(link._id);
+                      setEditedUrl(link.url);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button className="btn btn-danger ms-2" onClick={() => handleDeleteLink(link._id)}>
+                    Delete
+                  </button>
+                </div>
               </div>
-            ))}
-          </div>
+            ))
+          ) : (
+            <p>No links available for this category.</p>
+          )}
         </div>
+
+        {/* Edit Link Modal */}
+        {editingLinkId && (
+          <div className="modal show" style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Edit Link</h5>
+                  <button
+                    type="button"
+                    className="close"
+                    onClick={() => setEditingLinkId(null)}
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <input
+                    type="text"
+                    value={editedUrl}
+                    onChange={(e) => setEditedUrl(e.target.value)}
+                    className="form-control"
+                    placeholder="Edit the link"
+                  />
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" onClick={() => setEditingLinkId(null)}>
+                    Close
+                  </button>
+                  <button type="button" className="btn btn-primary" onClick={handleSaveLink}>
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

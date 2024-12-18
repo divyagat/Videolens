@@ -6,7 +6,9 @@
 .card-body {
   text-align: center;
 }
-
+.wedding{
+  background-color: #F2FAFA;
+}
 .wedding .btn {
   background-color: #28a745;
   color: #fff;
@@ -19,4 +21,10 @@
 
 .wedding .pagination .page-link {
   color: #28a745;
+}
+.wedding h2{
+  font-weight: bold;
+}
+.form h2{
+  font-weight: bold
 }
