@@ -26,7 +26,27 @@
   font-weight: bold;
   color:#1A2394;
 }
-.form h2{
+.form-container h2{
   font-weight: bold;
-
+  color:#1A2394;
 }
+
+.form-container {
+  width: 80%;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(108, 103, 103, 0.2);
+}
+
+.form-container .form-control {
+  height: 50px; /* Set a uniform height */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.form-container textarea.form-control {
+  height: 50px; /* Match the input height */
+  resize: none; /* Disable resizing for uniformity */
+}
+

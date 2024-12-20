@@ -6,9 +6,10 @@ function WeddingForm() {
   const [formData, setFormData] = useState({
     brideName: "",
     brideParentsName: "",
+    brideAddress: "",
     groomName: "",
     groomParentsName: "",
-    address: "",
+    groomAddress: "",
     haldiCeremony: "",
     engagement: "",
     reception: "",
@@ -45,6 +46,21 @@ function WeddingForm() {
 
       if (response.ok) {
         alert("Wedding details submitted successfully!");
+        setFormData({
+          brideName: "",
+          brideParentsName: "",
+          brideAddress: "",
+          groomName: "",
+          groomParentsName: "",
+          groomAddress: "",
+          haldiCeremony: "",
+          engagement: "",
+          reception: "",
+          weddingDate: "",
+          venue: "",
+          bridePhotos: null,
+          groomPhotos: null,
+        });
       } else {
         alert("Error submitting form.");
       }
@@ -137,24 +153,23 @@ function WeddingForm() {
     window.open(paymentUrl, "_blank");
   };
 
+  const [showScrollButton, setShowScrollButton] = useState(false);
+  // Scroll to Top functionality
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-const [showScrollButton, setShowScrollButton] = useState(false);
-   // Scroll to Top functionality
-    const scrollToTop = () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollButton(window.scrollY > 200);
     };
-  
-    useEffect(() => {
-      const handleScroll = () => {
-        setShowScrollButton(window.scrollY > 200);
-      };
-  
-      window.addEventListener("scroll", handleScroll);
-  
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
-    }, []);
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <>
       <div className="wedding">
@@ -192,55 +207,55 @@ const [showScrollButton, setShowScrollButton] = useState(false);
                 </div>
               ))}
             </div>
-       
 
-          <nav aria-label="Page navigation ">
-            <ul className="pagination justify-content-end  mt-4">
-              <li
-                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => handlePaginationClick(currentPage - 1)}
-                >
-                  Previous
-                </button>
-              </li>
-              {[...Array(totalPages)].map((_, index) => (
+            <nav aria-label="Page navigation ">
+              <ul className="pagination justify-content-end  mt-4">
                 <li
-                  key={index}
+                  className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => handlePaginationClick(currentPage - 1)}
+                  >
+                    Previous
+                  </button>
+                </li>
+                {[...Array(totalPages)].map((_, index) => (
+                  <li
+                    key={index}
+                    className={`page-item ${
+                      currentPage === index + 1 ? "active" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => handlePaginationClick(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+                <li
                   className={`page-item ${
-                    currentPage === index + 1 ? "active" : ""
+                    currentPage === totalPages ? "disabled" : ""
                   }`}
                 >
                   <button
                     className="page-link"
-                    onClick={() => handlePaginationClick(index + 1)}
+                    onClick={() => handlePaginationClick(currentPage + 1)}
                   >
-                    {index + 1}
+                    Next
                   </button>
                 </li>
-              ))}
-              <li
-                className={`page-item ${
-                  currentPage === totalPages ? "disabled" : ""
-                }`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => handlePaginationClick(currentPage + 1)}
-                >
-                  Next
-                </button>
-              </li>
-            </ul>
-          </nav>
+              </ul>
+            </nav>
           </div>
         </section>
       </div>
 
-      <div className="container-fluid px-5 mb-5 text-white vediosection py-5">
+      <div className="container-fluid  mb-5 text-white vediosection py-5">
         <div className="row mx-5 g-5">
+          {/* Step 1: Select Video Template */}
           <div className="col-md-3">
             <div className="d-flex align-items-center">
               <i
@@ -248,15 +263,17 @@ const [showScrollButton, setShowScrollButton] = useState(false);
                 style={{ fontSize: "2rem" }}
               ></i>
               <div>
-                <h5>Select Video Template</h5>
+                <h5 className="pb-2">Select Video Template</h5>
+
                 <p className="mb-0">
-                  Select a video template from a wide range of templates
+                  Select a video template from a wide range templates
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="col-md-3">
+          {/* Step 2: Place Your Order */}
+          <div className="col-md-3 ">
             <div className="d-flex align-items-center">
               <i
                 className="bi bi-tag me-3 mb-5"
@@ -271,6 +288,7 @@ const [showScrollButton, setShowScrollButton] = useState(false);
             </div>
           </div>
 
+          {/* Step 3: Send Your Details */}
           <div className="col-md-3">
             <div className="d-flex align-items-center">
               <i
@@ -286,6 +304,7 @@ const [showScrollButton, setShowScrollButton] = useState(false);
             </div>
           </div>
 
+          {/* Step 4: Get Your Video */}
           <div className="col-md-3">
             <div className="d-flex align-items-center">
               <i
@@ -304,165 +323,178 @@ const [showScrollButton, setShowScrollButton] = useState(false);
         </div>
       </div>
 
-      <div className="container my-5 form">
-        <h2 className="text-center py-4 mb-3">Send Wedding Details</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="col-md-6 mb-3">
-              <label htmlFor="brideName">Bride Name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="brideName"
-                name="brideName"
-                value={formData.brideName}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="col-md-6 mb-3">
-              <label htmlFor="brideParentsName">Bride's Parents Name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="brideParentsName"
-                name="brideParentsName"
-                value={formData.brideParentsName}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
 
-          <div className="row">
-            <div className="col-md-6 mb-3">
-              <label htmlFor="groomName">Groom Name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="groomName"
-                name="groomName"
-                value={formData.groomName}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="col-md-6 mb-3">
-              <label htmlFor="groomParentsName">Groom's Parents Name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="groomParentsName"
-                name="groomParentsName"
-                value={formData.groomParentsName}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="address">Address</label>
-            <input
-              type="text"
-              className="form-control"
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="row">
-            <div className="col-md-6 mb-3">
-              <label htmlFor="haldiCeremony">Haldi Ceremony</label>
-              <input
-                type="date"
-                className="form-control"
-                id="haldiCeremony"
-                name="haldiCeremony"
-                value={formData.haldiCeremony}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="col-md-6 mb-3">
-              <label htmlFor="engagement">Engagement</label>
-              <input
-                type="date"
-                className="form-control"
-                id="engagement"
-                name="engagement"
-                value={formData.engagement}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-6 mb-3">
-              <label htmlFor="reception">Reception</label>
-              <input
-                type="date"
-                className="form-control"
-                id="reception"
-                name="reception"
-                value={formData.reception}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="col-md-6 mb-3">
-              <label htmlFor="weddingDate">Wedding Date</label>
-              <input
-                type="date"
-                className="form-control"
-                id="weddingDate"
-                name="weddingDate"
-                value={formData.weddingDate}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="venue">Venue</label>
-            <input
-              type="text"
-              className="form-control"
-              id="venue"
-              name="venue"
-              value={formData.venue}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="row">
-            <div className="col-md-6 mb-3">
-              <label htmlFor="bridePhotos">Bride's Photos</label>
-              <input
-                type="file"
-                className="form-control"
-                id="bridePhotos"
-                name="bridePhotos"
-                onChange={handleFileChange}
-              />
-            </div>
-            <div className="col-md-6 mb-3">
-              <label htmlFor="groomPhotos">Groom's Photos</label>
-              <input
-                type="file"
-                className="form-control"
-                id="groomPhotos"
-                name="groomPhotos"
-                onChange={handleFileChange}
-              />
-            </div>
-          </div>
-
-          <div className="text-center py-4">
-            <button type="submit" className="btn btn-danger">
-              Submit Details
-            </button>
-          </div>
-        </form>
+    <div className="container my-5 d-flex justify-content-center">
+  <div className="form-container">
+    <h2 className="text-center py-4 mb-3">Send Wedding Details</h2>
+    <form onSubmit={handleSubmit}>
+      <h4>Bride's Details</h4>
+      <div className="row">
+        <div className="col-md-4 mb-3">
+          <label htmlFor="brideName">Bride Name</label>
+          <input
+            type="text"
+            className="form-control"
+            id="brideName"
+            name="brideName"
+            value={formData.brideName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-md-4 mb-3">
+          <label htmlFor="brideParentsName">Bride's Parents Name</label>
+          <input
+            type="text"
+            className="form-control"
+            id="brideParentsName"
+            name="brideParentsName"
+            value={formData.brideParentsName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-md-4 mb-3">
+          <label htmlFor="brideAddress">Bride's Address</label>
+          <textarea
+            className="form-control"
+            id="brideAddress"
+            name="brideAddress"
+            rows="3"
+            value={formData.brideAddress}
+            onChange={handleChange}
+          ></textarea>
+        </div>
       </div>
 
-      
+      <h4>Groom's Details</h4>
+      <div className="row">
+        <div className="col-md-4 mb-3">
+          <label htmlFor="groomName">Groom Name</label>
+          <input
+            type="text"
+            className="form-control"
+            id="groomName"
+            name="groomName"
+            value={formData.groomName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-md-4 mb-3">
+          <label htmlFor="groomParentsName">Groom's Parents Name</label>
+          <input
+            type="text"
+            className="form-control"
+            id="groomParentsName"
+            name="groomParentsName"
+            value={formData.groomParentsName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-md-4 mb-3">
+          <label htmlFor="groomAddress">Groom's Address</label>
+          <textarea
+            className="form-control"
+            id="groomAddress"
+            name="groomAddress"
+            rows="3"
+            value={formData.groomAddress}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+      </div>
+
+      <h4>Event Details</h4>
+      <div className="row">
+        <div className="col-md-4 mb-3">
+          <label htmlFor="haldiCeremony">Haldi Ceremony</label>
+          <input
+            type="text"
+            className="form-control"
+            id="haldiCeremony"
+            name="haldiCeremony"
+            value={formData.haldiCeremony}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-md-4 mb-3">
+          <label htmlFor="engagement">Engagement</label>
+          <input
+            type="text"
+            className="form-control"
+            id="engagement"
+            name="engagement"
+            value={formData.engagement}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-md-4 mb-3">
+          <label htmlFor="reception">Reception</label>
+          <input
+            type="text"
+            className="form-control"
+            id="reception"
+            name="reception"
+            value={formData.reception}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-4 mb-3">
+          <label htmlFor="groomPhotos">Groom's Photo</label>
+          <input
+            type="file"
+            className="form-control"
+            id="groomPhotos"
+            name="groomPhotos"
+            onChange={handleFileChange}
+          />
+        </div>
+        <div className="col-md-4 mb-3">
+          <label htmlFor="bridePhotos">Bride's Photo</label>
+          <input
+            type="file"
+            className="form-control"
+            id="bridePhotos"
+            name="bridePhotos"
+            onChange={handleFileChange}
+          />
+        </div>
+      </div>
+
+      <h4>Wedding Details</h4>
+      <div className="row">
+        <div className="col-md-6 mb-3">
+          <label htmlFor="weddingDate">Wedding Date</label>
+          <input
+            type="date"
+            className="form-control"
+            id="weddingDate"
+            name="weddingDate"
+            value={formData.weddingDate}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-md-6 mb-3">
+          <label htmlFor="venue">Venue</label>
+          <input
+            type="text"
+            className="form-control"
+            id="venue"
+            name="venue"
+            value={formData.venue}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <button type="submit" className="btn btn-primary my-4">
+            Submit Details
+          </button>
+    </form>
+  </div>
+</div>
+
+         
       {/* Scroll to Top Button */}
       {showScrollButton && (
         <button

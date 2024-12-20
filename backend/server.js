@@ -1,12 +1,10 @@
-// server.js
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
-// <<<<<<< Updated upstream
-require("dotenv").config();  // Load environment variables from .env file
+require("dotenv").config(); // Load environment variables
 
 // Import schema models
 const FormData = require("./models/babyShowerSchema");
@@ -14,10 +12,8 @@ const birthdayData = require("./models/birthdaySchema");
 const ContactFormData = require("./models/contactSchema");
 const Wedding = require("./models/weddingSchema");
 
-// =======
-// >>>>>>> Stashed changes
 const app = express();
-const PORT = process.env.PORT || 5000;  // Use the port from .env file or default to 5000
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(bodyParser.json());
@@ -39,15 +35,12 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
-
 const upload = multer({ storage });
 
-// Route to handle file uploads and save Baby Shower form data
+// Route to handle Baby Shower form
 app.post("/submit-form", upload.array("photos", 3), async (req, res) => {
   try {
     const { name, time, age, venue, date, message } = req.body;
-
-    // Save the file paths in the database
     const photoPaths = req.files.map((file) => `/uploads/${file.filename}`);
 
     const newFormData = new FormData({
@@ -61,19 +54,17 @@ app.post("/submit-form", upload.array("photos", 3), async (req, res) => {
     });
 
     await newFormData.save();
-    res.status(200).json({ message: "Form data saved successfully!" });
+    res.status(200).json({ message: "Baby shower form data saved successfully!" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error saving form data" });
   }
 });
 
-// Route to handle file uploads and save Birthday form data
+// Route to handle Birthday form
 app.post("/birthday-form", upload.array("photos", 3), async (req, res) => {
   try {
     const { name, time, age, venue, date, message } = req.body;
-
-    // Save the file paths in the database
     const photoPaths = req.files.map((file) => `/uploads/${file.filename}`);
 
     const newFormData = new birthdayData({
@@ -87,7 +78,7 @@ app.post("/birthday-form", upload.array("photos", 3), async (req, res) => {
     });
 
     await newFormData.save();
-    res.status(200).json({ message: "Wedding form data saved successfully!" });
+    res.status(200).json({ message: "Birthday form data saved successfully!" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error saving form data" });
@@ -114,7 +105,7 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
-// API endpoint to handle wedding form submission
+// Route to handle wedding form submissions
 app.post("/api/wedding", upload.fields([
   { name: "bridePhotos", maxCount: 1 },
   { name: "groomPhotos", maxCount: 1 },
@@ -125,7 +116,8 @@ app.post("/api/wedding", upload.fields([
       brideParentsName: req.body.brideParentsName,
       groomName: req.body.groomName,
       groomParentsName: req.body.groomParentsName,
-      address: req.body.address,
+      brideAddress: req.body.brideAddress,
+      groomAddress: req.body.groomAddress,
       haldiCeremony: req.body.haldiCeremony,
       engagement: req.body.engagement,
       reception: req.body.reception,

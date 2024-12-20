@@ -1,19 +1,19 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const weddingSchema = new mongoose.Schema({
   brideName: String,
   brideParentsName: String,
+  brideAddress: String,
   groomName: String,
   groomParentsName: String,
-  address: String,
+  groomAddress: String,
   haldiCeremony: String,
   engagement: String,
   reception: String,
-  weddingDate: String,
+  weddingDate: Date,
   venue: String,
   bridePhotos: String,
   groomPhotos: String,
 });
 
-const Wedding = mongoose.model("Wedding", weddingSchema);
-module.exports = Wedding;
+module.exports = mongoose.model("Wedding", weddingSchema);
