@@ -66,63 +66,63 @@ function Birthday() {
   // Video data with prices
   const videos = [
     {
-      url: "https://www.youtube.com/embed/VCob9XHw8gQ",
-      price: 1990,
+      url: "https://www.youtube.com/embed/wpPDtCViPVA?si=vaPmHK9X5F6HnmiG",
+      price: 1999,
       gateway: "1001",
     },
     {
-      url: "https://www.youtube.com/embed/5AXXrf-a0qI",
-      price: 1990,
+      url: "https://www.youtube.com/embed/jCjMNiM5iAQ?si=5Fiamh7bob8LQ8bU",
+      price: 1999,
       gateway: "1001",
     },
     {
-      url: "https://www.youtube.com/embed/I79wCjSO-wQ",
-      price: 1490,
+      url: "https://www.youtube.com/embed/8m-K1JXADHE?si=3drQpKKDhEIpNFAO",
+      price: 1499,
+      gateway: "1006",
+    },
+    {
+      url: "https://www.youtube.com/embed/j0lvLjC7ha8?si=U3x3nfyp90KOqEc3",
+      price: 999,
+      gateway: "1004",
+    },
+    {
+      url: "https://www.youtube.com/embed/CS7CBcsSKO8?si=uYtMIbkaRMXPpW2t",
+      price: 1999,
+      gateway: "1001",
+    },
+    {
+      url: "https://www.youtube.com/embed/gC2n_nkKiV0?si=teQi1dS5nk3kMRUg",
+      price: 1499,
       gateway: "1006",
     },
     {
       url: "https://www.youtube.com/embed/OetacTm0H0c",
-      price: 1490,
+      price: 1499,
       gateway: "1006",
     },
     {
       url: "https://www.youtube.com/embed/Yhxai8LauDY",
-      price: 1990,
+      price: 1999,
       gateway: "1001",
     },
     {
       url: "https://www.youtube.com/embed/PXMKVBgL6pI",
-      price: 1490,
+      price: 1499,
       gateway: "1006",
     },
     {
       url: "https://www.youtube.com/embed/OetacTm0H0c",
-      price: 1490,
+      price: 1499,
       gateway: "1006",
     },
     {
       url: "https://www.youtube.com/embed/Yhxai8LauDY",
-      price: 1990,
+      price: 1999,
       gateway: "1001",
     },
     {
       url: "https://www.youtube.com/embed/PXMKVBgL6pI",
-      price: 1490,
-      gateway: "1006",
-    },
-    {
-      url: "https://www.youtube.com/embed/OetacTm0H0c",
-      price: 1490,
-      gateway: "1006",
-    },
-    {
-      url: "https://www.youtube.com/embed/Yhxai8LauDY",
-      price: 1990,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/PXMKVBgL6pI",
-      price: 1490,
+      price: 1499,
       gateway: "1006",
     },
   ];
@@ -134,16 +134,23 @@ function Birthday() {
   const handlePaymentClick = (price, gateway) => {
     setSelectedPrice(price);
     setVideoTitle(`Video Template`);
-    const paymentUrl =
-      gateway === "1001"
-        ? `https://payments.cashfree.com/forms/we1001?amount=${price}`
-        : `https://payments.cashfree.com/forms/we1006?amount=${price}`;
+  
+    // Add logic for new payment gateway
+    let paymentUrl = "";
+    if (gateway === "1001") {
+      paymentUrl = `https://payments.cashfree.com/forms/we1001?amount=${price}`;
+    } else if (gateway === "1006") {
+      paymentUrl = `https://payments.cashfree.com/forms/we1006?amount=${price}`;
+    } else if (gateway === "1004") {
+      paymentUrl = `https://payments.cashfree.com/forms/bd1004?amount=${price}`;
+    }
+  
     setPaymentUrl(paymentUrl);
-
+  
     const modal = new bootstrap.Modal(document.getElementById("paymentModal"));
     modal.show();
   };
-
+  
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -360,6 +367,7 @@ function Birthday() {
           </div>
         </div>
       </div>
+
 
       {/* Form Section */}
       <div className="container my-5 form">

@@ -57,62 +57,62 @@ function WeddingForm() {
   const videos = [
     {
       url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk",
-      price: 1990,
+      price: 1999,
       gateway: "1001",
     },
     {
       url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6",
-      price: 1990,
+      price: 1999,
       gateway: "1001",
     },
     {
-      url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk",
-      price: 1990,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6",
-      price: 1990,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk",
-      price: 1990,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6",
-      price: 1990,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk",
-      price: 1990,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6",
-      price: 1990,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/I79wCjSO-wQ?si=ecH502jwx4IcvQLhq4g",
-      price: 1490,
+      url: "https://www.youtube.com/embed/I79wCjSO-wQ?si=2rSvW2ZMLhGAHrre",
+      price: 1999,
       gateway: "1006",
     },
     {
+      url: "https://www.youtube.com/embed/OetacTm0H0c?si=GkBXJi0qrQ4JOA49",
+      price: 1999,
+      gateway: "1001",
+    },
+    {
+      url: "https://www.youtube.com/embed/Yhxai8LauDY?si=GYFfoSy0ZAr_MRBR",
+      price: 1999,
+      gateway: "1001",
+    },
+    {
+      url: "https://www.youtube.com/embed/PXMKVBgL6pI?si=GAo_61PMNwkrUZi7",
+      price: 1499,
+      gateway: "1006",
+    },
+    {
+      url: "https://www.youtube.com/embed/-lD0AH5Kx3U?si=BknAu6vdOpFdICsX",
+      price: 1499,
+      gateway: "1006",
+    },
+    {
+      url: "https://www.youtube.com/embed/jPmVpEOOvUs?si=VR21yZwPWkBFfOyQ",
+      price: 1999,
+      gateway: "1001",
+    },
+    {
+      url: "https://www.youtube.com/embed/L4omEdmCjjU?si=wLNa1XtP6jTwfWNz",
+      price: 1999,
+      gateway: "1001",
+    },
+    {
       url: "https://www.youtube.com/embed/OetacTm0H0c?si=bcx1DKBtkgN9iDo1",
-      price: 1490,
+      price: 1499,
       gateway: "1006",
     },
     {
       url: "https://www.youtube.com/embed/Yhxai8LauDY?si=cbvPdozKNXMgI9G7",
-      price: 1990,
+      price: 1999,
       gateway: "1001",
     },
     {
       url: "https://www.youtube.com/embed/PXMKVBgL6pI?si=orye25mMjMS8j1c_",
-      price: 1490,
+      price: 1499,
       gateway: "1006",
     },
   ];

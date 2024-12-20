@@ -66,58 +66,58 @@ function BabyShower() {
   // Video data with prices
   const videos = [
     {
-      url: "https://www.youtube.com/embed/VCob9XHw8gQ",
-      price: 1990,
-      gateway: "1001",
+      url: "https://www.youtube.com/embed/XQYKCxAbP4w?si=-9Y7tbAMzUwRfZZk",
+      price: 1499,
+      gateway: "1006",
     },
     {
-      url: "https://www.youtube.com/embed/5AXXrf-a0qI",
-      price: 1990,
-      gateway: "1001",
+      url: "https://www.youtube.com/embed/GeS2bRXyUbw?si=bbQSWyrtHJJ9kExs",
+      price: 1499,
+      gateway: "1006",
     },
     {
-      url: "https://www.youtube.com/embed/I79wCjSO-wQ",
-      price: 1490,
+      url: "https://www.youtube.com/embed/9ozzem4oohM?si=gQJzDqwPFiXyNkZN",
+      price: 1499,
       gateway: "1006",
     },
     {
       url: "https://www.youtube.com/embed/OetacTm0H0c",
-      price: 1490,
+      price: 1499,
       gateway: "1006",
     },
     {
       url: "https://www.youtube.com/embed/Yhxai8LauDY",
-      price: 1990,
+      price: 1999,
       gateway: "1001",
     },
     {
       url: "https://www.youtube.com/embed/PXMKVBgL6pI",
-      price: 1490,
+      price: 1499,
       gateway: "1006",
     },
     {
       url: "https://www.youtube.com/embed/OetacTm0H0c",
-      price: 1490,
+      price: 1499,
       gateway: "1006",
     },
     {
       url: "https://www.youtube.com/embed/Yhxai8LauDY",
-      price: 1990,
+      price: 1999,
       gateway: "1001",
     },
     {
       url: "https://www.youtube.com/embed/PXMKVBgL6pI",
-      price: 1490,
+      price: 1499,
       gateway: "1006",
     },
     {
       url: "https://www.youtube.com/embed/OetacTm0H0c",
-      price: 1490,
+      price: 1499,
       gateway: "1006",
     },
     {
       url: "https://www.youtube.com/embed/Yhxai8LauDY",
-      price: 1990,
+      price: 1999,
       gateway: "1001",
     },
     
@@ -177,7 +177,7 @@ function BabyShower() {
       <div className="babyshower">
         <section className="py-5">
           <div className="container text-center px-lg-5">
-            <h2 className="mb-5">Birthday Invitation Video</h2>
+            <h2 className="mb-5">Baby Shower Invitation Video</h2>
             <div className="row g-3">
               {paginatedVideos.map((video, index) => (
                 <div

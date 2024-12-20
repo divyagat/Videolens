@@ -96,7 +96,9 @@
   font-size: 14px;
   color: #555;
 }
-
+.testimonials .client-info h5{
+  font-weight: bold;
+}
 /* Swiper Navigation Buttons */
 .swiper-button-next,
 .swiper-button-prev {
@@ -209,6 +211,12 @@
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+.testimonials .testimonial-card p{
+  line-height: 30px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 30px;
+}
 
 /* Testimonial Client Info */
 .testimonials .client-info {
@@ -231,6 +239,7 @@
 
 .testimonials .client-info p {
   margin: 0;
+
   color: #777;
 }
 

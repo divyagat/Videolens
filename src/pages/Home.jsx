@@ -15,42 +15,42 @@ import img4 from "../assets/Screenshot-2024-03-26-131023 (1).png";
 const Home = () => {
   const testimonials = [
     {
-      name: "Komal Patil",
-      profession: "Self Employee",
+      name: "Shruti Sharma",
+      profession: "IT Professional",
       feedback:
-        "I had ordered a wedding video invitation from Video Lens and was very impressed with their service and video templates. They have a wide variety of templates. I was able to find a template that fit my budget and the quality of the video was excellent.",
+        "I had ordered a video invitation for my child's birthday from Video Lens and had a great experience. The video was created beautifully and attractively and I was very happy with it.",
       image: "src/assets/w2.jpg",
     },
     {
-      name: "Shruti Sharma",
-      profession: "IT Professional",
+      name: "Pooja Mane",
+      profession: "Teacher",
       feedback:
-        "I had ordered a video invitation for my child's birthday from Video Lens and had a great experience. The video was created beautifully and attractively and I was very happy with it.",
+        "Video Lens created a stunning wedding video invitation for me! They have beautiful, high-quality templates at great prices. The process was simple and the team was great with communication. Highly recommend!",
       image: "src/assets/w3.jpg",
     },
     {
-      name: "Shruti Sharma",
-      profession: "IT Professional",
+      name: "Komal Patil",
+      profession: "Self Eployee",
       feedback:
-        "I had ordered a video invitation for my child's birthday from Video Lens and had a great experience. The video was created beautifully and attractively and I was very happy with it.",
+        "I had ordered a wedding video invitation from Video Lens and was very impressed with their service and video templates. They have a wide variety of templates. I was able to find a template that fit my budget and the quality of the video was excellent.",
       image: "src/assets/w4.jpg",
     },
   ];
 
   const videos = [
-    { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 1990, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 1490, paymentGateway: 1006 },
-    { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 1990, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 1490, paymentGateway: 1006 },
-    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1990, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 1490, paymentGateway: 1006 },
-    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1990, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 1490, paymentGateway: 1006 },
-    { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 1990, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 1490, paymentGateway: 1006 },
-    { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 1990, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1490, paymentGateway: 1006 },
-    { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 1990, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 1999, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 1999, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 1999, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 1999, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1999, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 1499, paymentGateway: 1006 },
+    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1999, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 1499, paymentGateway: 1006 },
+    { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 1999, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 1499, paymentGateway: 1006 },
+    { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 1999, paymentGateway: 1001 },
+    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1499, paymentGateway: 1006 },
+    { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 1999, paymentGateway: 1001 },
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -119,7 +119,7 @@ const Home = () => {
               id="carouselExampleSlidesOnly"
               className="carousel slide"
               data-bs-ride="carousel"
-              data-bs-interval="3000"
+              data-bs-interval="4000"
             >
               <div className="carousel-inner">
                 {[img1, img2, img3, img4].map((image, index) => (
@@ -228,7 +228,7 @@ const Home = () => {
         >
           {testimonials.map((testimonial, index) => (
             <SwiperSlide key={index}>
-              <div className="testimonial-card mt-4 mb-5">
+              <div className="testimonial-card p-4 mt-4 mb-5">
                 <p>{testimonial.feedback}</p>
                 <div className="client-info mb-3">
                   <img src={testimonial.image} alt={testimonial.name} />
