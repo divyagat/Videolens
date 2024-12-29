@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route, Form } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Footer from './components/Footer';
 import Wedding from './pages/Wedding';
@@ -16,7 +16,15 @@ import Login from './login.singup/Login';
 import Dashboard from './Dashboard/Dashboard';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Track authentication status
+
+  // Check authentication on page load
+  useEffect(() => {
+    const authStatus = localStorage.getItem('isAuthenticated');
+    if (authStatus === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   return (
     <BrowserRouter>
@@ -29,21 +37,30 @@ function App() {
       )}
       
       <Routes>
+        {/* Default route goes to Home */}
+        <Route path="/" element={<Home />} />
         
-        <Route path='/' element={<Home />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/wedding' element={<Wedding />} />
-        <Route path='/birthday' element={<Birthday />} />
-        <Route path='/babyshower' element={<BabyShower />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/dashboard' element={<Dashboard />} />
+        {/* Other routes */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/wedding" element={<Wedding />} />
+        <Route path="/birthday" element={<Birthday />} />
+        <Route path="/babyshower" element={<BabyShower />} />
+        <Route path="/contact" element={<Contact />} />
+        
+        {/* Login route */}
+        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+        
+        {/* Protected Dashboard route */}
+        <Route 
+          path="/dashboard" 
+          element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />} 
+        />
+        
       </Routes>
-
+      
       {/* Only show Footer on pages other than Login and Dashboard */}
       {window.location.pathname !== "/login" && window.location.pathname !== "/dashboard" && <Footer />}
     </BrowserRouter>
-  
   );
 }
 

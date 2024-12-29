@@ -16,6 +16,7 @@ const Navbar = () => {
           const bsCollapse = new window.bootstrap.Collapse(navbarCollapse);
           bsCollapse.hide();
         }
+        
       }
     };
 

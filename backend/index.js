@@ -57,6 +57,7 @@ app.get("/api/links/:category", async (req, res) => {
   }
 });
 
+
 // Add a new link
 app.post("/api/links", async (req, res) => {
   const { component, url, type, price } = req.body;

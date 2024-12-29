@@ -37,78 +37,66 @@ const Home = () => {
     },
   ];
 
-  const videos = [
-    { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 1999, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 1999, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 1999, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 1999, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1999, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 1499, paymentGateway: 1006 },
-    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1999, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/VCob9XHw8gQ", price: 1499, paymentGateway: 1006 },
-    { url: "https://www.youtube.com/embed/5AXXrf-a0qI", price: 1999, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/I79wCjSO-wQ", price: 1499, paymentGateway: 1006 },
-    { url: "https://www.youtube.com/embed/OetacTm0H0c", price: 1999, paymentGateway: 1001 },
-    { url: "https://www.youtube.com/embed/Yhxai8LauDY", price: 1499, paymentGateway: 1006 },
-    { url: "https://www.youtube.com/embed/PXMKVBgL6pI", price: 1999, paymentGateway: 1001 },
-  ];
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [showScrollButton, setShowScrollButton] = useState(false); // State for showing the scroll-up button
-  const videosPerPage = 6;
-  const indexOfLastVideo = currentPage * videosPerPage;
-  const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
-  const currentVideos = videos.slice(indexOfFirstVideo, indexOfLastVideo);
-  const totalPages = Math.ceil(videos.length / videosPerPage);
-
-  // Handle scroll event to show/hide the button
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 200) { // Show button after 200px scroll
-        setShowScrollButton(true);
-      } else {
-        setShowScrollButton(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  // Scroll back to top
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  const handlePaginationClick = (page) => {
-    setCurrentPage(page);
-  };
-
-  const openPopup = (url) => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const left = 0;
-    const top = 0;
-    window.open(
-      url,
-      "Cashfree Payment",
-      `width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=yes,status=no`
-    );
-  };
-
-  const handlePayment = (video) => {
-    const cashfreeUrl = video.paymentGateway === 1001
-      ? `https://payments.cashfree.com/forms/we1001?amount=${video.price}`
-      : `https://payments.cashfree.com/forms/we1006?amount=${video.price}`;
-
-    openPopup(cashfreeUrl);
-  };
-
+   const [videos, setVideos] = useState([]);
+   const [selectedPrice, setSelectedPrice] = useState(1499);
+   const [paymentUrl, setPaymentUrl] = useState("");
+   const [videoTitle, setVideoTitle] = useState("");
+ 
+   useEffect(() => {
+     async function fetchVideos() {
+       try {
+         const response = await fetch("http://localhost:5000/api/links/home");
+         const data = await response.json();
+         setVideos(data);
+       } catch (error) {
+         console.error("Error fetching videos:", error);
+       }
+     }
+     fetchVideos();
+   }, []);
+ 
+   const handlePaymentClick = (price, gateway) => {
+     setSelectedPrice(price);
+     setVideoTitle(`Video Template`);
+     const paymentUrl =
+       gateway === "1001"
+         ? `https://payments.cashfree.com/forms/we1001?amount=${price}`
+         : `https://payments.cashfree.com/forms/we1006?amount=${price}`;
+     setPaymentUrl(paymentUrl);
+ 
+     const modal = new bootstrap.Modal(document.getElementById("paymentModal"));
+     modal.show();
+   };
+ 
+   const [currentPage, setCurrentPage] = useState(1);
+   const itemsPerPage = 6;
+   const totalPages = Math.ceil(videos.length / itemsPerPage);
+ 
+   const handlePaginationClick = (page) => {
+     setCurrentPage(page);
+   };
+ 
+   const paginatedVideos = videos.slice(
+     (currentPage - 1) * itemsPerPage,
+     currentPage * itemsPerPage
+   );
+ 
+   const [showScrollButton, setShowScrollButton] = useState(false);
+   const scrollToTop = () => {
+     window.scrollTo({ top: 0, behavior: "smooth" });
+   };
+ 
+   useEffect(() => {
+     const handleScroll = () => {
+       setShowScrollButton(window.scrollY > 200);
+     };
+ 
+     window.addEventListener("scroll", handleScroll);
+ 
+     return () => {
+       window.removeEventListener("scroll", handleScroll);
+     };
+   }, []);
   return (
     <>
       {/* Hero Carousel Section */}
@@ -141,15 +129,19 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Videos Section */}
-      <div className="herovideo">
-        <section>
+          {/* Baby Shower Invitation Video Section */}
+          <div className="herovideo">
+        <section className="py-5">
+          
           <div className="container text-center px-lg-5">
-            <p className="text-success">Create your happy moments with us</p>
-            <h2 className="mb-5">Discover the most creative videos</h2>
+          <p className="text-success">Create your happy moments with us</p>
+          <h2 className="mb-5">Discover the most creative videos</h2>
             <div className="row g-3">
-              {currentVideos.map((video, index) => (
-                <div className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4" key={index}>
+              {paginatedVideos.map((video, index) => (
+                <div
+                  className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4"
+                  key={index}
+                >
                   <div className="card">
                     <iframe
                       src={video.url}
@@ -158,13 +150,19 @@ const Home = () => {
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      style={{ width: "100%", height: "200px", borderRadius: "10px" }}
+                      style={{
+                        width: "100%",
+                        height: "200px",
+                        borderRadius: "10px",
+                      }}
                     ></iframe>
                   </div>
                   <div className="card-body mx-auto my-3">
                     <button
-                      className="btn"
-                      onClick={() => handlePayment(video)}
+                      className="btn btn-primary"
+                      onClick={() =>
+                        handlePaymentClick(video.price, video.gateway)
+                      }
                     >
                       ₹&nbsp;{video.price}
                     </button>
@@ -174,9 +172,11 @@ const Home = () => {
             </div>
 
             {/* Pagination */}
-            <nav aria-label="">
-              <ul className="pagination justify-content-end mt-3">
-                <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+            <nav aria-label="Page navigation">
+              <ul className="pagination justify-content-end mt-4">
+                <li
+                  className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+                >
                   <button
                     className="page-link"
                     onClick={() => handlePaginationClick(currentPage - 1)}
@@ -187,7 +187,9 @@ const Home = () => {
                 {[...Array(totalPages)].map((_, index) => (
                   <li
                     key={index}
-                    className={`page-item ${currentPage === index + 1 ? "active" : ""}`}
+                    className={`page-item ${
+                      currentPage === index + 1 ? "active" : ""
+                    }`}
                   >
                     <button
                       className="page-link"
@@ -197,7 +199,11 @@ const Home = () => {
                     </button>
                   </li>
                 ))}
-                <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                <li
+                  className={`page-item ${
+                    currentPage === totalPages ? "disabled" : ""
+                  }`}
+                >
                   <button
                     className="page-link"
                     onClick={() => handlePaginationClick(currentPage + 1)}
@@ -211,6 +217,34 @@ const Home = () => {
         </section>
       </div>
 
+      {/* Payment Modal (Full screen) */}
+      <div className="modal fade" id="paymentModal" tabIndex="-1">
+        <div className="modal-dialog modal-fullscreen modal-dialog-centered">
+          <div
+            className="modal-content"
+            style={{ border: "none", boxShadow: "none" }}
+          >
+            <div
+              className="modal-body p-0"
+              style={{ backgroundColor: "transparent" }}
+            >
+              {paymentUrl ? (
+                <iframe
+                  src={paymentUrl}
+                  style={{
+                    width: "100%",
+                    height: "100vh",
+                    border: "none",
+                  }}
+                  title="Payment Gateway"
+                ></iframe>
+              ) : (
+                <p>Loading payment gateway...</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
       {/* Testimonials Section */}
       <section className="testimonials">
         <p className="text-center hed text-success para">Testimonials</p>

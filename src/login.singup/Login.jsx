@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css"; // Importing the CSS file
 
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
   const [credentials, setCredentials] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -19,6 +19,9 @@ const Login = () => {
       // Store login state and username/email in localStorage
       localStorage.setItem("isAuthenticated", "true");
       localStorage.setItem("username", credentials.username);
+
+      setIsAuthenticated(true); // Update the parent component's state
+
       navigate("/dashboard"); // Navigate to the Dashboard after successful login
     } else {
       setError("Invalid username or password");

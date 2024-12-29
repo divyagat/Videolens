@@ -106,7 +106,7 @@ app.post("/api/contact", async (req, res) => {
 });
 
 // Route to handle wedding form submissions
-app.post("/api/wedding", upload.fields([
+app.post("/api/weddingse", upload.fields([
   { name: "bridePhotos", maxCount: 1 },
   { name: "groomPhotos", maxCount: 1 },
 ]), async (req, res) => {

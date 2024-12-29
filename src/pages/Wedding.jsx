@@ -39,7 +39,7 @@ function WeddingForm() {
         }
       });
 
-      const response = await fetch("http://localhost:5000/api/wedding", {
+      const response = await fetch("http://localhost:5000/api/weddingse", {
         method: "POST",
         body: formDataToSend,
       });
@@ -70,91 +70,51 @@ function WeddingForm() {
     }
   };
 
-  const videos = [
-    {
-      url: "https://www.youtube.com/embed/VCob9XHw8gQ?si=B3qoMLMh_NTOVEdk",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/5AXXrf-a0qI?si=500YJMmw6yz02gR6",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/I79wCjSO-wQ?si=2rSvW2ZMLhGAHrre",
-      price: 1999,
-      gateway: "1006",
-    },
-    {
-      url: "https://www.youtube.com/embed/OetacTm0H0c?si=GkBXJi0qrQ4JOA49",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/Yhxai8LauDY?si=GYFfoSy0ZAr_MRBR",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/PXMKVBgL6pI?si=GAo_61PMNwkrUZi7",
-      price: 1499,
-      gateway: "1006",
-    },
-    {
-      url: "https://www.youtube.com/embed/-lD0AH5Kx3U?si=BknAu6vdOpFdICsX",
-      price: 1499,
-      gateway: "1006",
-    },
-    {
-      url: "https://www.youtube.com/embed/jPmVpEOOvUs?si=VR21yZwPWkBFfOyQ",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/L4omEdmCjjU?si=wLNa1XtP6jTwfWNz",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/OetacTm0H0c?si=bcx1DKBtkgN9iDo1",
-      price: 1499,
-      gateway: "1006",
-    },
-    {
-      url: "https://www.youtube.com/embed/Yhxai8LauDY?si=cbvPdozKNXMgI9G7",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/PXMKVBgL6pI?si=orye25mMjMS8j1c_",
-      price: 1499,
-      gateway: "1006",
-    },
-  ];
+ const [videos, setVideos] = useState([]);
+  const [selectedPrice, setSelectedPrice] = useState(1499);
+  const [paymentUrl, setPaymentUrl] = useState("");
+  const [videoTitle, setVideoTitle] = useState("");
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const videosPerPage = 9;
-  const totalPages = Math.ceil(videos.length / videosPerPage);
-
-  const indexOfLastVideo = currentPage * videosPerPage;
-  const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
-  const currentVideos = videos.slice(indexOfFirstVideo, indexOfLastVideo);
-
-  const handlePaginationClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  useEffect(() => {
+    async function fetchVideos() {
+      try {
+        const response = await fetch("http://localhost:5000/api/links/wedding");
+        const data = await response.json();
+        setVideos(data);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    }
+    fetchVideos();
+  }, []);
 
   const handlePaymentClick = (price, gateway) => {
+    setSelectedPrice(price);
+    setVideoTitle(`Video Template`);
     const paymentUrl =
       gateway === "1001"
         ? `https://payments.cashfree.com/forms/we1001?amount=${price}`
         : `https://payments.cashfree.com/forms/we1006?amount=${price}`;
-    window.open(paymentUrl, "_blank");
+    setPaymentUrl(paymentUrl);
+
+    const modal = new bootstrap.Modal(document.getElementById("paymentModal"));
+    modal.show();
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
+  const totalPages = Math.ceil(videos.length / itemsPerPage);
+
+  const handlePaginationClick = (page) => {
+    setCurrentPage(page);
+  };
+
+  const paginatedVideos = videos.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   const [showScrollButton, setShowScrollButton] = useState(false);
-  // Scroll to Top functionality
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -170,15 +130,21 @@ function WeddingForm() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+
   return (
     <>
-      <div className="wedding">
-        <section className="py-5 ">
-          <div className="container text-center px-lg-5 px-3">
-            <h2 className="mb-5">Wedding Invitation Videos</h2>
-            <div className="row g-5">
-              {currentVideos.map((video, index) => (
-                <div className="col-lg-4 col-md-6 col-sm-12 mb-4" key={index}>
+       {/* Baby Shower Invitation Video Section */}
+       <div className="wedding">
+        <section className="py-5">
+          <div className="container text-center px-lg-5">
+            <h2 className="mb-5">Wedding Invitation Video</h2>
+            <div className="row g-3">
+              {paginatedVideos.map((video, index) => (
+                <div
+                  className="col-lg-4 px-4 col-md-6 col-sm-12 mb-4"
+                  key={index}
+                >
                   <div className="card">
                     <iframe
                       src={video.url}
@@ -208,8 +174,9 @@ function WeddingForm() {
               ))}
             </div>
 
-            <nav aria-label="Page navigation ">
-              <ul className="pagination justify-content-end  mt-4">
+            {/* Pagination */}
+            <nav aria-label="Page navigation">
+              <ul className="pagination justify-content-end mt-4">
                 <li
                   className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
                 >
@@ -252,6 +219,36 @@ function WeddingForm() {
           </div>
         </section>
       </div>
+
+      {/* Payment Modal (Full screen) */}
+      <div className="modal fade" id="paymentModal" tabIndex="-1">
+        <div className="modal-dialog modal-fullscreen modal-dialog-centered">
+          <div
+            className="modal-content"
+            style={{ border: "none", boxShadow: "none" }}
+          >
+            <div
+              className="modal-body p-0"
+              style={{ backgroundColor: "transparent" }}
+            >
+              {paymentUrl ? (
+                <iframe
+                  src={paymentUrl}
+                  style={{
+                    width: "100%",
+                    height: "100vh",
+                    border: "none",
+                  }}
+                  title="Payment Gateway"
+                ></iframe>
+              ) : (
+                <p>Loading payment gateway...</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <div className="container-fluid  mb-5 text-white vediosection py-5">
         <div className="row mx-5 g-5">

@@ -15,8 +15,7 @@ function Dashboard() {
   });
   const [newLink, setNewLink] = useState("");
   const [newYouTubeLink, setNewYouTubeLink] = useState("");
-  const [editingLinkId, setEditingLinkId] = useState(null);
-  const [editedUrl, setEditedUrl] = useState("");
+  const [selectedPrice, setSelectedPrice] = useState(""); // For video price selection
   const [loading, setLoading] = useState(true);
   const [alertMessage, setAlertMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -46,83 +45,29 @@ function Dashboard() {
     fetchLinks();
   }, [currentComponent]);
 
-  // Add a new link
+  // Add a new link with price
   const handleAddLink = async () => {
-    if (newLink.trim()) {
+    if (newLink.trim() && selectedPrice) {
       try {
-        const newEntry = { component: currentComponent, url: newLink, price: 0 };
+        const newEntry = { component: currentComponent, url: newLink, price: selectedPrice };
         setLinks((prevLinks) => ({
           ...prevLinks,
           [currentComponent]: [...prevLinks[currentComponent], newEntry],
         }));
         await axios.post("http://localhost:5000/api/links", newEntry);
         setNewLink("");
+        setSelectedPrice(""); // Reset selected price
         showAlert("Link added successfully!");
       } catch (error) {
         console.error("Error adding link:", error);
         showAlert("Failed to add link.");
       }
+    } else {
+      showAlert("Please provide a link and select a price.");
     }
   };
 
-  // Add a new YouTube link
-  const handleAddYouTubeLink = async () => {
-    if (newYouTubeLink.trim()) {
-      try {
-        const newEntry = { component: currentComponent, url: newYouTubeLink, type: "youtube" };
-        setLinks((prevLinks) => ({
-          ...prevLinks,
-          [currentComponent]: [...prevLinks[currentComponent], newEntry],
-        }));
-        await axios.post("http://localhost:5000/api/links", newEntry);
-        setNewYouTubeLink("");
-        showAlert("YouTube link added successfully!");
-      } catch (error) {
-        console.error("Error adding YouTube link:", error);
-        showAlert("Failed to add YouTube link.");
-      }
-    }
-  };
 
-  // Save edited link
-  const handleSaveLink = async () => {
-    if (editedUrl.trim()) {
-      try {
-        await axios.put(`http://localhost:5000/api/links/${editingLinkId}`, { url: editedUrl });
-        setLinks((prevLinks) => ({
-          ...prevLinks,
-          [currentComponent]: prevLinks[currentComponent].map((link) =>
-            link._id === editingLinkId ? { ...link, url: editedUrl } : link
-          ),
-        }));
-        setEditingLinkId(null);
-        setEditedUrl("");
-        showAlert("Link updated successfully!");
-      } catch (error) {
-        console.error("Error updating link:", error);
-        showAlert("Failed to update link.");
-      }
-    }
-  };
-
-  // Delete a link
-  const handleDeleteLink = async (id) => {
-    try {
-      // First, remove the link from the UI state
-      setLinks((prevLinks) => ({
-        ...prevLinks,
-        [currentComponent]: prevLinks[currentComponent].filter((link) => link._id !== id),
-      }));
-      
-      // Now, delete the link from the database
-      await axios.delete(`http://localhost:5000/api/links/${id}`);
-      
-      showAlert("Link deleted successfully!");
-    } catch (error) {
-      console.error("Error deleting link:", error);
-      showAlert("Failed to delete link.");
-    }
-  };
 
   // Show alert messages
   const showAlert = (message) => {
@@ -164,21 +109,36 @@ function Dashboard() {
         {alertMessage && <div className="alert alert-success">{alertMessage}</div>}
         {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
-       
+        {/* Select Video Price */}
+        <div className="my-3">
+          <label>Select Video Price:</label>
+          <select
+            value={selectedPrice}
+            onChange={(e) => setSelectedPrice(e.target.value)}
+            className="form-select"
+          >
+            <option value="">Select a price</option>
+            <option value="1999">1999</option>
+            <option value="999">999</option>
+            <option value="1499">1499</option>
+          </select>
+        </div>
 
-        {/* Add New YouTube Link */}
+        {/* Add New Link */}
         <div className="input-group my-3">
           <input
             type="text"
-            value={newYouTubeLink}
-            onChange={(e) => setNewYouTubeLink(e.target.value)}
+            value={newLink}
+            onChange={(e) => setNewLink(e.target.value)}
             className="form-control"
-            placeholder="Add new YouTube link"
+            placeholder="Add new link"
           />
-          <button className="btn btn-primary" onClick={handleAddYouTubeLink}>
-            Add YouTube Link
+          <button className="btn btn-primary" onClick={handleAddLink}>
+            Add Link
           </button>
         </div>
+
+      
 
         {/* Display Links */}
         <div>
@@ -200,6 +160,7 @@ function Dashboard() {
                   </a>
                 )}
                 <div>
+                  <span className="text-muted">Price: ₹{link.price}</span>
                   <button
                     className="btn btn-info ms-2"
                     onClick={() => {
@@ -219,44 +180,6 @@ function Dashboard() {
             <p>No links available for this category.</p>
           )}
         </div>
-
-        {/* Edit Link Modal */}
-        {editingLinkId && (
-          <div className="modal show" style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">Edit Link</h5>
-                  <button
-                    type="button"
-                    className="close"
-                    onClick={() => setEditingLinkId(null)}
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div className="modal-body">
-                  <input
-                    type="text"
-                    value={editedUrl}
-                    onChange={(e) => setEditedUrl(e.target.value)}
-                    className="form-control"
-                    placeholder="Edit the link"
-                  />
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" onClick={() => setEditingLinkId(null)}>
-                    Close
-                  </button>
-                  <button type="button" className="btn btn-primary" onClick={handleSaveLink}>
-                    Save Changes
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

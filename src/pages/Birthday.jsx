@@ -4,7 +4,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "../pages/Birthday.css";
 
 function Birthday() {
-  const [birthday, setFormData] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     time: "",
     age: "",
@@ -27,11 +27,10 @@ function Birthday() {
     e.preventDefault();
     const formDataToSend = new FormData();
 
-    Object.entries(birthday).forEach(([key, value]) => {
+    // Append all fields to FormData
+    Object.entries(formData).forEach(([key, value]) => {
       if (key === "photos") {
-        Array.from(value).forEach((file) =>
-          formDataToSend.append("photos", file)
-        );
+        Array.from(value).forEach((file) => formDataToSend.append("photos", file));
       } else {
         formDataToSend.append(key, value);
       }
@@ -63,95 +62,37 @@ function Birthday() {
     }
   };
 
-  // Video data with prices
-  const videos = [
-    {
-      url: "https://www.youtube.com/embed/wpPDtCViPVA?si=vaPmHK9X5F6HnmiG",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/jCjMNiM5iAQ?si=5Fiamh7bob8LQ8bU",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/8m-K1JXADHE?si=3drQpKKDhEIpNFAO",
-      price: 1499,
-      gateway: "1006",
-    },
-    {
-      url: "https://www.youtube.com/embed/j0lvLjC7ha8?si=U3x3nfyp90KOqEc3",
-      price: 999,
-      gateway: "1004",
-    },
-    {
-      url: "https://www.youtube.com/embed/CS7CBcsSKO8?si=uYtMIbkaRMXPpW2t",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/gC2n_nkKiV0?si=teQi1dS5nk3kMRUg",
-      price: 1499,
-      gateway: "1006",
-    },
-    {
-      url: "https://www.youtube.com/embed/OetacTm0H0c",
-      price: 1499,
-      gateway: "1006",
-    },
-    {
-      url: "https://www.youtube.com/embed/Yhxai8LauDY",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/PXMKVBgL6pI",
-      price: 1499,
-      gateway: "1006",
-    },
-    {
-      url: "https://www.youtube.com/embed/OetacTm0H0c",
-      price: 1499,
-      gateway: "1006",
-    },
-    {
-      url: "https://www.youtube.com/embed/Yhxai8LauDY",
-      price: 1999,
-      gateway: "1001",
-    },
-    {
-      url: "https://www.youtube.com/embed/PXMKVBgL6pI",
-      price: 1499,
-      gateway: "1006",
-    },
-  ];
-
-  const [selectedPrice, setSelectedPrice] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [selectedPrice, setSelectedPrice] = useState(1499);
   const [paymentUrl, setPaymentUrl] = useState("");
   const [videoTitle, setVideoTitle] = useState("");
+
+  useEffect(() => {
+    async function fetchVideos() {
+      try {
+        const response = await fetch("http://localhost:5000/api/links/birthday");
+        const data = await response.json();
+        setVideos(data);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    }
+    fetchVideos();
+  }, []);
 
   const handlePaymentClick = (price, gateway) => {
     setSelectedPrice(price);
     setVideoTitle(`Video Template`);
-  
-    // Add logic for new payment gateway
-    let paymentUrl = "";
-    if (gateway === "1001") {
-      paymentUrl = `https://payments.cashfree.com/forms/we1001?amount=${price}`;
-    } else if (gateway === "1006") {
-      paymentUrl = `https://payments.cashfree.com/forms/we1006?amount=${price}`;
-    } else if (gateway === "1004") {
-      paymentUrl = `https://payments.cashfree.com/forms/bd1004?amount=${price}`;
-    }
-  
+    const paymentUrl =
+      gateway === "1001"
+        ? `https://payments.cashfree.com/forms/we1001?amount=${price}`
+        : `https://payments.cashfree.com/forms/we1006?amount=${price}`;
     setPaymentUrl(paymentUrl);
-  
+
     const modal = new bootstrap.Modal(document.getElementById("paymentModal"));
     modal.show();
   };
-  
-  // Pagination state
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const totalPages = Math.ceil(videos.length / itemsPerPage);
@@ -165,8 +106,7 @@ function Birthday() {
     currentPage * itemsPerPage
   );
 
-    const [showScrollButton, setShowScrollButton] = useState(false);
-// Scroll to Top functionality
+  const [showScrollButton, setShowScrollButton] = useState(false);
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -183,8 +123,10 @@ function Birthday() {
     };
   }, []);
 
+
   return (
     <>
+      {/* Baby Shower Invitation Video Section */}
       <div className="birthday">
         <section className="py-5">
           <div className="container text-center px-lg-5">
@@ -212,7 +154,7 @@ function Birthday() {
                   </div>
                   <div className="card-body mx-auto my-3">
                     <button
-                      className="btn"
+                      className="btn btn-primary"
                       onClick={() =>
                         handlePaymentClick(video.price, video.gateway)
                       }
@@ -223,6 +165,8 @@ function Birthday() {
                 </div>
               ))}
             </div>
+
+            {/* Pagination */}
             <nav aria-label="Page navigation">
               <ul className="pagination justify-content-end mt-4">
                 <li
@@ -266,108 +210,72 @@ function Birthday() {
             </nav>
           </div>
         </section>
-        <div className="modal fade" id="paymentModal" tabIndex="-1">
-          <div className="modal-dialog modal-fullscreen modal-dialog-centered">
+      </div>
+
+      {/* Payment Modal (Full screen) */}
+      <div className="modal fade" id="paymentModal" tabIndex="-1">
+        <div className="modal-dialog modal-fullscreen modal-dialog-centered">
+          <div
+            className="modal-content"
+            style={{ border: "none", boxShadow: "none" }}
+          >
             <div
-              className="modal-content"
-              style={{ border: "none", boxShadow: "none" }}
+              className="modal-body p-0"
+              style={{ backgroundColor: "transparent" }}
             >
-              <div
-                className="modal-body p-0"
-                style={{ backgroundColor: "transparent" }}
-              >
-                {paymentUrl ? (
-                  <iframe
-                    src={paymentUrl}
-                    style={{
-                      width: "100%",
-                      height: "100vh",
-                      border: "none",
-                    }}
-                    title="Payment Gateway"
-                  ></iframe>
-                ) : (
-                  <p>Loading payment gateway...</p>
-                )}
-              </div>
+              {paymentUrl ? (
+                <iframe
+                  src={paymentUrl}
+                  style={{
+                    width: "100%",
+                    height: "100vh",
+                    border: "none",
+                  }}
+                  title="Payment Gateway"
+                ></iframe>
+              ) : (
+                <p>Loading payment gateway...</p>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-
-
-
-      <div className="container-fluid  mb-5 text-white vediosection py-5">
-        <div className="row mx-5 g-5">
-          {/* Step 1: Select Video Template */}
-          <div className="col-md-3">
-            <div className="d-flex align-items-center">
-              <i
-                className="bi bi-film me-3 mb-5"
-                style={{ fontSize: "2rem" }}
-              ></i>
-              <div>
-                <h5 className="pb-2">Select Video Template</h5>
-
-                <p className="mb-0">
-                  Select a video template from a wide range templates
-                </p>
+     {/* Steps Section */}
+     <div className="container-fluid px-lg-5  mb-5 text-white py-5 vediosection">
+        <div className="row">
+          {[{
+            icon: "film",
+            title: "Select Video Template",
+            description: "Select a video template from a wide range of templates"
+          }, {
+            icon: "tag",
+            title: "Place Your Order",
+            description: "Place an order for the selected video invitation template"
+          }, {
+            icon: "envelope",
+            title: "Send Your Details",
+            description: "Send your required details and photos for the video"
+          }, {
+            icon: "whatsapp",
+            title: "Get Your Video",
+            description: "We will edit your video and deliver it via WhatsApp or Telegram within 24 to 48 hours."
+          }].map((step, index) => (
+            <div className="col-md-3" key={index}>
+              <div className="d-flex px-5 align-items-center my-2">
+                <i
+                  className={`bi bi-${step.icon} me-3 mb-5`}
+                  style={{ fontSize: "2rem" }}
+                ></i>
+                <div>
+                  <h5>{step.title}</h5>
+                  <p className="mb-0">{step.description}</p>
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Step 2: Place Your Order */}
-          <div className="col-md-3 ">
-            <div className="d-flex align-items-center">
-              <i
-                className="bi bi-tag me-3 mb-5"
-                style={{ fontSize: "2rem" }}
-              ></i>
-              <div>
-                <h5>Place Your Order</h5>
-                <p className="mb-0">
-                  Place an order for the selected video invitation template
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Step 3: Send Your Details */}
-          <div className="col-md-3">
-            <div className="d-flex align-items-center">
-              <i
-                className="bi bi-envelope me-3 mb-5"
-                style={{ fontSize: "2rem" }}
-              ></i>
-              <div>
-                <h5>Send Your Details</h5>
-                <p className="mb-0">
-                  Send your required details and photos for the video
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Step 4: Get Your Video */}
-          <div className="col-md-3">
-            <div className="d-flex align-items-center">
-              <i
-                className="bi bi-whatsapp me-3 mb-5"
-                style={{ fontSize: "2rem" }}
-              ></i>
-              <div>
-                <h5>Get Your Video</h5>
-                <p className="mb-0">
-                  We will edit your video and deliver it via WhatsApp or
-                  Telegram within 24 to 48 hours.
-                </p>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
-
 
       {/* Form Section */}
       <div className="container my-5 form">
@@ -379,7 +287,7 @@ function Birthday() {
               <input
                 type="text"
                 name="name"
-                value={birthday.name}
+                value={formData.name}
                 onChange={handleChange}
                 className="form-control"
               />
@@ -387,7 +295,7 @@ function Birthday() {
               <input
                 type="text"
                 name="time"
-                value={birthday.time}
+                value={formData.time}
                 onChange={handleChange}
                 className="form-control"
               />
@@ -397,7 +305,7 @@ function Birthday() {
               <input
                 type="text"
                 name="age"
-                value={birthday.age}
+                value={formData.age}
                 onChange={handleChange}
                 className="form-control"
               />
@@ -405,7 +313,7 @@ function Birthday() {
               <input
                 type="text"
                 name="venue"
-                value={birthday.venue}
+                value={formData.venue}
                 onChange={handleChange}
                 className="form-control"
               />
@@ -415,7 +323,7 @@ function Birthday() {
               <input
                 type="date"
                 name="date"
-                value={birthday.date}
+                value={formData.date}
                 onChange={handleChange}
                 className="form-control"
               />
@@ -423,7 +331,7 @@ function Birthday() {
               <input
                 type="text"
                 name="message"
-                value={birthday.message}
+                value={formData.message}
                 onChange={handleChange}
                 className="form-control"
               />
@@ -440,9 +348,7 @@ function Birthday() {
                 multiple
                 onChange={handleFileChange}
               />
-              <small className="text-muted">
-                You can upload up to 3 files.
-              </small>
+              <small className="text-muted">You can upload up to 3 files.</small>
             </div>
             <div className="col-12 col-lg-3 mt-4">
               <button className="btn btn-danger" type="submit">
@@ -453,8 +359,8 @@ function Birthday() {
         </form>
       </div>
 
-       {/* Scroll to Top Button */}
-       {showScrollButton && (
+      {/* Scroll to Top Button */}
+      {showScrollButton && (
         <button
           onClick={scrollToTop}
           className="btn btn-danger scrollbtn position-fixed bottom-0 end-0"
