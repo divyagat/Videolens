@@ -12,7 +12,7 @@ import { CiMail } from "react-icons/ci";
 const Footer = () => {
   return (
     <footer className="footer text-white py-5 px-3 px-sm-5">
-      <div className="container">
+      <div className="container mt-4">
         <div className="row ms-0 ms-sm-5 d-flex justify-content-between">
           {/* Logo and Description */}
           <div className="col-12 col-sm-6 col-lg-3 mb-4 text-sm-start">
@@ -22,7 +22,7 @@ const Footer = () => {
               with professionally designed templates for impactful event promotion.
             </p>
 
-            <div className="social-icons fs-5 fw-bold">
+            <div className="social-icons fs-5 fw-bold py-5">
               {/* Social Media Icons */}
               <a
                 href="https://www.facebook.com/thevideolens"
@@ -99,7 +99,7 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="footer-bottom d-flex justify-content-between align-items-center pt-3">
+        <div className="footer-bottom d-flex justify-content-between align-items-center pt-4">
           <p className="mb-0 text-start">&copy; 2023 Video Lens. All Rights Reserved.</p>
           <div className="payment-icons">
             <img src="src/assets/visa.png" alt="Visa" />

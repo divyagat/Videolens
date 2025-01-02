@@ -89,12 +89,12 @@ function BabyShower() {
       paymentUrl = "https://payments.cashfree.com/forms/we1001?amount=1999"; // Gateway 1001 for ₹1999
     } else if (price === 1499) {
       paymentUrl = "https://payments.cashfree.com/forms/we1006?amount=1499"; // Gateway 1006 for ₹1499
-    } else {
-      paymentUrl = "https://payments.cashfree.com/forms/we1003?amount=" + price; // Default gateway for other prices
+    } else if (price === 999) { // Correctly using 'else if'
+      paymentUrl = "https://payments.cashfree.com/forms/bd1004?amount=999"; // Default gateway for ₹999
     }
   
     setPaymentUrl(paymentUrl);
-    
+  
     const modal = new bootstrap.Modal(document.getElementById("paymentModal"));
     modal.show();
   };
@@ -160,7 +160,7 @@ function BabyShower() {
                   </div>
                   <div className="card-body mx-auto my-3">
                     <button
-                      className="btn btn-primary"
+                      className="btn "
                       onClick={() =>
                         handlePaymentClick(video.price, video.gateway)
                       }

@@ -57,7 +57,6 @@ app.get("/api/links/:category", async (req, res) => {
   }
 });
 
-
 // Add a new link
 app.post("/api/links", async (req, res) => {
   const { component, url, type, price } = req.body;
@@ -74,11 +73,14 @@ app.post("/api/links", async (req, res) => {
 });
 
 // Update an existing link
-app.put("/api/links/:id", async (req, res) => {
-  const { id } = req.params;
-  const { url } = req.body;
+app.put("/api/links/:category/:id", async (req, res) => {
+  const { id, category } = req.params;
+  const { url, price } = req.body;
+  const Link = getModelByComponent(category);
+  if (!Link) return res.status(400).json({ error: "Invalid component" });
+
   try {
-    const link = await Link.findByIdAndUpdate(id, { url }, { new: true });
+    const link = await Link.findByIdAndUpdate(id, { url, price }, { new: true });
     if (!link) return res.status(404).json({ error: "Link not found" });
     res.json(link);
   } catch (error) {
@@ -87,8 +89,11 @@ app.put("/api/links/:id", async (req, res) => {
 });
 
 // Delete a link
-app.delete("/api/links/:id", async (req, res) => {
-  const { id } = req.params;
+app.delete("/api/links/:category/:id", async (req, res) => {
+  const { id, category } = req.params;
+  const Link = getModelByComponent(category);
+  if (!Link) return res.status(400).json({ error: "Invalid component" });
+
   try {
     await Link.findByIdAndDelete(id);
     res.json({ message: "Link deleted successfully" });

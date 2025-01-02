@@ -68,31 +68,51 @@ const Contact = () => {
           {/* Left Section: Contact Info */}
           <div className="col-md-6 col-12 mb-4">
             <h6 className="d-flex mt-3">
-              <span className="icon-box me-3">
-                <CiLocationOn className="text-success" />
-              </span>
-              <p>
-                <strong>Location</strong>
-                <br /> 2nd Floor, Saikripa Building, Trimurti Chowk, Pune-46
-              </p>
+              <a
+                href="https://www.google.com/maps?q=2nd+Floor,+Saikripa+Building,+Trimurti+Chowk,+Pune-46"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-decoration-none text-dark d-flex align-items-center"
+              >
+                <span className="icon-box me-3">
+                  <CiLocationOn className="text-success" />
+                </span>
+                <span>
+                  <strong>Location</strong>
+                  <br />
+                  2nd Floor, Saikripa Building, Trimurti Chowk, Pune-46
+                </span>
+              </a>
             </h6>
             <h6 className="d-flex mt-3">
-              <span className="icon-box me-3">
-                <FiPhoneCall className="text-success" />
-              </span>
-              <p>
-                <strong>Phone Number</strong>
-                <br /> +91 9021769096
-              </p>
+              <a
+                href="tel:+919021769096"
+                className="text-decoration-none text-dark d-flex align-items-center"
+              >
+                <span className="icon-box me-3">
+                  <FiPhoneCall className="text-success" />
+                </span>
+                <span>
+                  <strong>Phone Number</strong>
+                  <br />
+                  +91 9021769096
+                </span>
+              </a>
             </h6>
             <h6 className="d-flex mt-3">
-              <span className="icon-box me-3">
-                <CiMail className="text-success" />
-              </span>
-              <p>
-                <strong>Email Us</strong>
-                <br /> thevideolens@gmail.com
-              </p>
+              <a
+                href="mailto:thevideolens@gmail.com"
+                className="text-decoration-none text-dark d-flex align-items-center"
+              >
+                <span className="icon-box me-3">
+                  <CiMail className="text-success" />
+                </span>
+                <span>
+                  <strong>Email Us</strong>
+                  <br />
+                  thevideolens@gmail.com
+                </span>
+              </a>
             </h6>
           </div>
 

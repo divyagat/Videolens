@@ -88,15 +88,22 @@ function WeddingForm() {
     fetchVideos();
   }, []);
 
-  const handlePaymentClick = (price, gateway) => {
-    setSelectedPrice(price);
+  const handlePaymentClick = (price) => {
     setVideoTitle(`Video Template`);
-    const paymentUrl =
-      gateway === "1001"
-        ? `https://payments.cashfree.com/forms/we1001?amount=${price}`
-        : `https://payments.cashfree.com/forms/we1006?amount=${price}`;
+    
+    let paymentUrl = "";
+    
+    // Check price and set payment gateway URL
+    if (price === 1999) {
+      paymentUrl = "https://payments.cashfree.com/forms/we1001?amount=1999"; // Gateway 1001 for ₹1999
+    } else if (price === 1499) {
+      paymentUrl = "https://payments.cashfree.com/forms/we1006?amount=1499"; // Gateway 1006 for ₹1499
+    } else if (price === 999) { // Correctly using 'else if'
+      paymentUrl = "https://payments.cashfree.com/forms/bd1004?amount=999"; // Default gateway for ₹999
+    }
+  
     setPaymentUrl(paymentUrl);
-
+  
     const modal = new bootstrap.Modal(document.getElementById("paymentModal"));
     modal.show();
   };
@@ -134,7 +141,7 @@ function WeddingForm() {
 
   return (
     <>
-       {/* Baby Shower Invitation Video Section */}
+       {/* wedding */}
        <div className="wedding">
         <section className="py-5">
           <div className="container text-center px-lg-5">
@@ -162,7 +169,7 @@ function WeddingForm() {
                   </div>
                   <div className="card-body mx-auto my-3">
                     <button
-                      className="btn btn-primary"
+                      className="btn "
                       onClick={() =>
                         handlePaymentClick(video.price, video.gateway)
                       }
@@ -250,6 +257,8 @@ function WeddingForm() {
       </div>
 
 
+      {/* Select Video Template  */}
+      
       <div className="container-fluid  mb-5 text-white vediosection py-5">
         <div className="row mx-5 g-5">
           {/* Step 1: Select Video Template */}
@@ -320,6 +329,8 @@ function WeddingForm() {
         </div>
       </div>
 
+
+  {/* wedding  form  */}
 
     <div className="container my-5 d-flex justify-content-center">
   <div className="form-container">

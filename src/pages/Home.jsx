@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../pages/Home.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'swiper/swiper-bundle.min.css'; // Import Swiper styles
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -30,73 +30,81 @@ const Home = () => {
     },
     {
       name: "Komal Patil",
-      profession: "Self Eployee",
+      profession: "Self Employed",
       feedback:
         "I had ordered a wedding video invitation from Video Lens and was very impressed with their service and video templates. They have a wide variety of templates. I was able to find a template that fit my budget and the quality of the video was excellent.",
       image: "src/assets/w4.jpg",
     },
   ];
 
-   const [videos, setVideos] = useState([]);
-   const [selectedPrice, setSelectedPrice] = useState(1499);
-   const [paymentUrl, setPaymentUrl] = useState("");
-   const [videoTitle, setVideoTitle] = useState("");
- 
-   useEffect(() => {
-     async function fetchVideos() {
-       try {
-         const response = await fetch("http://localhost:5000/api/links/home");
-         const data = await response.json();
-         setVideos(data);
-       } catch (error) {
-         console.error("Error fetching videos:", error);
-       }
-     }
-     fetchVideos();
-   }, []);
- 
-   const handlePaymentClick = (price, gateway) => {
-     setSelectedPrice(price);
-     setVideoTitle(`Video Template`);
-     const paymentUrl =
-       gateway === "1001"
-         ? `https://payments.cashfree.com/forms/we1001?amount=${price}`
-         : `https://payments.cashfree.com/forms/we1006?amount=${price}`;
-     setPaymentUrl(paymentUrl);
- 
-     const modal = new bootstrap.Modal(document.getElementById("paymentModal"));
-     modal.show();
-   };
- 
-   const [currentPage, setCurrentPage] = useState(1);
-   const itemsPerPage = 6;
-   const totalPages = Math.ceil(videos.length / itemsPerPage);
- 
-   const handlePaginationClick = (page) => {
-     setCurrentPage(page);
-   };
- 
-   const paginatedVideos = videos.slice(
-     (currentPage - 1) * itemsPerPage,
-     currentPage * itemsPerPage
-   );
- 
-   const [showScrollButton, setShowScrollButton] = useState(false);
-   const scrollToTop = () => {
-     window.scrollTo({ top: 0, behavior: "smooth" });
-   };
- 
-   useEffect(() => {
-     const handleScroll = () => {
-       setShowScrollButton(window.scrollY > 200);
-     };
- 
-     window.addEventListener("scroll", handleScroll);
- 
-     return () => {
-       window.removeEventListener("scroll", handleScroll);
-     };
-   }, []);
+  const [videos, setVideos] = useState([]);
+  const [selectedPrice, setSelectedPrice] = useState(1499);
+  const [paymentUrl, setPaymentUrl] = useState("");
+  const [videoTitle, setVideoTitle] = useState("");
+
+  useEffect(() => {
+    async function fetchVideos() {
+      try {
+        const response = await fetch("http://localhost:5000/api/links/home");
+        const data = await response.json();
+        setVideos(data);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    }
+    fetchVideos();
+  }, []);
+
+  const handlePaymentClick = (price) => {
+    setVideoTitle(`Video Template`);
+
+    let paymentUrl = "";
+
+    // Check price and set payment gateway URL
+    if (price === 1999) {
+      paymentUrl = "https://payments.cashfree.com/forms/we1001?amount=1999"; // Gateway 1001 for ₹1999
+    } else if (price === 1499) {
+      paymentUrl = "https://payments.cashfree.com/forms/we1006?amount=1499"; // Gateway 1006 for ₹1499
+    } else if (price === 999) {
+      paymentUrl = "https://payments.cashfree.com/forms/bd1004?amount=999"; // Default gateway for ₹999
+    }
+
+    setPaymentUrl(paymentUrl);
+
+    const modal = new bootstrap.Modal(document.getElementById("paymentModal"));
+    modal.show();
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil(videos.length / itemsPerPage);
+
+  const handlePaginationClick = (page) => {
+    setCurrentPage(page);
+  };
+
+  const paginatedVideos = videos.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const [showScrollButton, setShowScrollButton] = useState(false);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollButton(window.scrollY > 200);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       {/* Hero Carousel Section */}
@@ -115,7 +123,11 @@ const Home = () => {
                     className={`carousel-item ${index === 0 ? "active" : ""} position-relative`}
                     key={index}
                   >
-                    <img src={image} className="d-block w-100 zoom-effect" alt={`Slide ${index + 1}`} />
+                    <img
+                      src={image}
+                      className="d-block w-100 zoom-effect"
+                      alt={`Slide ${index + 1}`}
+                    />
                     <div className="dark-overlay"></div>
                     <div className="carousel-caption position-absolute w-100 mt-lg-4 top-50 start-50 translate-middle">
                       <h2>Create Your Happy Memories With Us</h2>
@@ -129,13 +141,12 @@ const Home = () => {
         </div>
       </div>
 
-          {/* Baby Shower Invitation Video Section */}
-          <div className="herovideo">
-        <section className="py-5">
-          
+      {/*hero vidios */}
+      <div className="herovideo">
+        <section className="pb-5">
           <div className="container text-center px-lg-5">
-          <p className="text-success">Create your happy moments with us</p>
-          <h2 className="mb-5">Discover the most creative videos</h2>
+            <p className="text-success">Create your happy moments with us</p>
+            <h2 className="mb-5">Discover the most creative videos</h2>
             <div className="row g-3">
               {paginatedVideos.map((video, index) => (
                 <div
@@ -159,10 +170,8 @@ const Home = () => {
                   </div>
                   <div className="card-body mx-auto my-3">
                     <button
-                      className="btn btn-primary"
-                      onClick={() =>
-                        handlePaymentClick(video.price, video.gateway)
-                      }
+                      className="btn"
+                      onClick={() => handlePaymentClick(video.price)}
                     >
                       ₹&nbsp;{video.price}
                     </button>
@@ -170,6 +179,7 @@ const Home = () => {
                 </div>
               ))}
             </div>
+            
 
             {/* Pagination */}
             <nav aria-label="Page navigation">
@@ -245,48 +255,57 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       {/* Testimonials Section */}
       <section className="testimonials">
         <p className="text-center hed text-success para">Testimonials</p>
         <h2 className="text-center mb-5">What Our Happy Clients Say</h2>
         <Swiper
-          spaceBetween={30}
-          slidesPerView={1} // Show 1 slide by default
-          pagination={{ clickable: true }} // Enables pagination
-          autoplay={{ delay: 3000, disableOnInteraction: false }} // Autoplay setup
-          loop={true} // Enables continuous sliding
-          breakpoints={{
-            640: { slidesPerView: 1 }, // 1 slide for small screens (sm)
-            1024: { slidesPerView: 2 }, // 2 slides for larger screens (md and above)
-          }}
-        >
-          {testimonials.map((testimonial, index) => (
-            <SwiperSlide key={index}>
-              <div className="testimonial-card p-4 mt-4 mb-5">
-                <p>{testimonial.feedback}</p>
-                <div className="client-info mb-3">
-                  <img src={testimonial.image} alt={testimonial.name} />
-                  <div>
-                    <h5>{testimonial.name}</h5>
-                    <p>{testimonial.profession}</p>
-                  </div>
-                </div>
+      spaceBetween={30}
+      slidesPerView={2} // Show 2 slides for larger screens
+      autoplay={{
+        delay: 3000, // Auto slide every 3 seconds
+        disableOnInteraction: false, // Allow the autoplay to continue after interaction
+      }}
+      loop={true} // Infinite loop for continuous slides
+      pagination={{
+        clickable: true, // Enables clickable pagination
+      }}
+      breakpoints={{
+        640: { slidesPerView: 1 }, // 1 slide for small screens
+        1024: { slidesPerView: 2 }, // 2 slides for larger screens
+      }}
+    >
+      {testimonials.map((testimonial, index) => (
+        <SwiperSlide key={index}>
+          <div className="testimonial-card p-4 mt-4 mb-5">
+            <p>{testimonial.feedback}</p>
+            <div className="client-info mb-3">
+              <img src={testimonial.image} alt={testimonial.name} />
+              <div>
+                <h5>{testimonial.name}</h5>
+                <p>{testimonial.profession}</p>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+
+
+
       </section>
 
-      {/* Scroll to Top Button */}
-      {showScrollButton && (
+     {/* Scroll to Top Button */}
+     {showScrollButton && (
         <button
           onClick={scrollToTop}
-          className="btn btn-danger scrollbtn position-fixed bottom-0 end-0 "
-          style={{ zIndex: 1000 }}
+          className="btn btn-danger scrollbtn position-fixed bottom-0 end-0"
         >
           ↑
         </button>
       )}
+     
     </>
   );
 };

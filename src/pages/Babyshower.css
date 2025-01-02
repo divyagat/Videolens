@@ -1,4 +1,3 @@
-
 .babyshower h2{
   font-weight: bold;
   color:#1A2394;
@@ -8,7 +7,7 @@
     color: #d3d3d3; /* Light gray for text */
   }
   
-  .bi {
+.bi {
     color: #00acee; /* Customize icon color */
   }
 
@@ -17,4 +16,4 @@
   }
   .babyshower{
     background-color: #F2FAFA;
-  }
+}

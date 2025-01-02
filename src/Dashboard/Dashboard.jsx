@@ -19,6 +19,8 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [alertMessage, setAlertMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [editingLinkId, setEditingLinkId] = useState(null); // Track the ID of the link being edited
+  const [editedUrl, setEditedUrl] = useState(""); // Store the edited URL
 
   const navigate = useNavigate();
 
@@ -67,7 +69,44 @@ function Dashboard() {
     }
   };
 
-
+  // Handle editing the link
+  const handleEditLink = async () => {
+    if (editedUrl.trim()) {
+      try {
+        const updatedLink = { url: editedUrl, price: selectedPrice }; // Prepare updated link
+        const response = await axios.put(`http://localhost:5000/api/links/${currentComponent}/${editingLinkId}`, updatedLink); // Pass category and ID
+        setLinks((prevLinks) => ({
+          ...prevLinks,
+          [currentComponent]: prevLinks[currentComponent].map((link) =>
+            link._id === editingLinkId ? { ...link, url: editedUrl, price: selectedPrice } : link
+          ),
+        }));
+        setEditedUrl(""); // Clear the input after editing
+        setEditingLinkId(null); // Reset editing mode
+        showAlert("Link updated successfully!");
+      } catch (error) {
+        console.error("Error updating link:", error);
+        showAlert("Failed to update link.");
+      }
+    } else {
+      showAlert("Please provide a valid URL.");
+    }
+  };
+  
+  const handleDeleteLink = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/links/${currentComponent}/${id}`); // Pass category and ID
+      setLinks((prevLinks) => ({
+        ...prevLinks,
+        [currentComponent]: prevLinks[currentComponent].filter((link) => link._id !== id),
+      }));
+      showAlert("Link deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting link:", error);
+      showAlert("Failed to delete link.");
+    }
+  };
+  
 
   // Show alert messages
   const showAlert = (message) => {
@@ -138,7 +177,21 @@ function Dashboard() {
           </button>
         </div>
 
-      
+        {/* Edit Link */}
+        {editingLinkId && (
+          <div className="my-3">
+            <input
+              type="text"
+              value={editedUrl}
+              onChange={(e) => setEditedUrl(e.target.value)}
+              className="form-control"
+              placeholder="Edit link URL"
+            />
+            <button className="btn btn-primary" onClick={handleEditLink}>
+              Save Changes
+            </button>
+          </div>
+        )}
 
         {/* Display Links */}
         <div>

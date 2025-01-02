@@ -80,18 +80,26 @@ function Birthday() {
     fetchVideos();
   }, []);
 
-  const handlePaymentClick = (price, gateway) => {
-    setSelectedPrice(price);
+  const handlePaymentClick = (price) => {
     setVideoTitle(`Video Template`);
-    const paymentUrl =
-      gateway === "1001"
-        ? `https://payments.cashfree.com/forms/we1001?amount=${price}`
-        : `https://payments.cashfree.com/forms/we1006?amount=${price}`;
+    
+    let paymentUrl = "";
+    
+    // Check price and set payment gateway URL
+    if (price === 1999) {
+      paymentUrl = "https://payments.cashfree.com/forms/we1001?amount=1999"; // Gateway 1001 for ₹1999
+    } else if (price === 1499) {
+      paymentUrl = "https://payments.cashfree.com/forms/we1006?amount=1499"; // Gateway 1006 for ₹1499
+    } else if (price === 999) { // Correctly using 'else if'
+      paymentUrl = "https://payments.cashfree.com/forms/bd1004?amount=999"; // Default gateway for ₹999
+    }
+  
     setPaymentUrl(paymentUrl);
-
+  
     const modal = new bootstrap.Modal(document.getElementById("paymentModal"));
     modal.show();
   };
+  
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -154,7 +162,7 @@ function Birthday() {
                   </div>
                   <div className="card-body mx-auto my-3">
                     <button
-                      className="btn btn-primary"
+                      className="btn "
                       onClick={() =>
                         handlePaymentClick(video.price, video.gateway)
                       }

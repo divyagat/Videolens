@@ -32,7 +32,16 @@
   filter: brightness(0.85); /* Slightly darker shade on hover */
 }
 
-/* Button Styles */
+/* Hero Video Section */
+.herovideo {
+  background-image: linear-gradient(rgba(243, 252, 251, 0.9), rgba(243, 252, 251, 0.9)), url(../assets/bg-section-destination.png);
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  padding: 15px 0 10px;
+}
+
 .herovideo .card-body .btn {
   padding: 5px 20px;
   border-radius: 7px;
@@ -40,17 +49,20 @@
   color: white;
   font-weight: bold;
 }
-.herovideo{
-  background-image:linear-gradient(rgba(243,252 ,251,0.9),rgba(243 ,252 ,251,0.9)), url(../assets/bg-section-destination.png);
-  background-position: center;
-  background-size: cover;
-  width: 100%;
-  height: auto;
-  padding: 15px 0px 10px 0px;
+
+.herovideo .card-body .btn:hover {
+  background-color: #00b38c;
 }
 
-.card-body .btn:hover {
-  background-color: #00b38c;
+.herovideo p {
+  font-family: "Dancing Script", cursive;
+  font-size: 25px;
+}
+
+.herovideo h2 {
+  font-size: 40px;
+  font-weight: 600;
+  font-family: "Roboto", serif;
 }
 
 /* Testimonials Section */
@@ -61,44 +73,54 @@
   position: relative;
 }
 
-.testimonial-card {
-  width: 90%;
-  background: #f9f9f9;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease-in-out, background-color 0.5s ease-in-out;
+.testimonials h2 {
+  font-size: 40px;
+  font-weight: 600;
+  font-family: "Roboto", serif;
 }
 
-.testimonial-card:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+.testimonials .para {
+  font-family: "Dancing Script", cursive;
+  font-size: 25px;
+}
+
+.testimonials .testimonial-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials .testimonial-card p {
+  line-height: 30px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 30px;
 }
 
 .testimonials .client-info {
   display: flex;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .testimonials .client-info img {
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   margin-right: 15px;
 }
 
-.testimonials .client-info h3 {
+.testimonials .client-info h5 {
+  margin: 0;
   font-size: 18px;
-  font-weight: bold;
 }
 
 .testimonials .client-info p {
-  font-size: 14px;
-  color: #555;
+  margin: 0;
+  color: #777;
 }
-.testimonials .client-info h5{
-  font-weight: bold;
-}
+
 /* Swiper Navigation Buttons */
 .swiper-button-next,
 .swiper-button-prev {
@@ -168,79 +190,96 @@
   transform: scale(1.1);
 }
 
-.dark-overlay {
-  position: absolute;
+/* Hero Carousel Section */
+
+/* Overlay added to darken the carousel background for better text visibility */
+.carousel-item .dark-overlay {
+  position: absolute; /* Ensure overlay covers the entire image */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  transition: opacity 0.3s;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.4), /* Lighter black at the top */
+    rgba(0, 0, 0, 0.7) /* Darker black at the bottom */
+  );
+  z-index: 1; /* Position overlay beneath text but above the image */
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8); /* Adds depth with shadow */
 }
 
-.carousel-item:hover .dark-overlay {
-  opacity: 0.7;
+/* Text Styling for Carousel Caption */
+.carousel-caption {
+  z-index: 2; /* Ensure text appears above the overlay */
+  color: #ffffff; /* Bright white for maximum contrast */
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9); /* Bold shadow for better readability */
+  font-family: "Roboto", sans-serif; /* Modern and clean font */
+  font-weight: 700; /* Bold text for emphasis */
+  font-size: 2rem; /* Adjust for screen size and visibility */
+  text-align: center; /* Center the text within the carousel */
 }
 
-/* Hero Video Text */
-.herovideo p {
-  font-family: "Dancing Script", cursive;
-  font-size: 25px;
+/* Optional: Semi-Transparent Background for Text */
+.carousel-caption span {
+  display: inline-block; /* Wrap the text block */
+  background-color: rgba(0, 0, 0, 0.5); /* Adds a black semi-transparent background */
+  padding: 5px 10px; /* Adds spacing around the text */
+  border-radius: 5px; /* Softens the edges for a modern look */
 }
 
-.herovideo h2 {
-  font-size: 45px;
+/* Carousel Image Styling */
+.carousel-item img {
+  height: 65vh; /* Adjusts the height of the carousel image */
+  object-fit: cover; /* Ensures the image scales proportionally */
+  width: 100%; /* Full width for responsiveness */
+  filter: brightness(60%); /* Darkens the image for text readability */
+  transition: transform 2s ease-in-out, filter 0.5s ease-in-out; /* Adds zoom and brightness effects */
+}
+
+/* Zoom Effect on Active Carousel Image */
+.carousel-item.active img {
+  transform: scale(1.1); /* Slight zoom-in effect for visual appeal */
+  filter: brightness(0.9); /* Subtle lightening of the image */
+}
+
+/* Hover Effect for Carousel Images */
+.carousel-item:hover img {
+  filter: brightness(0.85); /* Slightly darker shade on hover */
+}
+
+/* Responsiveness for Smaller Screens */
+@media (max-width: 768px) {
+  .carousel-caption {
+    font-size: 1.5rem; /* Reduce text size for smaller screens */
+  }
+
+  .carousel-caption span {
+    padding: 3px 8px; /* Adjust padding for smaller screens */
+  }
+
+  .modal-dialog {
+    max-width: 90%; /* Ensure modals remain responsive */
+  }
+}
+
+/* Miscellaneous Styling */
+#Home h2 {
+  font-size: 40px;
   font-weight: 700;
   font-family: "Roboto", serif;
 }
 
-/* Testimonials Section */
-.testimonials h2 {
-  font-size: 35px;
-  font-weight: 700;
-  font-family: "Roboto", serif;
+#Home p {
+  font-size: 20px;
+  color: white;
 }
 
-.testimonials .para {
-  font-size: 25px;
+.card {
+  padding: 2px;
 }
 
-.testimonials .testimonial-card {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-.testimonials .testimonial-card p{
-  line-height: 30px;
-  font-weight: 600;
-  color: #555;
-  margin-bottom: 30px;
-}
-
-/* Testimonial Client Info */
-.testimonials .client-info {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.testimonials .client-info img {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  margin-right: 15px;
-}
-
-.testimonials .client-info h5 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.testimonials .client-info p {
-  margin: 0;
-
-  color: #777;
+.scrollbtn {
+  margin: 0px 38px 85px 0px;
+  color: black;
 }
 
 /* Pagination Styling */
@@ -253,47 +292,35 @@
   background-color: #28a745;
   border-color: #28a745;
 }
-
-
-.herovideo p{
-  font-family: "Dancing Script", cursive;
-  font-size: 25px;
-
-}
-
-.herovideo h2{
-  font-size: 40px;
-  font-weight: 500;
-  font-family: "Roboto", serif;
-}
-
-.testimonials .para{
-  font-family: "Dancing Script", cursive;
-  font-size: 25px;
-}
-
-.testimonials h2{
-  font-size: 40px;
-  font-weight: 600;
-  font-family: "Roboto", serif;
-}
-#Home h2{
-  
-  font-size: 40px;
+/* Hero Carousel Text */
+.carousel-caption {
+  z-index: 2; /* Ensure text is above the overlay */
+  color: #fff; /* White text */
+  text-align: center;
+  font-family: "Roboto", sans-serif;
   font-weight: 700;
-  font-family: "Roboto", serif;
-}
-#Home p{
-  font-size: 20px;
-  color: white;
-}
-
-
-.card{
-  padding: 2px;
-}
-.scrollbtn{
-  margin: 0px 38px 85px 0px;
- color: black;
+  font-size: 2rem;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9); /* Bold shadow for readability */
+  opacity: 0; /* Initially hidden */
+  transform: translateY(30px); /* Start from 30px below (bottom) */
+  animation: fadeUp 3s forwards; /* Apply animation */
 }
 
+/* Bottom to Top Animation */
+@keyframes fadeUp {
+  0% {
+    opacity: 0; /* Start hidden */
+    transform: translateY(30px); /* Start from below (bottom) */
+  }
+  100% {
+    opacity: 1; /* Fade in */
+    transform: translateY(0); /* Move to original position (top) */
+  }
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+  .carousel-caption {
+    font-size: 1.5rem; /* Adjust font size for small screens */
+  }
+}
