@@ -16,11 +16,11 @@ app.use(bodyParser.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // MongoDB Connections
-mongoose.connect("mongodb://localhost:27017/dashboardDB")
+mongoose.connect(process.env.MONGO_URI_MAIN)
   .then(() => console.log("Connected to dashboardDB"))
   .catch((err) => console.error("Error connecting to dashboardDB:", err));
 
-const secondDbConnection = mongoose.createConnection("mongodb://localhost:27017/vediolence");
+const secondDbConnection = mongoose.createConnection(process.env.MONGO_URI_SECOND);
 secondDbConnection.on("connected", () => console.log("Connected to vediolence"));
 secondDbConnection.on("error", (err) => console.error("Error connecting to vediolence:", err));
 
@@ -93,6 +93,22 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+// Utility function
+const getModelByComponent = (component) => {
+  switch (component) {
+    case "home":
+      return Home;
+    case "wedding":
+      return Wedding;
+    case "birthday":
+      return Birthday;
+    case "babyShower":
+      return BabyShower;
+    default:
+      return null;
+  }
+};
+
 // Routes for `dashboardDB`
 app.get("/api/links/:category", async (req, res) => {
   try {
@@ -135,6 +151,7 @@ app.put("/api/links/:category/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to update link" });
   }
 });
+
 app.delete("/api/links/:category/:id", async (req, res) => {
   const { id, category } = req.params;
   const Link = getModelByComponent(category);
@@ -147,22 +164,6 @@ app.delete("/api/links/:category/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to delete link" });
   }
 });
-
-// Utility function
-const getModelByComponent = (component) => {
-  switch (component) {
-    case "home":
-      return Home;
-    case "wedding":
-      return Wedding;
-    case "birthday":
-      return Birthday;
-    case "babyShower":
-      return BabyShower;
-    default:
-      return null;
-  }
-};
 
 // Routes for `vediolence`
 app.post("/submit-form", upload.array("photos", 3), async (req, res) => {
@@ -227,33 +228,41 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
-app.post("/api/weddingse", upload.fields([
-  { name: "bridePhotos", maxCount: 1 },
-  { name: "groomPhotos", maxCount: 1 },
-]), async (req, res) => {
-  try {
-    const weddingData = new WeddingData({
-      brideName: req.body.brideName,
-      brideParentsName: req.body.brideParentsName,
-      groomName: req.body.groomName,
-      groomParentsName: req.body.groomParentsName,
-      brideAddress: req.body.brideAddress,
-      groomAddress: req.body.groomAddress,
-      haldiCeremony: req.body.haldiCeremony,
-      engagement: req.body.engagement,
-      reception: req.body.reception,
-      weddingDate: req.body.weddingDate,
-      venue: req.body.venue,
-      bridePhotos: req.files["bridePhotos"] ? req.files["bridePhotos"][0].path : "",
-      groomPhotos: req.files["groomPhotos"] ? req.files["groomPhotos"][0].path : "",
-    });
+app.post(
+  "/api/weddingse",
+  upload.fields([
+    { name: "bridePhotos", maxCount: 1 },
+    { name: "groomPhotos", maxCount: 1 },
+  ]),
+  async (req, res) => {
+    try {
+      const weddingData = new WeddingData({
+        brideName: req.body.brideName,
+        brideParentsName: req.body.brideParentsName,
+        groomName: req.body.groomName,
+        groomParentsName: req.body.groomParentsName,
+        brideAddress: req.body.brideAddress,
+        groomAddress: req.body.groomAddress,
+        haldiCeremony: req.body.haldiCeremony,
+        engagement: req.body.engagement,
+        reception: req.body.reception,
+        weddingDate: req.body.weddingDate,
+        venue: req.body.venue,
+        bridePhotos: req.files["bridePhotos"]
+          ? req.files["bridePhotos"][0].path
+          : "",
+        groomPhotos: req.files["groomPhotos"]
+          ? req.files["groomPhotos"][0].path
+          : "",
+      });
 
-    await weddingData.save();
-    res.status(200).send("Wedding data saved successfully.");
-  } catch (error) {
-    res.status(500).send("Error saving wedding data.");
+      await weddingData.save();
+      res.status(200).send("Wedding data saved successfully.");
+    } catch (error) {
+      res.status(500).send("Error saving wedding data.");
+    }
   }
-});
+);
 
 // Start the server
 app.listen(PORT, () => {
