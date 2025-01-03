@@ -17,13 +17,14 @@ app.use(bodyParser.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // MongoDB Connections
-mongoose.connect(process.env.MONGO_URI_MAIN)
+mongoose.connect(process.env.MONGO_URI_MAIN, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to dashboardDB"))
   .catch((err) => console.error("Error connecting to dashboardDB:", err));
 
-const secondDbConnection = mongoose.createConnection(process.env.MONGO_URI_SECOND);
+const secondDbConnection = mongoose.createConnection(process.env.MONGO_URI_SECOND, { useNewUrlParser: true, useUnifiedTopology: true });
 secondDbConnection.on("connected", () => console.log("Connected to vediolence"));
 secondDbConnection.on("error", (err) => console.error("Error connecting to vediolence:", err));
+
 
 // Define schema for `dashboardDB`
 const linkSchema = new mongoose.Schema({
