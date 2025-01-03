@@ -10,21 +10,20 @@ require("dotenv").config(); // Load environment variables
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // MongoDB Connections
-mongoose.connect(process.env.MONGO_URI_MAIN, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(process.env.MONGO_URI_MAIN)
   .then(() => console.log("Connected to dashboardDB"))
   .catch((err) => console.error("Error connecting to dashboardDB:", err));
 
-const secondDbConnection = mongoose.createConnection(process.env.MONGO_URI_SECOND, { useNewUrlParser: true, useUnifiedTopology: true });
+const secondDbConnection = mongoose.createConnection(process.env.MONGO_URI_SECOND);
 secondDbConnection.on("connected", () => console.log("Connected to vediolence"));
 secondDbConnection.on("error", (err) => console.error("Error connecting to vediolence:", err));
-
 
 // Define schema for `dashboardDB`
 const linkSchema = new mongoose.Schema({
@@ -139,34 +138,6 @@ app.post("/api/links", async (req, res) => {
   }
 });
 
-app.put("/api/links/:category/:id", async (req, res) => {
-  const { id, category } = req.params;
-  const { url, price } = req.body;
-  const Link = getModelByComponent(category);
-  if (!Link) return res.status(400).json({ error: "Invalid component" });
-
-  try {
-    const link = await Link.findByIdAndUpdate(id, { url, price }, { new: true });
-    if (!link) return res.status(404).json({ error: "Link not found" });
-    res.json(link);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to update link" });
-  }
-});
-
-app.delete("/api/links/:category/:id", async (req, res) => {
-  const { id, category } = req.params;
-  const Link = getModelByComponent(category);
-  if (!Link) return res.status(400).json({ error: "Invalid component" });
-
-  try {
-    await Link.findByIdAndDelete(id);
-    res.json({ message: "Link deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to delete link" });
-  }
-});
-
 // Routes for `vediolence`
 app.post("/submit-form", upload.array("photos", 3), async (req, res) => {
   try {
@@ -211,60 +182,6 @@ app.post("/birthday-form", upload.array("photos", 3), async (req, res) => {
     res.status(500).json({ error: "Error saving form data" });
   }
 });
-
-app.post("/api/contact", async (req, res) => {
-  try {
-    const { name, email, subject, comment } = req.body;
-
-    const newContactData = new ContactFormData({
-      name,
-      email,
-      subject,
-      comment,
-    });
-
-    await newContactData.save();
-    res.status(200).json({ message: "Contact data saved successfully!" });
-  } catch (err) {
-    res.status(500).json({ error: "Error saving contact form data" });
-  }
-});
-
-app.post(
-  "/api/weddingse",
-  upload.fields([
-    { name: "bridePhotos", maxCount: 1 },
-    { name: "groomPhotos", maxCount: 1 },
-  ]),
-  async (req, res) => {
-    try {
-      const weddingData = new WeddingData({
-        brideName: req.body.brideName,
-        brideParentsName: req.body.brideParentsName,
-        groomName: req.body.groomName,
-        groomParentsName: req.body.groomParentsName,
-        brideAddress: req.body.brideAddress,
-        groomAddress: req.body.groomAddress,
-        haldiCeremony: req.body.haldiCeremony,
-        engagement: req.body.engagement,
-        reception: req.body.reception,
-        weddingDate: req.body.weddingDate,
-        venue: req.body.venue,
-        bridePhotos: req.files["bridePhotos"]
-          ? req.files["bridePhotos"][0].path
-          : "",
-        groomPhotos: req.files["groomPhotos"]
-          ? req.files["groomPhotos"][0].path
-          : "",
-      });
-
-      await weddingData.save();
-      res.status(200).send("Wedding data saved successfully.");
-    } catch (error) {
-      res.status(500).send("Error saving wedding data.");
-    }
-  }
-);
 
 // Start the server
 app.listen(PORT, () => {
