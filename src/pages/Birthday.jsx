@@ -37,7 +37,7 @@ function Birthday() {
     });
 
     try {
-      const response = await fetch("http://localhost:5000/birthday-form", {
+      const response = await fetch("https://videolens-7.onrender.com/birthday-form", {
         method: "POST",
         body: formDataToSend,
       });
@@ -70,7 +70,7 @@ function Birthday() {
   useEffect(() => {
     async function fetchVideos() {
       try {
-        const response = await fetch("http://localhost:5000/api/links/birthday");
+        const response = await fetch("https://videolens-7.onrender.com/api/links/birthday");
         const data = await response.json();
         setVideos(data);
       } catch (error) {

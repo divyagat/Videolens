@@ -37,7 +37,7 @@ function BabyShower() {
     });
 
     try {
-      const response = await fetch("http://localhost:5000/submit-form", {
+      const response = await fetch("https://videolens-7.onrender.com/submit-form", {
         method: "POST",
         body: formDataToSend,
       });
@@ -69,7 +69,7 @@ function BabyShower() {
   useEffect(() => {
     async function fetchVideos() {
       try {
-        const response = await fetch("http://localhost:5000/api/links/babyShower");
+        const response = await fetch("https://videolens-7.onrender.com/api/links/babyShower");
         const data = await response.json();
         setVideos(data);
       } catch (error) {

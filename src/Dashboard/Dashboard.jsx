@@ -28,7 +28,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchLinks = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/links/${currentComponent}`);
+        const response = await axios.get(`https://videolens-7.onrender.com/api/links/${currentComponent}`);
         const categorizedLinks = response.data.reduce((acc, link) => {
           if (!acc[link.component]) {
             acc[link.component] = [];
@@ -56,7 +56,7 @@ function Dashboard() {
           ...prevLinks,
           [currentComponent]: [...prevLinks[currentComponent], newEntry],
         }));
-        await axios.post("http://localhost:5000/api/links", newEntry);
+        await axios.post("https://videolens-7.onrender.com/api/links", newEntry);
         setNewLink("");
         setSelectedPrice(""); // Reset selected price
         showAlert("Link added successfully!");
@@ -74,7 +74,7 @@ function Dashboard() {
     if (editedUrl.trim()) {
       try {
         const updatedLink = { url: editedUrl, price: selectedPrice }; // Prepare updated link
-        const response = await axios.put(`http://localhost:5000/api/links/${currentComponent}/${editingLinkId}`, updatedLink); // Pass category and ID
+        const response = await axios.put(`https://videolens-7.onrender.com/api/links/${currentComponent}/${editingLinkId}`, updatedLink); // Pass category and ID
         setLinks((prevLinks) => ({
           ...prevLinks,
           [currentComponent]: prevLinks[currentComponent].map((link) =>
@@ -95,7 +95,7 @@ function Dashboard() {
   
   const handleDeleteLink = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/links/${currentComponent}/${id}`); // Pass category and ID
+      await axios.delete(`https://videolens-7.onrender.com/api/links/${currentComponent}/${id}`); // Pass category and ID
       setLinks((prevLinks) => ({
         ...prevLinks,
         [currentComponent]: prevLinks[currentComponent].filter((link) => link._id !== id),

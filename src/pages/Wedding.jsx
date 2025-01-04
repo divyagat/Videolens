@@ -39,7 +39,7 @@ function WeddingForm() {
         }
       });
 
-      const response = await fetch("http://localhost:5000/api/weddingse", {
+      const response = await fetch("https://videolens-7.onrender.com/api/weddingse", {
         method: "POST",
         body: formDataToSend,
       });
@@ -78,7 +78,7 @@ function WeddingForm() {
   useEffect(() => {
     async function fetchVideos() {
       try {
-        const response = await fetch("http://localhost:5000/api/links/wedding");
+        const response = await fetch("https://videolens-7.onrender.com/api/links/wedding");
         const data = await response.json();
         setVideos(data);
       } catch (error) {

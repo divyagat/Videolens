@@ -45,7 +45,7 @@ const Home = () => {
   useEffect(() => {
     async function fetchVideos() {
       try {
-        const response = await fetch("http://localhost:5000/api/links/home");
+        const response = await fetch("https://videolens-7.onrender.com/api/links/home");
         const data = await response.json();
         setVideos(data);
       } catch (error) {
